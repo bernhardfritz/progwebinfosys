@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'Raspberry Granola'; /*a name to be used later*/
+    src: url('../font/raspberrygranola.ttf'); /*URL to font*/
+}
+
+* {
+  font-family: 'Raspberry Granola';
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 a {
+  text-decoration: none;
+  color: lightgray;
+}
+
+h1 a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+#keyword a {
+  text-decoration: underline;
+}
+
+.left {
+  width: 50%;
+  float: left;
+}
+.right {
+  width: 50%;
+  text-align: right;
+}
+
+#beitrag {
+  background-image: url("../img/fzm-seamless.notebook.texture-20.png");
+  background-repeat: repeat-y;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 740px;
+}
+
+#blogmenu {
+  float: left;
+  width: 130px;
+  height: 100%;
+  text-align: right;
+}
+
+#blogmenu ul li {
+  list-style: none;
+}
+
+#blogcontent {
+  padding-left: 150px;
+  width: 580px;
+}
+
+#blogtext {
+  font-size: large;
+}
