@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set('Europe/Vienna');
   $_SESSION['user'] = 'User1';
 ?>
 <!DOCTYPE html>
