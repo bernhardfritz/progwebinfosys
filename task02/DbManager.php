@@ -92,13 +92,14 @@
     }
 
     public function savePosting($id, $title, $text, $keywords) {
-      $stmt = $this->conn->prepare("UPDATE Posting SET title = ?, text = ?, keywords = ? WHERE id = ?;");
+      $stmt = $this->conn->prepare("UPDATE Posting SET title = ?, text = ?, keywords = ?, updated = ? WHERE id = ?;");
       if ($stmt == false) {
         echo "Error: " . $sql->error;
       }
 
-      $stmt->bind_param('sssi', $title, $text, $keywords, $id);
+      $stmt->bind_param('ssssi', $title, $text, $keywords, $updated, $id);
 
+      $updated = date('Y-m-d H:i:s', time());
       $stmt->execute();
 
       if ($stmt->errno) {
