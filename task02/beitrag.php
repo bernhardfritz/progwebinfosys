@@ -23,7 +23,7 @@
         <?php echo "by <a href='#'>$author</a>"; ?>
       </span>
       <span class='right'>
-        <div>created on <?php echo date("d.m.Y H:i", strtotime($createdOn)); ?></div>
+        <div>created on <b><?php echo date("d.m.Y H:i", strtotime($createdOn)); ?></b></div>
       </span>
     </div>
     <p id='blogtext'>
@@ -46,7 +46,7 @@
         </div>
       </span>
       <span class='right'>
-        <div>updated on <?php echo date("d.m.Y H:i", strtotime($updatedOn)); ?></div>
+        <div>updated on <b><?php echo date("d.m.Y H:i", strtotime($updatedOn)); ?></b></div>
       </span>
     </div>
   </div>

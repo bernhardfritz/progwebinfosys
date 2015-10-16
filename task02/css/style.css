@@ -118,11 +118,13 @@ form textarea {
   width: 75%;
   background:rgba(255,255,255,0.5);
   font-size: medium;
+  font-weight: bold;
 }
 
 form input.field {
   background:rgba(255,255,255,0.5);
   font-size: medium;
+  font-weight: bold;
 }
 
 form input.submit {
