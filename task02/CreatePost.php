@@ -28,7 +28,7 @@
               <input class='field' type='text' name='keywords' />
             </li>
             <li>
-              <input class='submit' type='submit' />
+              <input class='submit' type='submit' value='Save'/>
             </li>
           </ul>
         </form>
