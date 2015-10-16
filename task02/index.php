@@ -11,7 +11,7 @@
             <div>MyBlog</div>
           </span>
           <span class='right'>
-            <div><a href='#' title='create post'>+</a></div>
+            <div><a href='CreatePost.php' title='create post'>+</a></div>
           </span>
         </h1>
       </div>

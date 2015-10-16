@@ -98,3 +98,37 @@ h1 a:hover {
   padding-top: 10px;
   opacity: 0.9;
 }
+
+form ul {
+  list-style-type: none;
+}
+
+form label {
+  padding-left: 50px;
+  float: left;
+  width: 100px;
+  font-weight: bold;
+}
+
+form textarea {
+  width: 75%;
+  background:rgba(255,255,255,0.5);
+  font-size: medium;
+}
+
+form input.field {
+  background:rgba(255,255,255,0.5);
+  font-size: medium;
+}
+
+form input.submit {
+  margin-left: 50px;
+}
+
+form {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-image: url("../img/fzm-seamless.notebook.texture-20.png");
+  width: 740px;
+  background-repeat: repeat-y;
+}
