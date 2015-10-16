@@ -1,3 +1,10 @@
+<?php
+  $author = $posting->getAuthor();
+  $text = $posting->getText();
+  $keywords = $posting->getKeywords();
+  $createdOn = $posting->getCreated();
+  $updatedOn = $posting->getUpdated();
+?>
 <div id='beitrag'>
   <div id='blogmenu'>
     <ul>
@@ -14,28 +21,30 @@
         by <a href='#'>author</a>
       </span>
       <span class='right'>
-        <div>created on 01.01.2015</div>
+        <div>created on <?php echo $createdOn; ?></div>
       </span>
     </div>
     <p id='blogtext'>
       <?php
-        $text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
-        if($id > 0 || strlen($text) <= 120) {
+        if(!isset($postings) || strlen($text) <= 120) {
           echo $text;
         } else {
-          echo substr($text, 0, 120) . "... <a href='#'>(read more)</a>";
+          echo substr($text, 0, 120) . "... <a href='index.php?id=$id'>(read more)</a>";
         }
       ?>
     </p>
     <div>
       <span class='left'>
         <div id='keyword'>
-          <a href='#'>keyword1</a>
-          <a href='#'>keyword2</a>
+          <?php
+            foreach(explode(' ',$keywords) as $keyword) {
+                echo "<a href='#'>$keyword</a> ";
+            }
+          ?>
         </div>
       </span>
       <span class='right'>
-        <div>updated on 01.01.2015</div>
+        <div>updated on <?php echo $createdOn; ?></div>
       </span>
     </div>
   </div>

@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   include 'DbManager.php';
   $author = 'User1';
   $title = $_POST['title'];

@@ -17,12 +17,14 @@
       </div>
       <div id='content'>
         <?php
-          $id = 0;
+          include 'DbManager.php';
+          $dbman = new DbManager();
           if(isset($_GET['id'])) {
-            $id = $_GET['id'];
+            $posting = $dbman->getPosting($_GET['id']);
             include 'beitrag.php';
           } else {
-            for($i = 0; $i < 10; $i++) {
+            $postings = $dbman->getAllPostings();
+            foreach($postings as $posting) {
               include 'beitrag.php';
             }
           }
