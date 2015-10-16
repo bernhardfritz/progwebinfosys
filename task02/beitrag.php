@@ -16,7 +16,7 @@
   </div>
   <div id='blogcontent'>
     <h1>
-      <?php echo "<a href='#'>#</a>$title"; ?>
+      <?php echo "<a href='#$title' name='$title'>#</a>$title"; ?>
     </h1>
     <div>
       <span class='left'>
