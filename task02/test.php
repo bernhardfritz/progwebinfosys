@@ -9,7 +9,7 @@
   #$p->setTitle('Titel_Neu');
   #$p->setText('Text_Neu');
   #$p->setKeywords('Keywords_Neu');
-  #$dbManager->savePosting($p);
+  #$dbManager->savePosting(32, 'a', 'b', 'c');
   #$dbManager->deletePosting(6);
   $dbManager->disconnect();
 ?>

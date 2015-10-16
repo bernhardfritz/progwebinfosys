@@ -1,12 +1,21 @@
 <?php
+  session_start();
   ob_start();
   include 'DbManager.php';
-  $author = 'User1';
+
+  $id = $_POST['id'];
+  $author = $_SESSION['user'];
   $title = $_POST['title'];
   $text = $_POST['text'];
   $keywords = $_POST['keywords'];
+
   $dbman = new DbManager();
-  $dbman->createPosting($author, $title, $text, $keywords);
+  if (isset($id)) {
+    $dbman->savePosting($id, $title, $text, $keywords);
+  }
+  else {
+    $dbman->createPosting($author, $title, $text, $keywords);
+  }
   $dbman->disconnect();
   header("Location: index.php");
   die();

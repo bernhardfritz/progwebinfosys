@@ -91,11 +91,7 @@
       return $posting;
     }
 
-    public function savePosting($posting) {
-      if ($posting == NULL) {
-        return;
-      }
-
+    public function savePosting($id, $title, $text, $keywords) {
       $stmt = $this->conn->prepare("UPDATE Posting SET title = ?, text = ?, keywords = ? WHERE id = ?;");
       if ($stmt == false) {
         echo "Error: " . $sql->error;
@@ -103,10 +99,6 @@
 
       $stmt->bind_param('sssi', $title, $text, $keywords, $id);
 
-      $title = $posting->getTitle();
-      $text = $posting->getText();
-      $keywords = $posting->getKeywords();
-      $id = $posting->getId();
       $stmt->execute();
 
       if ($stmt->errno) {

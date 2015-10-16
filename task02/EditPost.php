@@ -6,6 +6,7 @@
       include 'DbManager.php';
       $dbman = new DbManager();
       $posting = $dbman->getPosting($_GET['id']);
+      $id = $posting->getId();
       $title = $posting->getTitle();
       $author = $posting->getAuthor();
       $text = $posting->getText();
@@ -22,6 +23,7 @@
       <div id='content'>
         <form action='SavePost.php' method='post'>
           <ul>
+            <?php echo "<input type='hidden' name='id' value='$id'/>"; ?>
             <li>
               <label for='title'>Title:</label>
               <?php echo "<input class='field' type='text' name='title' value='$title' />"; ?>
