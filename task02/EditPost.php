@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel='stylesheet' href='css/style.css'>
+    <title>MyBlog - Edit Posting</title>
     <?php
       include 'DbManager.php';
       $dbman = new DbManager();

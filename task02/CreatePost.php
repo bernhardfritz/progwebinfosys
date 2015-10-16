@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel='stylesheet' href='css/style.css'>
+    <title>MyBlog - Create Posting</title>
   </head>
   <body>
     <div id='wrapper'>

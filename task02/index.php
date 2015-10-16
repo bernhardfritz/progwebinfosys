@@ -6,6 +6,7 @@
 <html>
   <head>
     <link rel='stylesheet' href='css/style.css'>
+    <title>MyBlog</title>
   </head>
   <body>
     <div id='wrapper'>
