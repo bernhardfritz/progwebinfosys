@@ -8,7 +8,7 @@
       <div id='header'>
         <h1>
           <span class='left'>
-            <div>MyBlog</div>
+            <div><a class='nohover' href='index.php'>MyBlog</a></div>
           </span>
           <span class='right'>
             <div><a href='CreatePost.php' title='create post'>+</a></div>
