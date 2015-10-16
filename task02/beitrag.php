@@ -10,8 +10,8 @@
 <div id='beitrag'>
   <div id='blogmenu'>
     <ul>
-      <li><?php echo="<a href='EditPost.php?id='$id'>edit</a>"; ?></li>
-      <li><?php echo="<a href='DeletePost.php?id='$id'>delete</a>"; ?></li>
+      <li><?php echo "<a href='EditPost.php?id='$id'>edit</a>"; ?></li>
+      <li><?php echo "<a href='DeletePost.php?id='$id'>delete</a>"; ?></li>
     </ul>
   </div>
   <div id='blogcontent'>
