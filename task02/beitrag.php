@@ -1,4 +1,6 @@
 <?php
+  $id = $posting->getId();
+  $title = $posting->getTitle();
   $author = $posting->getAuthor();
   $text = $posting->getText();
   $keywords = $posting->getKeywords();
@@ -8,17 +10,17 @@
 <div id='beitrag'>
   <div id='blogmenu'>
     <ul>
-      <li><a href='#'>edit</a></li>
-      <li><a href='#'>delete</a></li>
+      <li><?php echo="<a href='EditPost.php?id='$id'>edit</a>"; ?></li>
+      <li><?php echo="<a href='DeletePost.php?id='$id'>delete</a>"; ?></li>
     </ul>
   </div>
   <div id='blogcontent'>
     <h1>
-      <a href='#'>#</a>title
+      <?php echo "<a href='#'>#</a>$title"; ?>
     </h1>
     <div>
       <span class='left'>
-        by <a href='#'>author</a>
+        <?php echo "by <a href='#'>$author</a>"; ?>
       </span>
       <span class='right'>
         <div>created on <?php echo $createdOn; ?></div>
