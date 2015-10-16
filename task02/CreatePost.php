@@ -7,7 +7,7 @@
     <div id='wrapper'>
       <div id='header'>
         <h1>
-          MyBlog
+          <a class='nohover' href='index.php'>MyBlog</a>
         </h1>
       </div>
       <div id='content'>
