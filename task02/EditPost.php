@@ -29,7 +29,7 @@
             <br/>
             <li>
               <label for='text'>Text:</label>
-              <?php echo "<textarea name='text' rows='10' cols='50' value='$text'></textarea>"; ?>
+              <?php echo "<textarea name='text' rows='10' cols='50'>$text</textarea>"; ?>
             </li>
             <br/>
             <li>
