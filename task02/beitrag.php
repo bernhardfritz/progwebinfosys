@@ -1,9 +1,8 @@
-<link rel='stylesheet' href='css/style.css'>
 <div id='beitrag'>
   <div id='blogmenu'>
     <ul>
-      <li><a href='#'>menuitem1</a></li>
-      <li><a href='#'>menuitem2</a></li>
+      <li><a href='#'>edit</a></li>
+      <li><a href='#'>delete</a></li>
     </ul>
   </div>
   <div id='blogcontent'>
@@ -18,7 +17,16 @@
         <div>created on 01.01.2015</div>
       </span>
     </div>
-    <p id='blogtext'>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    <p id='blogtext'>
+      <?php
+        $text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
+        if(strlen($text) <= 120) {
+          echo $text;
+        } else {
+          echo substr($text, 0, 120) . "... <a href='#'>(read more)</a>";
+        }
+      ?>
+    </p>
     <div>
       <span class='left'>
         <div id='keyword'>
@@ -32,3 +40,4 @@
     </div>
   </div>
 </div>
+<br/>

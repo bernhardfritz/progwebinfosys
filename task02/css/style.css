@@ -4,6 +4,8 @@
 }
 
 * {
+  padding: 0;
+  margin: 0;
   font-family: 'Raspberry Granola';
 }
 
@@ -66,4 +68,33 @@ h1 a:hover {
 
 #blogtext {
   font-size: large;
+}
+
+#wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 750px;
+}
+
+#header {
+  position:fixed;
+  background-color: white;
+  width: 740px;
+  opacity: 0.9;
+}
+
+#content {
+  padding-top: 50px;
+  padding-bottom: 25px;
+}
+
+#footer {
+  position:fixed;
+  background-color: white;
+  width: 740px;
+  bottom: 0;
+  border-top: thin dashed gray;
+  border-style:
+  padding-top: 10px;
+  opacity: 0.9;
 }
