@@ -125,5 +125,23 @@
 
       $stmt->close();
     }
-  }
+
+    public function createComment($idPosting, $idUser, $text) {
+      $stmt = $this->conn->prepare("INSERT INTO Comment (idPosting, idUser, text, created) VALUES (?, ?, ?, ?);");
+      if ($stmt == false) {
+        echo "Error: " . $sql->error;
+      }
+
+      $stmt->bind_param('iiss', $idPosting, $idUser, $text, $created);
+
+      $created = date('Y-m-d H:i:s', time());
+      $stmt->execute();
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+    }
+   }
 ?>
