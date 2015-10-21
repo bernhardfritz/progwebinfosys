@@ -1,16 +1,16 @@
 <?php
   class Posting {
     private $id;
-    private $author;
+    private $user;
     private $title;
     private $text;
     private $keywords;
     private $created;
     private $updated;
 
-    public function __construct($id, $author, $title, $text, $keywords, $created, $updated) {
+    public function __construct($id, $user, $title, $text, $keywords, $created, $updated) {
       $this->id = $id;
-      $this->author = $author;
+      $this->user = $user;
       $this->title = $title;
       $this->text = $text;
       $this->keywords = $keywords;
@@ -22,8 +22,8 @@
       return $this->id;
     }
 
-    public function getAuthor() {
-      return $this->author;
+    public function getUser() {
+      return $this->user;
     }
 
     public function getTitle() {

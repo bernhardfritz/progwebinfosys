@@ -9,7 +9,6 @@
       $posting = $dbman->getPosting($_GET['id']);
       $id = $posting->getId();
       $title = $posting->getTitle();
-      $author = $posting->getAuthor();
       $text = $posting->getText();
       $keywords = $posting->getKeywords();
     ?>

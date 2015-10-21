@@ -4,7 +4,7 @@
   include 'DbManager.php';
 
   $id = $_POST['id'];
-  $author = $_SESSION['user'];
+  $idUser = $_SESSION['user'];
   $title = $_POST['title'];
   $text = $_POST['text'];
   $keywords = $_POST['keywords'];
@@ -14,7 +14,7 @@
     $dbman->savePosting($id, $title, $text, $keywords);
   }
   else {
-    $dbman->createPosting($author, $title, $text, $keywords);
+    $dbman->createPosting($idUser, $title, $text, $keywords);
   }
   $dbman->disconnect();
   header("Location: index.php");
