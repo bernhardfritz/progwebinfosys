@@ -1,5 +1,7 @@
 <?php
   include 'Posting.php';
+  include 'User.php';
+  include 'Comment.php';
 
   class DbManager {
     private $servername;
@@ -186,8 +188,8 @@
         $stmt->bind_result($id, $idPosting, $idUser, $text, $created);
         $stmt->fetch();
 
-        $posting = getPosting($idPosting);
-        $user = getUser($idUser);
+        $posting = $this->getPosting($idPosting);
+        $user = $this->getUser($idUser);
         $comment = new Comment($id, $posting, $user, $text, $created);
         array_push($array, $comment);
       }
