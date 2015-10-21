@@ -1,6 +1,6 @@
 <?php
   session_start();
-  $_SESSION['user'] = '4';
+  $_SESSION['user'] = '2';
   include 'DbManager.php';
   $dbman = new DbManager();
   $loggedInUser = $dbman->getUser($_SESSION['user']);

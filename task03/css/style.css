@@ -183,13 +183,16 @@ sup {
 	border-color: #777 transparent transparent #777;
 }
 
-#commentcontent:before
-{
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	right: -2px;
-	top: 0px;
-	border-color: transparent #fff transparent transparent;
+/* Fade-In Effect */
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.25s linear;
+}
+
+/* Fade-Out Effect */
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.25s, opacity 0.25s linear;
 }
