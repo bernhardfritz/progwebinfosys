@@ -186,12 +186,12 @@
       $array = array();
       if ($stmt->num_rows > 0) {
         $stmt->bind_result($id, $idPosting, $idUser, $text, $created);
-        $stmt->fetch();
-
-        $posting = $this->getPosting($idPosting);
-        $user = $this->getUser($idUser);
-        $comment = new Comment($id, $posting, $user, $text, $created);
-        array_push($array, $comment);
+        while($stmt->fetch()) {
+          $posting = $this->getPosting($idPosting);
+          $user = $this->getUser($idUser);
+          $comment = new Comment($id, $posting, $user, $text, $created);
+          array_push($array, $comment);
+        }
       }
 
       if ($stmt->errno) {
