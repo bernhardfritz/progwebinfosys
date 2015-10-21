@@ -26,13 +26,13 @@
           <ul>
             <?php echo "<input type='hidden' name='id' value='$id'/>"; ?>
             <li>
-              <label for='title'>Title:</label>
-              <?php echo "<input class='field' type='text' name='title' value='$title' />"; ?>
+              <label for='title'>Title:<sup>*</sup></label>
+              <?php echo "<input class='field' type='text' name='title' value='$title' required='true' />"; ?>
             </li>
             <br/>
             <li>
-              <label for='text'>Text:</label>
-              <?php echo "<textarea name='text' rows='10' cols='50'>$text</textarea>"; ?>
+              <label for='text'>Text:<sup>*</sup></label>
+              <?php echo "<textarea name='text' rows='10' cols='50' required='true'>$text</textarea>"; ?>
             </li>
             <br/>
             <li>

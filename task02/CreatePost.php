@@ -15,13 +15,13 @@
         <form action='SavePost.php' method='post'>
           <ul>
             <li>
-              <label for='title'>Title:</label>
-              <input class='field' type='text' name='title' />
+              <label for='title'>Title:<sup>*</sup></label>
+              <input class='field' type='text' name='title' required="true" />
             </li>
             <br/>
             <li>
-              <label for='text'>Text:</label>
-              <textarea name='text' rows='10' cols='50'></textarea>
+              <label for='text'>Text:<sup>*</sup></label>
+              <textarea name='text' rows='10' cols='50' required="true"></textarea>
             </li>
             <br/>
             <li>

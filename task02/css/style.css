@@ -52,6 +52,7 @@ h1 a.nohover {
   padding-top: 10px;
   padding-bottom: 10px;
   width: 740px;
+  box-shadow: 5px 5px 5px #888888;
 }
 
 #blogmenu {
@@ -137,4 +138,9 @@ form {
   background-image: url("../img/fzm-seamless.notebook.texture-20.png");
   width: 740px;
   background-repeat: repeat-y;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+sup {
+  color: red;
 }
