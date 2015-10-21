@@ -126,6 +126,32 @@
       $stmt->close();
     }
 
+    public function getUser($id) {
+      $stmt = $this->conn->prepare("SELECT * FROM User where id = ?");
+      if ($stmt == false) {
+        echo "Error: " . $sql->error;
+      }
+
+      $stmt->bind_param('i', $id);
+
+      $stmt->execute();
+      $stmt->store_result();
+
+      $user = NULL;
+      if ($stmt->num_rows == 1) {
+        $stmt->bind_result($id, $username, $password);
+        $stmt->fetch();
+        $user = new User($id, $username, $password);
+      }
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+      return $user;
+    }
+
     public function createComment($idPosting, $idUser, $text) {
       $stmt = $this->conn->prepare("INSERT INTO Comment (idPosting, idUser, text, created) VALUES (?, ?, ?, ?);");
       if ($stmt == false) {
@@ -143,5 +169,35 @@
 
       $stmt->close();
     }
-   }
+
+    public function getComments($idPosting) {
+      $stmt = $this->conn->prepare("SELECT * FROM Comment where idPosting = ?");
+      if ($stmt == false) {
+        echo "Error: " . $sql->error;
+      }
+
+      $stmt->bind_param('i', $idPosting);
+
+      $stmt->execute();
+      $stmt->store_result();
+
+      $array = array();
+      if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $idPosting, $idUser, $text, $created);
+        $stmt->fetch();
+
+        $posting = getPosting($idPosting);
+        $user = getUser($idUser);
+        $comment = new Comment($id, $posting, $user, $text, $created);
+        array_push($array, $comment);
+      }
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+      return $array;
+    }
+  }
 ?>
