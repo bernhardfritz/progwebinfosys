@@ -52,7 +52,7 @@ h1 a.nohover {
   padding-top: 10px;
   padding-bottom: 10px;
   width: 740px;
-  box-shadow: 5px 5px 5px #888888;
+  box-shadow: 2px 2px 4px #888;
 }
 
 #blogmenu {
@@ -99,9 +99,14 @@ h1 a.nohover {
   width: 740px;
   bottom: 0;
   border-top: thin dashed gray;
-  border-style:
   padding-top: 10px;
   opacity: 0.9;
+}
+
+#topborder {
+  margin-top: 10px;
+  padding-bottom: 15px;
+  border-top: thin dashed gray;
 }
 
 form ul {
@@ -115,8 +120,15 @@ form label {
   font-weight: bold;
 }
 
-form textarea {
+.form textarea {
   width: 75%;
+  background:rgba(255,255,255,0.5);
+  font-size: medium;
+  font-weight: bold;
+}
+
+form textarea {
+  width: 103%;
   background:rgba(255,255,255,0.5);
   font-size: medium;
   font-weight: bold;
@@ -132,15 +144,46 @@ form input.submit {
   margin-left: 50px;
 }
 
-form {
+.form {
   padding-top: 10px;
   padding-bottom: 10px;
   background-image: url("../img/fzm-seamless.notebook.texture-20.png");
   width: 740px;
   background-repeat: repeat-y;
-  box-shadow: 5px 5px 5px #888888;
+  box-shadow: 2px 2px 4px #888;
 }
 
 sup {
   color: red;
+}
+
+#commentcontent {
+  position: relative;
+  padding: 5px 25px 5px 5px;
+  background-color: white;
+  box-shadow: 0px 2px 4px #888;
+  width: 100%;
+}
+
+#commentcontent:after {
+  content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	right: 0px;
+	top: 100%;
+	border-width: 5px 10px;
+	border-style: solid;
+	border-color: #777 transparent transparent #777;
+}
+
+#commentcontent:before
+{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	right: -2px;
+	top: 0px;
+	border-color: transparent #fff transparent transparent;
 }

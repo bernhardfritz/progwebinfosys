@@ -22,7 +22,7 @@
         </h1>
       </div>
       <div id='content'>
-        <form action='SavePost.php' method='post'>
+        <form class='form' action='SavePost.php' method='post'>
           <ul>
             <?php echo "<input type='hidden' name='id' value='$id'/>"; ?>
             <li>

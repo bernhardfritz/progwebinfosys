@@ -12,6 +12,7 @@
     <ul>
       <li><?php echo "<a href='EditPost.php?id=$id'>edit</a>"; ?></li>
       <li><?php echo "<a href='DeletePost.php?id=$id'>delete</a>"; ?></li>
+      <li><?php echo "<a href='index.php?id=$id'>comment</a>"; ?></li>
     </ul>
   </div>
   <div id='blogcontent'>
@@ -49,6 +50,17 @@
         <div>updated on <b><?php echo date("d.m.Y H:i", strtotime($updatedOn)); ?></b></div>
       </span>
     </div>
+    <?php
+      if(isset($_GET['id'])) {
+        echo "<div id='topborder'></div>";
+        echo $_GET['id'];
+        $comments = $dbman->getComments($_GET['id']);
+        foreach($comments as $comment) {
+            include 'kommentar.php';
+        }
+        include 'kommentarform.php';
+      }
+    ?>
   </div>
 </div>
 <br/>

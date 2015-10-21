@@ -12,7 +12,7 @@
         </h1>
       </div>
       <div id='content'>
-        <form action='SavePost.php' method='post'>
+        <form class='form' action='SavePost.php' method='post'>
           <ul>
             <li>
               <label for='title'>Title:<sup>*</sup></label>
