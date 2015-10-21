@@ -1,14 +1,14 @@
 <div id='commentcontent'>
   <div>
     <span class='left'>
-      by <a href='#'>author</a>
+    <?php echo "by <a href='#'>" . $comment->getUser()->getUsername() . "</a>"; ?>
     </span>
     <span class='right'>
-      <div>created on <b>createdOn</b></div>
+      <?php echo "<div>created on <b>" . date("d.m.Y H:i", strtotime($comment->getCreated())) . "</b></div>"; ?>
     </span>
   </div>
   <div id='commenttext'>
-    text
+    <?php echo $comment->getText(); ?>
   </div>
 </div>
 <br/>

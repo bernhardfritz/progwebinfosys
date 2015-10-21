@@ -51,14 +51,12 @@
       </span>
     </div>
     <?php
+      $dbman->disconnect();
       if(isset($_GET['id'])) {
-        echo "<div id='topborder'></div>";
-        echo $_GET['id'];
-        $comments = $dbman->getComments($_GET['id']);
-        foreach($comments as $comment) {
-            include 'kommentar.php';
-        }
-        include 'kommentarform.php';
+        $postingId = $_GET['id'];
+        echo "<div id='comments'>";
+        include 'kommentare.php';
+        echo "</div>";
       }
     ?>
   </div>

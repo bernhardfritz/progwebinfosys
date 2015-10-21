@@ -66,6 +66,10 @@ h1 a.nohover {
   list-style: none;
 }
 
+ul li.nodecoration {
+  list-style: none;
+}
+
 #blogcontent {
   padding-left: 150px;
   width: 580px;
@@ -86,6 +90,7 @@ h1 a.nohover {
   background-color: white;
   width: 740px;
   opacity: 0.9;
+  z-index: 1000;
 }
 
 #content {
@@ -101,6 +106,7 @@ h1 a.nohover {
   border-top: thin dashed gray;
   padding-top: 10px;
   opacity: 0.9;
+  z-index: 1000;
 }
 
 #topborder {
@@ -120,15 +126,15 @@ form label {
   font-weight: bold;
 }
 
-.form textarea {
-  width: 75%;
+textarea {
+  width: 103%;
   background:rgba(255,255,255,0.5);
   font-size: medium;
   font-weight: bold;
 }
 
-form textarea {
-  width: 103%;
+.form textarea {
+  width: 75%;
   background:rgba(255,255,255,0.5);
   font-size: medium;
   font-weight: bold;
