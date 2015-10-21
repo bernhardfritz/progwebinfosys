@@ -1,6 +1,9 @@
 <?php
   session_start();
-  $_SESSION['user'] = '1';
+  $_SESSION['user'] = '4';
+  include 'DbManager.php';
+  $dbman = new DbManager();
+  $loggedInUser = $dbman->getUser($_SESSION['user']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,15 +18,17 @@
           <span class='left'>
             <div><a class='nohover' href='index.php'>MyBlog</a></div>
           </span>
-          <span class='right'>
-            <div><a href='CreatePost.php' title='create post'>+</a></div>
-          </span>
+          <?php
+            if ($loggedInUser->getWritePost()) {
+              echo "<span class='right'>";
+              echo "<div><a href='CreatePost.php' title='create post'>+</a></div>";
+              echo "</span>";
+            }
+          ?>
         </h1>
       </div>
       <div id='content'>
         <?php
-          include 'DbManager.php';
-          $dbman = new DbManager();
           if(isset($_GET['id'])) {
             $posting = $dbman->getPosting($_GET['id']);
             include 'beitrag.php';

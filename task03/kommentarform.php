@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+?>
 <script type="text/javascript" src="js/ajax.js" ></script>
 <div id='commentcontent'>
   <ul>

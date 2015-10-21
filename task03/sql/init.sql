@@ -16,6 +16,12 @@ create table if not exists `MyBlog`.`User` (
   `id` int not null auto_increment,
   `username` varchar(50) not null,
   `password` varchar(100) not null,
+  `readPost` bit not null,
+  `writePost` bit not null,
+  `deletePost` bit not null,
+  `readComment` bit not null,
+  `writeComment` bit not null,
+  `deleteComment` bit not null,
   primary key (`id`));
 
 create table if not exists `MyBlog`.`Comment` (
@@ -37,3 +43,8 @@ grant usage on *.* to 'myBlogUser'@'localhost' identified by 'blog';
 
 grant all privileges on MyBlog.* to 'myBlogUser'@'localhost';
 flush privileges;
+
+insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('admin', 'secret', 1, 1, 1, 1, 1, 1);
+insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('author', 'password', 1, 1, 0, 1, 1, 0);
+insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('user', 'password', 1, 0, 0, 1, 1, 0);
+insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('guest', 'password', 1, 0, 0, 1, 0, 0);

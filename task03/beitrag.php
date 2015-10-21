@@ -10,9 +10,27 @@
 <div id='beitrag'>
   <div id='blogmenu'>
     <ul>
-      <li><?php echo "<a href='EditPost.php?id=$id'>edit</a>"; ?></li>
-      <li><?php echo "<a href='DeletePost.php?id=$id'>delete</a>"; ?></li>
-      <li><?php echo "<a href='index.php?id=$id'>comment</a>"; ?></li>
+      <li>
+        <?php
+          if ($loggedInUser->getWritePost()) {
+            echo "<a href='EditPost.php?id=$id'>edit</a>";
+          }
+        ?>
+      </li>
+      <li>
+        <?php
+          if ($loggedInUser->getDeletePost()) {
+            echo "<a href='DeletePost.php?id=$id'>delete</a>";
+          }
+        ?>
+      </li>
+      <li>
+        <?php
+          if ($loggedInUser->getReadComment() || $loggedInUser->getWriteComment() || $loggedInUser->getDeleteComment()) {
+            echo "<a href='index.php?id=$id'>comment</a>";
+          }
+        ?>
+      </li>
     </ul>
   </div>
   <div id='blogcontent'>
@@ -29,10 +47,23 @@
     </div>
     <p id='blogtext'>
       <?php
-        if(!isset($postings) || strlen($text) <= 120) {
+        // BBCode replacement
+        $text = preg_replace("/\[b\](.*)\[\/b\]/Usi", "<b>\\1</b>", $text);   // bold
+        $text = preg_replace("/\[i\](.*)\[\/i\]/Usi", "<i>\\1</i>", $text);   // italic
+        $text = preg_replace("/\[u\](.*)\[\/u\]/Usi", "<u>\\1</u>", $text);   // underlined
+        $text = preg_replace("/\\n/Usi", "<br />", $text);   // underlined
+        $text = preg_replace("/\[color=(.*)\](.*)\[\/color\]/Usi", "<font color=\"\\1\">\\2</font>", $text);  // text color
+        $text = preg_replace("/\[size=(.*)\](.*)\[\/size\]/Usi", "<font size=\"\\1\">\\2</font>", $text);  // text size
+        $text = preg_replace("/\[font=(.*)\](.*)\[\/font\]/Usi", "<span style=\"font-family:\\1\">\\2</span>", $text);  // text face
+        $text = preg_replace("/\[url=(.*)\](.*)\[\/url\]/Usi", "<u><a href=\"\\1\" class=\"nohover\">\\2</a></u>", $text);  // link
+        $text = preg_replace("/\[h1\](.*)\[\/h1\]/Usi", "<h1>\\1</h1>", $text);   // h1
+        $text = preg_replace("/\[h2\](.*)\[\/h2\]/Usi", "<h2>\\1</h2>", $text);   // h2
+        $text = preg_replace("/\[h3\](.*)\[\/h3\]/Usi", "<h3>\\1</h3>", $text);   // h3
+
+        if(!isset($postings) || strlen($text) <= 300) {
           echo $text;
         } else {
-          echo substr($text, 0, 120) . "... <a href='index.php?id=$id'>(read more)</a>";
+          echo substr($text, 0, 300) . "... <a href='index.php?id=$id'>(read more)</a>";
         }
       ?>
     </p>
@@ -51,7 +82,6 @@
       </span>
     </div>
     <?php
-      $dbman->disconnect();
       if(isset($_GET['id'])) {
         $postingId = $_GET['id'];
         echo "<div id='comments'>";
