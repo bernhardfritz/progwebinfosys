@@ -23,7 +23,7 @@ create table if not exists `MyBlog`.`Posting` (
   `created` datetime not null,
   `updated` datetime not null,
   primary key (`id`),
-  constraint `fk_user`
+  constraint `fk_posting_user`
     foreign key (`idUser`)
     references `MyBlog`.`User` (`id`)
     on delete cascade
@@ -36,12 +36,12 @@ create table if not exists `MyBlog`.`Comment` (
   `text` varchar(120) not null,
   `created` datetime not null,
   primary key (`id`),
-  constraint `fk_posting`
+  constraint `fk_comment_posting`
     foreign key (`idPosting`)
     references `MyBlog`.`Posting` (`id`)
     on delete cascade
     on update cascade,
-  constraint `fk_user`
+  constraint `fk_comment_user`
     foreign key (`idUser`)
     references `MyBlog`.`User` (`id`)
     on delete cascade
