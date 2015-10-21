@@ -1,7 +1,7 @@
 <?php
   $id = $posting->getId();
   $title = $posting->getTitle();
-  $author = $posting->getAuthor();
+  $user = $posting->getUser();
   $text = $posting->getText();
   $keywords = $posting->getKeywords();
   $createdOn = $posting->getCreated();
@@ -39,7 +39,7 @@
     </h1>
     <div>
       <span class='left'>
-        <?php echo "by <a href='#'>$author</a>"; ?>
+        <?php echo "by <a href='#'>" . $user->getUsername() . "</a>"; ?>
       </span>
       <span class='right'>
         <div>created on <b><?php echo date("d.m.Y H:i", strtotime($createdOn)); ?></b></div>

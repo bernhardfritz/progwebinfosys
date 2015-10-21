@@ -32,13 +32,13 @@
       $this->conn->close();
     }
 
-    public function createPosting($author, $title, $text, $keywords) {
-      $stmt = $this->conn->prepare("INSERT INTO Posting (author, title, text, keywords, created, updated) VALUES (?, ?, ?, ?, ?, ?);");
+    public function createPosting($idUser, $title, $text, $keywords) {
+      $stmt = $this->conn->prepare("INSERT INTO Posting (idUser, title, text, keywords, created, updated) VALUES (?, ?, ?, ?, ?, ?);");
       if ($stmt == false) {
         echo "Error: " . $stmt->error;
       }
 
-      $stmt->bind_param('ssssss', $author, $title, $text, $keywords, $created, $updated);
+      $stmt->bind_param('ssssss', $idUser, $title, $text, $keywords, $created, $updated);
 
       $created = date('Y-m-d H:i:s', time());
       $updated = date('Y-m-d H:i:s', time());
@@ -59,7 +59,7 @@
 
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-          $posting = new Posting($row["id"], $row["author"], $row["title"], $row["text"], $row["keywords"], $row["created"], $row["updated"]);
+          $posting = new Posting($row["id"], $this->getUser($row["idUser"]), $row["title"], $row["text"], $row["keywords"], $row["created"], $row["updated"]);
           array_push($array, $posting);
         }
       }
@@ -80,9 +80,10 @@
 
       $posting = NULL;
       if ($stmt->num_rows == 1) {
-        $stmt->bind_result($id, $author, $title, $text, $keywords, $created, $updated);
+        $stmt->bind_result($id, $idUser, $title, $text, $keywords, $created, $updated);
         $stmt->fetch();
-        $posting = new Posting($id, $author, $title, $text, $keywords, $created, $updated);
+        $user = $this->getUser($idUser);
+        $posting = new Posting($id, $user, $title, $text, $keywords, $created, $updated);
       }
 
       if ($stmt->errno) {
