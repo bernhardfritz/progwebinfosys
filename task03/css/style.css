@@ -1,0 +1,146 @@
+@font-face {
+    font-family: 'Raspberry Granola'; /*a name to be used later*/
+    src: url('../font/raspberrygranola.ttf'); /*URL to font*/
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Raspberry Granola';
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 a {
+  text-decoration: none;
+  color: lightgray;
+}
+
+h1 a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+h1 a.nohover {
+  color:black;
+}
+
+#keyword a {
+  text-decoration: underline;
+}
+
+.left {
+  width: 50%;
+  float: left;
+}
+.right {
+  width: 50%;
+  text-align: right;
+}
+
+#beitrag {
+  background-image: url("../img/fzm-seamless.notebook.texture-20.png");
+  background-repeat: repeat-y;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 740px;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+#blogmenu {
+  float: left;
+  width: 130px;
+  height: 100%;
+  text-align: right;
+}
+
+#blogmenu ul li {
+  list-style: none;
+}
+
+#blogcontent {
+  padding-left: 150px;
+  width: 580px;
+}
+
+#blogtext {
+  font-size: large;
+}
+
+#wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 750px;
+}
+
+#header {
+  position:fixed;
+  background-color: white;
+  width: 740px;
+  opacity: 0.9;
+}
+
+#content {
+  padding-top: 50px;
+  padding-bottom: 25px;
+}
+
+#footer {
+  position:fixed;
+  background-color: white;
+  width: 740px;
+  bottom: 0;
+  border-top: thin dashed gray;
+  border-style:
+  padding-top: 10px;
+  opacity: 0.9;
+}
+
+form ul {
+  list-style-type: none;
+}
+
+form label {
+  padding-left: 50px;
+  float: left;
+  width: 100px;
+  font-weight: bold;
+}
+
+form textarea {
+  width: 75%;
+  background:rgba(255,255,255,0.5);
+  font-size: medium;
+  font-weight: bold;
+}
+
+form input.field {
+  background:rgba(255,255,255,0.5);
+  font-size: medium;
+  font-weight: bold;
+}
+
+form input.submit {
+  margin-left: 50px;
+}
+
+form {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-image: url("../img/fzm-seamless.notebook.texture-20.png");
+  width: 740px;
+  background-repeat: repeat-y;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+sup {
+  color: red;
+}
