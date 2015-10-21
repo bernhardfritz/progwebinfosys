@@ -44,7 +44,7 @@ grant usage on *.* to 'myBlogUser'@'localhost' identified by 'blog';
 grant all privileges on MyBlog.* to 'myBlogUser'@'localhost';
 flush privileges;
 
-insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('admin', 'secret', 1, 1, 1, 1, 1, 1);
-insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('author', 'password', 1, 1, 0, 1, 1, 0);
-insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('user', 'password', 1, 0, 0, 1, 1, 0);
-insert into User(username, password, readPost, writePost, deletePost, readComment, writeComment, deleteComment) values('guest', 'password', 1, 0, 0, 1, 0, 0);
+insert into `MyBlog`.`User`(`username`, `password`, `readPost`, `writePost`, `deletePost`, `readComment`, `writeComment`, `deleteComment`) values('admin', 'secret', 1, 1, 1, 1, 1, 1);
+insert into `MyBlog`.`User`(`username`, `password`, `readPost`, `writePost`, `deletePost`, `readComment`, `writeComment`, `deleteComment`) values('author', 'password', 1, 1, 0, 1, 1, 0);
+insert into `MyBlog`.`User`(`username`, `password`, `readPost`, `writePost`, `deletePost`, `readComment`, `writeComment`, `deleteComment`) values('user', 'password', 1, 0, 0, 1, 1, 0);
+insert into `MyBlog`.`User`(`username`, `password`, `readPost`, `writePost`, `deletePost`, `readComment`, `writeComment`, `deleteComment`) values('guest', 'password', 1, 0, 0, 1, 0, 0);
