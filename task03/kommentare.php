@@ -1,3 +1,4 @@
+<script type="text/javascript" src="js/ajax.js"></script>
 <?php
   include_once 'DbManager.php';
   $dbman = new DbManager();

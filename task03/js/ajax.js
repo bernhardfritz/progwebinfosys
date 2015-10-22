@@ -4,17 +4,25 @@ function postComment(idPosting, idUser) {
   xhttp.open("POST", "CommentPost.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send("id="+idPosting+"&user="+idUser+"&text="+text);
+  loadComments(idPosting,true);
+}
+
+function deleteComment(idPosting, idComment) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "DeleteComment.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("id="+idComment);
   loadComments(idPosting);
 }
 
-function loadComments(id) {
+function loadComments(id,scroll) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     document.getElementById("comment").className = "hidden";
     setTimeout(function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
         document.getElementById("comments").innerHTML = xhttp.responseText;
-        scrollToBottom();
+        if(scroll) scrollToBottom();
       }
       setTimeout(function() {
         document.getElementById("comment").className = "visible";

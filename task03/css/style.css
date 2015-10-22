@@ -196,3 +196,19 @@ sup {
   opacity: 0;
   transition: visibility 0s 0.25s, opacity 0.25s linear;
 }
+
+.closebutton {
+  position: absolute;
+  top: 0%;
+  right: 1%;
+}
+
+.closebutton a{
+  text-decoration: none;
+  color: lightgray;
+}
+
+.closebutton a:hover {
+  text-decoration: none;
+  color: black;
+}
