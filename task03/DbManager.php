@@ -41,8 +41,25 @@
       $stmt->close();
     }
 
+    public function deleteComment($id) {
+      $stmt = $this->conn->prepare("DELETE FROM Comment WHERE id = ?;");
+      if ($stmt == false) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->bind_param('i', $id);
+
+      $stmt->execute();
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+    }
+
     public function getComments($idPosting) {
-      $stmt = $this->conn->prepare("SELECT * FROM Comment WHERE idPosting = ?");
+      $stmt = $this->conn->prepare("SELECT * FROM Comment WHERE idPosting = ?;");
       if ($stmt == false) {
         echo "Error: " . $stmt->error;
       }
@@ -142,7 +159,7 @@
     }
 
     public function getPosting($id) {
-      $stmt = $this->conn->prepare("SELECT * FROM Posting where id = ?");
+      $stmt = $this->conn->prepare("SELECT * FROM Posting where id = ?;");
       if ($stmt == false) {
         echo "Error: " . $stmt->error;
       }
@@ -190,7 +207,7 @@
 // ++++++++++++++++++++ User functions ++++++++++++++++++++
 
     public function getUser($id) {
-      $stmt = $this->conn->prepare("SELECT * FROM User WHERE id = ?");
+      $stmt = $this->conn->prepare("SELECT * FROM User WHERE id = ?;");
       if ($stmt == false) {
         echo "Error: " . $stmt->error;
       }
@@ -216,7 +233,7 @@
     }
 
     public function login($username, $password) {
-      $stmt = $this->conn->prepare("SELECT * FROM User WHERE username = ? AND password = ?");
+      $stmt = $this->conn->prepare("SELECT * FROM User WHERE username = ? AND password = ?;");
       if ($stmt == false) {
         echo "Error: " . $stmt->error;
       }

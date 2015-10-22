@@ -26,7 +26,7 @@
       </li>
       <li>
         <?php
-          if ($loggedInUser->getReadComment() || $loggedInUser->getWriteComment() || $loggedInUser->getDeleteComment()) {
+          if ($loggedInUser->getReadComment()) {
             echo "<a href='index.php?id=$id'>comment</a>";
           }
         ?>
