@@ -29,7 +29,7 @@
         echo "Error: " . $stmt->error;
       }
 
-      $stmt->bind_param('iiss', $idPosting, $idUser, $text, $created);
+      $stmt->bind_param('iiss', $idPosting, $idUser, strip_tags($text), $created);
 
       $created = date('Y-m-d H:i:s', time());
       $stmt->execute();
@@ -112,7 +112,7 @@
         echo "Error: " . $stmt->error;
       }
 
-      $stmt->bind_param('ssssss', $idUser, $title, $text, $keywords, $created, $updated);
+      $stmt->bind_param('ssssss', $idUser, strip_tags($title), strip_tags($text), strip_tags($keywords), $created, $updated);
 
       $created = date('Y-m-d H:i:s', time());
       $updated = date('Y-m-d H:i:s', time());
@@ -191,7 +191,7 @@
         echo "Error: " . $stmt->error;
       }
 
-      $stmt->bind_param('ssssi', $title, $text, $keywords, $updated, $id);
+      $stmt->bind_param('ssssi', strip_tags($title), strip_tags($text), strip_tags($keywords), $updated, $id);
 
       $updated = date('Y-m-d H:i:s', time());
       $stmt->execute();
