@@ -7,7 +7,11 @@
       <div>
         <?php echo "created on <b>" . date("d.m.Y H:i", strtotime($comment->getCreated())) . "</b>"; ?>
         <span class='closebutton'>
-          <?php echo "<a href='#' onclick='deleteComment(" . $postingId . "," . $comment->getId() . ");'>x</a>"; ?>
+          <?php
+            if ($loggedInUser->getDeleteComment()) {
+              echo "<a href='#' onclick='deleteComment(" . $postingId . "," . $comment->getId() . ");'>x</a>";
+            }
+          ?>
         </span>
       </div>
     </span>
