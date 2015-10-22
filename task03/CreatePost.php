@@ -20,8 +20,11 @@
             </li>
             <br/>
             <li>
+              <?php include 'toolbox.php'; ?>
+            </li>
+            <li>
               <label for='text'>Text:<sup>*</sup></label>
-              <textarea name='text' rows='10' cols='50' required="true"></textarea>
+              <textarea id='textarea' name='text' rows='10' cols='50' required="true"></textarea>
             </li>
             <br/>
             <li>

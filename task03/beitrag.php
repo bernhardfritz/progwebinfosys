@@ -59,6 +59,9 @@
         $text = preg_replace("/\[h1\](.*)\[\/h1\]/Usi", "<h1>\\1</h1>", $text);   // h1
         $text = preg_replace("/\[h2\](.*)\[\/h2\]/Usi", "<h2>\\1</h2>", $text);   // h2
         $text = preg_replace("/\[h3\](.*)\[\/h3\]/Usi", "<h3>\\1</h3>", $text);   // h3
+        $text = preg_replace("/\[h3\](.*)\[\/h3\]/Usi", "<h3>\\1</h3>", $text);   // h4
+        $text = preg_replace("/\[h3\](.*)\[\/h3\]/Usi", "<h3>\\1</h3>", $text);   // h5
+        $text = preg_replace("/\[h3\](.*)\[\/h3\]/Usi", "<h3>\\1</h3>", $text);   // h6
 
         if(!isset($postings) || strlen($text) <= 300) {
           echo $text;

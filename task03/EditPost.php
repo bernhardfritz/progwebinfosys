@@ -30,8 +30,11 @@
             </li>
             <br/>
             <li>
+              <?php include 'toolbox.php'; ?>
+            </li>
+            <li>
               <label for='text'>Text:<sup>*</sup></label>
-              <?php echo "<textarea name='text' rows='10' cols='50' required='true'>$text</textarea>"; ?>
+              <?php echo "<textarea id='textarea' name='text' rows='10' cols='50' required='true'>$text</textarea>"; ?>
             </li>
             <br/>
             <li>
