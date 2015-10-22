@@ -20,6 +20,60 @@
       $this->connect();
     }
 
+
+// ++++++++++++++++++++ Comment functions ++++++++++++++++++++
+
+    public function createComment($idPosting, $idUser, $text) {
+      $stmt = $this->conn->prepare("INSERT INTO Comment (idPosting, idUser, text, created) VALUES (?, ?, ?, ?);");
+      if ($stmt == false) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->bind_param('iiss', $idPosting, $idUser, $text, $created);
+
+      $created = date('Y-m-d H:i:s', time());
+      $stmt->execute();
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+    }
+
+    public function getComments($idPosting) {
+      $stmt = $this->conn->prepare("SELECT * FROM Comment WHERE idPosting = ?");
+      if ($stmt == false) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->bind_param('i', $idPosting);
+
+      $stmt->execute();
+      $stmt->store_result();
+
+      $array = array();
+      if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $idPosting, $idUser, $text, $created);
+        while($stmt->fetch()) {
+          $posting = $this->getPosting($idPosting);
+          $user = $this->getUser($idUser);
+          $comment = new Comment($id, $posting, $user, $text, $created);
+          array_push($array, $comment);
+        }
+      }
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+      return $array;
+    }
+
+
+// ++++++++++++++++++++ DB functions ++++++++++++++++++++
+
     private function connect() {
       $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
 
@@ -32,6 +86,9 @@
       $this->conn->close();
     }
 
+
+// ++++++++++++++++++++ Posting functions ++++++++++++++++++++
+
     public function createPosting($idUser, $title, $text, $keywords) {
       $stmt = $this->conn->prepare("INSERT INTO Posting (idUser, title, text, keywords, created, updated) VALUES (?, ?, ?, ?, ?, ?);");
       if ($stmt == false) {
@@ -42,6 +99,23 @@
 
       $created = date('Y-m-d H:i:s', time());
       $updated = date('Y-m-d H:i:s', time());
+      $stmt->execute();
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+    }
+
+    public function deletePosting($id) {
+      $stmt = $this->conn->prepare("DELETE FROM Posting WHERE id = ?;");
+      if ($stmt == false) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->bind_param('i', $id);
+
       $stmt->execute();
 
       if ($stmt->errno) {
@@ -112,25 +186,11 @@
       $stmt->close();
     }
 
-    public function deletePosting($id) {
-      $stmt = $this->conn->prepare("DELETE FROM Posting WHERE id = ?;");
-      if ($stmt == false) {
-        echo "Error: " . $stmt->error;
-      }
 
-      $stmt->bind_param('i', $id);
-
-      $stmt->execute();
-
-      if ($stmt->errno) {
-        echo "Error: " . $stmt->error;
-      }
-
-      $stmt->close();
-    }
+// ++++++++++++++++++++ User functions ++++++++++++++++++++
 
     public function getUser($id) {
-      $stmt = $this->conn->prepare("SELECT * FROM User where id = ?");
+      $stmt = $this->conn->prepare("SELECT * FROM User WHERE id = ?");
       if ($stmt == false) {
         echo "Error: " . $stmt->error;
       }
@@ -155,44 +215,22 @@
       return $user;
     }
 
-    public function createComment($idPosting, $idUser, $text) {
-      $stmt = $this->conn->prepare("INSERT INTO Comment (idPosting, idUser, text, created) VALUES (?, ?, ?, ?);");
+    public function login($username, $password) {
+      $stmt = $this->conn->prepare("SELECT * FROM User WHERE username = ? AND password = ?");
       if ($stmt == false) {
         echo "Error: " . $stmt->error;
       }
 
-      $stmt->bind_param('iiss', $idPosting, $idUser, $text, $created);
-
-      $created = date('Y-m-d H:i:s', time());
-      $stmt->execute();
-
-      if ($stmt->errno) {
-        echo "Error: " . $stmt->error;
-      }
-
-      $stmt->close();
-    }
-
-    public function getComments($idPosting) {
-      $stmt = $this->conn->prepare("SELECT * FROM Comment where idPosting = ?");
-      if ($stmt == false) {
-        echo "Error: " . $stmt->error;
-      }
-
-      $stmt->bind_param('i', $idPosting);
+      $stmt->bind_param('ss', $username, $password);
 
       $stmt->execute();
       $stmt->store_result();
 
-      $array = array();
-      if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $idPosting, $idUser, $text, $created);
-        while($stmt->fetch()) {
-          $posting = $this->getPosting($idPosting);
-          $user = $this->getUser($idUser);
-          $comment = new Comment($id, $posting, $user, $text, $created);
-          array_push($array, $comment);
-        }
+      $user = NULL;
+      if ($stmt->num_rows == 1) {
+        $stmt->bind_result($id, $username, $password, $readPost, $writePost, $deletePost, $readComment, $writeComment, $deleteComment);
+        $stmt->fetch();
+        $user = new User($id, $username, $password, $readPost, $writePost, $deletePost, $readComment, $writeComment, $deleteComment);
       }
 
       if ($stmt->errno) {
@@ -200,7 +238,7 @@
       }
 
       $stmt->close();
-      return $array;
+      return $user;
     }
   }
 ?>
