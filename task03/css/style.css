@@ -235,3 +235,14 @@ sup {
   opacity: .8;
   z-index: 1001;
 }
+
+.loginbutton {
+  font-weight: bold;
+  font-size: 75%;
+  text-decoration: none;
+  color: #727070;
+  background-color: #EEEEEE;
+  padding: 3px 6px;
+  border: 1px solid black;
+  border-radius: 8px;
+}

@@ -26,12 +26,12 @@
               <?php
                 echo "Hello, " . $loggedInUser->getUsername() . "&nbsp;";
                 if($loggedInUser->getId() != 4) {
-                  echo "<a href='Logout.php' title='logout'>logout</a>";
+                  echo "<a href='Logout.php' title='logout' class='loginbutton'>logout</a>";
                   if($loggedInUser->getWritePost()) {
-                    echo "<a href='CreatePost.php' title='create post'>+</a>";
+                    echo "<a href='CreatePost.php' title='create post'>&nbsp;+</a>";
                   }
                 } else {
-                  echo "<a href='#' onClick='login()' title='login'>login</a>";
+                  echo "<a href='#' onClick='login()' title='login' class='loginbutton'>login</a>";
                 }
               ?>
             </div>
