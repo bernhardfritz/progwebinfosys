@@ -3,7 +3,6 @@
   if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = '4';
   }
-  //$_SESSION['user']=4;
   include 'DbManager.php';
   $dbman = new DbManager();
   $loggedInUser = $dbman->getUser($_SESSION['user']);
