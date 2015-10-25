@@ -26,9 +26,11 @@
             <div>
               <?php
                 echo "Hello, " . $loggedInUser->getUsername() . "&nbsp;";
-                if ($loggedInUser->getWritePost()) {
+                if($loggedInUser->getId() != 4) {
                   echo "<a href='Logout.php' title='logout'>logout</a>";
-                  echo "<a href='CreatePost.php' title='create post'>+</a>";
+                  if($loggedInUser->getWritePost()) {
+                    echo "<a href='CreatePost.php' title='create post'>+</a>";
+                  }
                 } else {
                   echo "<a href='#' onClick='loginPrompt()' title='login'>login</a>";
                 }
