@@ -26,10 +26,10 @@
               <?php
                 echo "Hello, " . $loggedInUser->getUsername() . "&nbsp;";
                 if($loggedInUser->getId() != 4) {
-                  echo "<a href='Logout.php' title='logout' class='loginbutton'><img src='img/logout.png' width='20px' height='20px'></a>";
                   if($loggedInUser->getWritePost()) {
-                    echo "<a href='CreatePost.php' title='create post'>&nbsp;+</a>";
+                    echo "<a href='CreatePost.php' title='create post'>+&nbsp;</a>";
                   }
+                  echo "<a href='Logout.php' title='logout' class='loginbutton'><img src='img/logout.png' width='20px' height='20px'></a>";
                 } else {
                   echo "<a href='#' onClick='login()' class='loginbutton' title='login'><img src='img/login.png' width='20px' height='20px'></img></a>";
                 }
