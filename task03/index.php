@@ -31,7 +31,7 @@
                     echo "<a href='CreatePost.php' title='create post'>+</a>";
                   }
                 } else {
-                  echo "<a href='#' onClick='loginPrompt()' title='login'>login</a>";
+                  echo "<a href='#' onClick='login()' title='login'>login</a>";
                 }
               ?>
             </div>
@@ -50,6 +50,23 @@
             }
           }
         ?>
+      </div>
+      <div id='login' class='hidden'>
+        <form action='Login.php' method='post'>
+          <ul>
+            <li>
+              <label for='username'>Username:</label>
+              <input type='text' name='username' />
+            </li>
+            <li>
+              <label for='password'>Password:</label>
+              <input type='password' name='password' />
+            </li>
+            <li>
+              <input type='submit' class='hidden'/>
+            </li>
+          </ul>
+        </form>
       </div>
       <div id='footer'>
         <span class='left'>
