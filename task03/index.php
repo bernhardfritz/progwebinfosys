@@ -1,6 +1,6 @@
 <?php
   session_start();
-  $_SESSION['user'] = '1';
+  //$_SESSION['user'] = '3';
   include 'DbManager.php';
   $dbman = new DbManager();
   $loggedInUser = $dbman->getUser($_SESSION['user']);
@@ -9,6 +9,7 @@
 <html>
   <head>
     <link rel='stylesheet' href='css/style.css'>
+    <script type="text/javascript" src="js/login.js"></script>
     <title>MyBlog</title>
   </head>
   <body>
@@ -18,13 +19,15 @@
           <span class='left'>
             <div><a class='nohover' href='index.php'>MyBlog</a></div>
           </span>
+          <span class='right'>
           <?php
             if ($loggedInUser->getWritePost()) {
-              echo "<span class='right'>";
               echo "<div><a href='CreatePost.php' title='create post'>+</a></div>";
-              echo "</span>";
+            } else {
+              echo "<div><a href='#' onClick='loginPrompt()' title='login'>login</a></div>";
             }
           ?>
+          </span>
         </h1>
       </div>
       <div id='content'>
