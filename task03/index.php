@@ -52,6 +52,9 @@
         ?>
       </div>
       <div id='login' class='hidden'>
+        <div class='closebutton'>
+          <a href='#' onclick="login()">x&nbsp;</a>
+        </div>
         <form action='Login.php' method='post'>
           <ul>
             <li>
@@ -76,10 +79,12 @@
         </span>
         <span class='right'>
           <div>
-            Version 1.0
+            Version 2.0
           </div>
         </span>
       </div>
+    </div>
+    <div id='overlay'>
     </div>
   </body>
 </html>
