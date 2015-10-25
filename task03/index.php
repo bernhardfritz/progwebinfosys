@@ -1,6 +1,9 @@
 <?php
   session_start();
-  //$_SESSION['user'] = '3';
+  if (!isset($_SESSION['user'])) {
+    $_SESSION['user'] = '4';
+  }
+  //$_SESSION['user']=4;
   include 'DbManager.php';
   $dbman = new DbManager();
   $loggedInUser = $dbman->getUser($_SESSION['user']);
@@ -20,13 +23,17 @@
             <div><a class='nohover' href='index.php'>MyBlog</a></div>
           </span>
           <span class='right'>
-          <?php
-            if ($loggedInUser->getWritePost()) {
-              echo "<div><a href='CreatePost.php' title='create post'>+</a></div>";
-            } else {
-              echo "<div><a href='#' onClick='loginPrompt()' title='login'>login</a></div>";
-            }
-          ?>
+            <div>
+              <?php
+                echo "Hello, " . $loggedInUser->getUsername() . "&nbsp;";
+                if ($loggedInUser->getWritePost()) {
+                  echo "<a href='Logout.php' title='logout'>logout</a>";
+                  echo "<a href='CreatePost.php' title='create post'>+</a>";
+                } else {
+                  echo "<a href='#' onClick='loginPrompt()' title='login'>login</a>";
+                }
+              ?>
+            </div>
           </span>
         </h1>
       </div>

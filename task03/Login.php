@@ -13,6 +13,5 @@
   }
 
   $dbman->disconnect();
-  header("Location: index.php");
   die();
 ?>
