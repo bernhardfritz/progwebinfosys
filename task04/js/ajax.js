@@ -15,6 +15,16 @@ function deleteComment(idPosting, idComment) {
   loadComments(idPosting);
 }
 
+function editComment(idPosting, idComment) {
+  var oldText = document.getElementById('comment'+idComment).innerHTML;
+  var newText = prompt('Comment:', oldText);
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "EditComment.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("id="+idComment+"&text="+newText);
+  loadComments(idPosting);
+}
+
 function loadComments(id,scroll) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {

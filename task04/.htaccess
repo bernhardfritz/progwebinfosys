@@ -1,9 +1,0 @@
-RewriteEngine On
-# check if file, link or directory exists
-RewriteCond %{REQUEST_FILENAME} -s [OR]
-RewriteCond %{REQUEST_FILENAME} -l [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-# do nothing, indicated by the dash; Last rule stops execution
-RewriteRule ^.*$ - [NC,L]
-# otherwise rewrite every request to index.php
-RewriteRule ^.*$ index.php [NC,L]
