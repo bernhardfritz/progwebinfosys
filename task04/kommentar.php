@@ -9,7 +9,8 @@
         <span class='closebutton'>
           <?php
             if ($loggedInUser->getDeleteComment()) {
-              echo "<a href='#' onclick='deleteComment(" . $postingId . "," . $comment->getId() . ");'>x</a>";
+              echo "<a href='#' onclick='editComment(" . $postingId . "," . $comment->getId() . ");'><img src='img/iconsineed-new-24-128.png' class='loginbutton' width='12px' height='12px' /></a>&nbsp;";
+              echo "<a href='#' onclick='deleteComment(" . $postingId . "," . $comment->getId() . ");'><img src='img/trash_recyclebin_empty_closed.png' class='loginbutton' width='12px' height='12px' /></a>";
             }
           ?>
         </span>
