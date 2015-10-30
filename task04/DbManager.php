@@ -58,6 +58,23 @@
       $stmt->close();
     }
 
+    public function editComment($id, $text) {
+      $stmt = $this->conn->prepare("UPDATE Comment SET text = ? WHERE id = ?;");
+      if ($stmt == false) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->bind_param('si', strip_tags($text), $id);
+
+      $stmt->execute();
+
+      if ($stmt->errno) {
+        echo "Error: " . $stmt->error;
+      }
+
+      $stmt->close();
+    }
+
     public function getComments($idPosting) {
       $stmt = $this->conn->prepare("SELECT * FROM Comment WHERE idPosting = ?;");
       if ($stmt == false) {

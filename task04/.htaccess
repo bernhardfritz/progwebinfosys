@@ -1,0 +1,27 @@
+RewriteEngine On
+
+RewriteRule ^posts$ index.php [NC,L]
+
+RewriteRule ^post/([0-9]+)$ index.php?id=$1 [NC,L]
+
+RewriteRule ^createPost$ CreatePost.php [NC,L]
+
+RewriteRule ^savePost$ SavePost.php [NC,L]
+
+RewriteRule ^deletePost$ DeletePost.php [NC,L]
+
+RewriteRule ^savePost$ SavePost.php [NC,L]
+
+RewriteRule ^editPost/([0-9]+)$ EditPost.php?id=$1 [NC,L]
+
+RewriteRule ^post/([0-9]+)/createComment$ CommentPost.php [NC,L]
+
+RewriteRule ^deleteComment$ DeleteComment.php [NC,L]
+
+RewriteRule ^editComment$ EditComment.php [NC,L]
+
+RewriteRule ^post/([0-9]+)/comments$ kommentare.php?id=$1 [NC,L]
+
+RewriteRule ^post/([0-9]+)#$ kommentare.php?id=$1# [NC,L]
+
+RewriteRule ^logout$ Logout.php [NC,L]

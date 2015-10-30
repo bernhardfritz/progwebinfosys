@@ -17,6 +17,6 @@
     $dbman->createPosting($idUser, $title, $text, $keywords);
   }
   $dbman->disconnect();
-  header("Location: index.php");
+  header("Location: posts");
   die();
 ?>

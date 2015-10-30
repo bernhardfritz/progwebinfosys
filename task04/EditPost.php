@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <base href="/MyBlog/" />
     <link rel='stylesheet' href='css/style.css'>
     <title>MyBlog - Edit Posting</title>
     <?php
@@ -17,11 +18,11 @@
     <div id='wrapper'>
       <div id='header'>
         <h1>
-          <a class='nohover' href='index.php'>MyBlog</a>
+          <a class='nohover' href='posts'>MyBlog</a>
         </h1>
       </div>
       <div id='content'>
-        <form class='form' action='SavePost.php' method='post'>
+        <form class='form' action='savePost' method='post'>
           <ul>
             <?php echo "<input type='hidden' name='id' value='$id'/>"; ?>
             <li>

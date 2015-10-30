@@ -59,22 +59,25 @@
     <ul>
       <li>
         <?php
-          if ($loggedInUser->getWritePost()) {
-            echo "<a href='EditPost.php?id=$id'>edit</a>";
+          if ($loggedInUser->getWritePost() && ($loggedInUser->getId() == $user->getId() || $loggedInUser->getId() == 1)) {
+            echo "<a href='editPost/$id'>edit</a>";
           }
         ?>
       </li>
       <li>
         <?php
           if ($loggedInUser->getDeletePost()) {
-            echo "<a href='DeletePost.php?id=$id'>delete</a>";
+            echo "<form class='form' action='deletePost' method='post'>";
+            echo "<input type='hidden' value='$id' name='id' />";
+            echo "<input type='submit' />";
+            echo "</form>";
           }
         ?>
       </li>
       <li>
         <?php
           if ($loggedInUser->getReadComment()) {
-            echo "<a href='index.php?id=$id'>comment</a>";
+            echo "<a href='post/$id'>comment</a>";
           }
         ?>
       </li>

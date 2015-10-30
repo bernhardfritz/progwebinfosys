@@ -2,8 +2,8 @@
   ob_start();
   include 'DbManager.php';
   $dbman = new DbManager();
-  $dbman->deletePosting($_GET['id']);
+  $dbman->deletePosting($_POST['id']);
   $dbman->disconnect();
-  header("Location: index.php");
+  header("Location: posts");
   die();
 ?>

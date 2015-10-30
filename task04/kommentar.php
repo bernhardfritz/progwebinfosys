@@ -9,10 +9,10 @@
         <span class='closebutton'>
           <?php
             if($loggedInUser->getId() == $comment->getUser()->getId() || $loggedInUser->getId() == 1) {
-              echo "<a href='#' onclick='editComment(" . $postingId . "," . $comment->getId() . ");'><img src='img/iconsineed-new-24-128.png' class='loginbutton' width='12px' height='12px' /></a>&nbsp;";
+              echo "<a href='post/$postingId#' onclick='editComment(" . $postingId . "," . $comment->getId() . ");'><img src='img/iconsineed-new-24-128.png' class='loginbutton' width='12px' height='12px' /></a>&nbsp;";
             }
             if ($loggedInUser->getDeleteComment()) {
-              echo "<a href='#' onclick='deleteComment(" . $postingId . "," . $comment->getId() . ");'><img src='img/trash_recyclebin_empty_closed.png' class='loginbutton' width='12px' height='12px' /></a>";
+              echo "<a href='post/$postingId#' onclick='deleteComment(" . $postingId . "," . $comment->getId() . ");'><img src='img/trash_recyclebin_empty_closed.png' class='loginbutton' width='12px' height='12px' /></a>";
             }
           ?>
         </span>

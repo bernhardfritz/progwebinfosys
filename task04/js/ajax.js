@@ -1,7 +1,7 @@
 function postComment(idPosting, idUser) {
   var text = document.getElementById('textarea').value;
   var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "CommentPost.php", true);
+  xhttp.open("POST", "post/"+idPosting+"/createComment", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send("id="+idPosting+"&user="+idUser+"&text="+text);
   loadComments(idPosting,true);
@@ -9,7 +9,7 @@ function postComment(idPosting, idUser) {
 
 function deleteComment(idPosting, idComment) {
   var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "DeleteComment.php", true);
+  xhttp.open("POST", "deleteComment", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send("id="+idComment);
   loadComments(idPosting);
@@ -19,7 +19,7 @@ function editComment(idPosting, idComment) {
   var oldText = document.getElementById('comment'+idComment).innerHTML;
   var newText = prompt('Comment:', oldText);
   var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "EditComment.php", true);
+  xhttp.open("POST", "editComment", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send("id="+idComment+"&text="+newText);
   loadComments(idPosting);
@@ -39,7 +39,7 @@ function loadComments(id,scroll) {
       }, 250);
     }, 250);
   }
-  xhttp.open("GET", "kommentare.php?id="+id, true);
+  xhttp.open("GET", "post/"+id+"/comments", true);
   xhttp.send();
 }
 

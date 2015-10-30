@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <base href="/MyBlog/" />
     <link rel='stylesheet' href='css/style.css'>
     <script type="text/javascript" src="js/login.js"></script>
     <title>MyBlog</title>
@@ -19,7 +20,7 @@
       <div id='header'>
         <h1>
           <span class='left'>
-            <div><a class='nohover' href='index.php'>MyBlog</a></div>
+            <div><a class='nohover' href='posts'>MyBlog</a></div>
           </span>
           <span class='right'>
             <div>
@@ -27,9 +28,9 @@
                 echo "Hello, " . $loggedInUser->getUsername() . "&nbsp;";
                 if($loggedInUser->getId() != 4) {
                   if($loggedInUser->getWritePost()) {
-                    echo "<a href='CreatePost.php' title='create post'>+&nbsp;</a>";
+                    echo "<a href='createPost' title='create post'>+&nbsp;</a>";
                   }
-                  echo "<a href='Logout.php' title='logout' class='loginbutton'><img src='img/logout.png' width='20px' height='20px'></a>";
+                  echo "<a href='logout' title='logout' class='loginbutton'><img src='img/logout.png' width='20px' height='20px'></a>";
                 } else {
                   echo "<a href='#' onClick='login()' class='loginbutton' title='login'><img src='img/login.png' width='20px' height='20px'></img></a>";
                 }

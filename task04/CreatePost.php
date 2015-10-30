@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <base href="/MyBlog/" />
     <link rel='stylesheet' href='css/style.css'>
     <title>MyBlog - Create Posting</title>
   </head>
@@ -12,7 +13,7 @@
         </h1>
       </div>
       <div id='content'>
-        <form class='form' action='SavePost.php' method='post'>
+        <form class='form' action='savePost' method='post'>
           <ul>
             <li>
               <label for='title'>Title:<sup>*</sup></label>
