@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/MyBlog/" />
+    <?php include 'Base.php'; ?>
     <link rel='stylesheet' href='css/style.css'>
     <script type="text/javascript" src="js/login.js"></script>
     <title>MyBlog</title>
@@ -32,7 +32,7 @@
                   }
                   echo "<a href='logout' title='logout' class='loginbutton'><img src='img/logout.png' width='20px' height='20px'></a>";
                 } else {
-                  echo "<a href='#' onClick='login()' class='loginbutton' title='login'><img src='img/login.png' width='20px' height='20px'></img></a>";
+                  echo "<a href='javascript:void(0)' onClick='login()' class='loginbutton' title='login'><img src='img/login.png' width='20px' height='20px'></img></a>";
                 }
               ?>
             </div>

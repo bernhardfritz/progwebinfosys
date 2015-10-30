@@ -13,6 +13,6 @@
   }
 
   $dbman->disconnect();
-  header("Location: index.php");
+  header("Location: posts");
   die();
 ?>

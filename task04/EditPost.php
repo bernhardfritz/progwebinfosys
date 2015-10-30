@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/MyBlog/" />
+    <?php include 'Base.php'; ?>
     <link rel='stylesheet' href='css/style.css'>
     <title>MyBlog - Edit Posting</title>
     <?php

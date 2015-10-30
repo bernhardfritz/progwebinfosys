@@ -67,10 +67,10 @@
       <li>
         <?php
           if ($loggedInUser->getDeletePost()) {
-            echo "<form class='form' action='deletePost' method='post'>";
+            echo "<form id='form$id' action='deletePost' method='post'>";
             echo "<input type='hidden' value='$id' name='id' />";
-            echo "<input type='submit' />";
             echo "</form>";
+            echo "<a href='javascript:void(0)' onClick='document.getElementById(\"form$id\").submit();'>delete</a>";
           }
         ?>
       </li>
