@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <libraryInfos>
-<libraryInfo home="/usr/lib/jvm/java-8-oracle" version="1.8.0_66">
+<libraryInfo home="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home" version="1.8.0_25">
 <bootpath>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar"/>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar"/>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar"/>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar"/>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar"/>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar"/>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar"/>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/classes"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/resources.jar"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/rt.jar"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/sunrsasign.jar"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jsse.jar"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jce.jar"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/charsets.jar"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/jfr.jar"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/classes"/>
 </bootpath>
 <extensionDirs>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/ext"/>
-<entry path="/usr/java/packages/lib/ext"/>
+<entry path="/Users/bernhardfritz/Library/Java/Extensions"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/ext"/>
+<entry path="/Library/Java/Extensions"/>
+<entry path="/Network/Library/Java/Extensions"/>
+<entry path="/System/Library/Java/Extensions"/>
+<entry path="/usr/lib/java"/>
 </extensionDirs>
 <endorsedDirs>
-<entry path="/usr/lib/jvm/java-8-oracle/jre/lib/endorsed"/>
+<entry path="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib/endorsed"/>
 </endorsedDirs>
 </libraryInfo>
 </libraryInfos>
