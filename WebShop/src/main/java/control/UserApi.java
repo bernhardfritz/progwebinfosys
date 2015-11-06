@@ -1,6 +1,10 @@
 package control;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -54,29 +58,27 @@ public class UserApi {
 	@Path("/login")
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void loginUser(@Context HttpServletRequest req, @FormParam("username") String username, @FormParam("password") String password) {
+	public void loginUser(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("username") String username, @FormParam("password") String password) {
 		HttpSession session = req.getSession(true);
-		DBManagerImpl.getInstance().login(username, password);
+		User user = DBManager.getInstance().login(username, password);
 		session.setAttribute("user", user);
+		try {
+			res.sendRedirect("/WebShop/index.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	@Path("/test")
-	@GET
-    @Produces("text/plain")
-    public String test(@Context HttpServletRequest req) {
-    	HttpSession session = req.getSession(true);
-    	User user = (User)session.getAttribute("user");
-    	
-    	String output = "";
-    	if (user == null) {
-    		user = DBManager.getInstance().getUserById(3L);
-    		session.setAttribute("user", user);
-    		output = "No user logged in, automatic login: " + user.getUsername();
-    	}
-    	else {
-    		output = "Logged in user: " + user.getUsername();
-    	}
-    	
-    	return output;
-    }
+	@Path("/logout")
+	@POST()
+	public void logoutUser(@Context HttpServletRequest req, @Context HttpServletResponse res) {
+		HttpSession session = req.getSession(true);
+		User user = DBManager.getInstance().logout();
+		session.setAttribute("user", user);
+		try {
+			res.sendRedirect("/WebShop/index.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

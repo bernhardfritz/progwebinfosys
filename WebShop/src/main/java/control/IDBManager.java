@@ -30,4 +30,6 @@ public interface IDBManager {
 	public void createUser(String username, String password, int bitmap);
 	public void editUser(Long userId, String password, int bitmap);
 	public void deleteUser(Long userId);
+	public User login(String username, String password);
+	public User logout();
 }

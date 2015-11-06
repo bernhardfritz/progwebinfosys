@@ -316,4 +316,8 @@ public class DBManager implements IDBManager {
 		
 		return getUserById(3L);
 	}
+	
+	public User logout() {
+		return getUserById(3L);
+	}
 }
