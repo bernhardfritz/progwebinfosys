@@ -22,33 +22,33 @@ public class UserApi {
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUsers() {
-		return Response.ok(DBManagerImpl.getInstance().getUsers()).build();
+		return Response.ok(DBManager.getInstance().getUsers()).build();
 	}
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void postUser(@FormParam("username") String username, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
-		DBManagerImpl.getInstance().createUser(username, password, bitmap);
+		DBManager.getInstance().createUser(username, password, bitmap);
 	}
 	
 	@Path("/{userId}")
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUser(@PathParam("userId") Long userId) {
-		return Response.ok(DBManagerImpl.getInstance().getUserById(userId)).build();
+		return Response.ok(DBManager.getInstance().getUserById(userId)).build();
 	}
 	
 	@Path("/{userId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
-		DBManagerImpl.getInstance().editUser(userId, password, bitmap);
+		DBManager.getInstance().editUser(userId, password, bitmap);
 	}
 	
 	@Path("/{userId}")
 	@DELETE()
 	public void deleteUser(@PathParam("userId") Long userId) {
-		DBManagerImpl.getInstance().deleteUser(userId);
+		DBManager.getInstance().deleteUser(userId);
 	}
 	
 	@Path("/login")
@@ -69,7 +69,7 @@ public class UserApi {
     	
     	String output = "";
     	if (user == null) {
-    		user = DBManagerImpl.getInstance().getUserById(3L);
+    		user = DBManager.getInstance().getUserById(3L);
     		session.setAttribute("user", user);
     		output = "No user logged in, automatic login: " + user.getUsername();
     	}

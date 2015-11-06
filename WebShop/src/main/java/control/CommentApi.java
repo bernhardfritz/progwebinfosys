@@ -16,19 +16,19 @@ public class CommentApi {
 	@GET()
 	@Produces("application/json")
 	public Response getComment(@PathParam("itemCommentId") Long itemCommentId) {
-		return Response.ok(DBManagerImpl.getInstance().getItemComment(itemCommentId)).build();
+		return Response.ok(DBManager.getInstance().getItemComment(itemCommentId)).build();
 	}
 	
 	@Path("/{commentId}")
 	@PUT()
 	@Consumes("application/x-www-form-urlencoded")
 	public void putComment(@PathParam("itemCommentId") Long itemCommentId, @FormParam("text") String text, @FormParam("updateUserId") Long updateUserId) {
-		DBManagerImpl.getInstance().editItemComment(itemCommentId, text, updateUserId);
+		DBManager.getInstance().editItemComment(itemCommentId, text, updateUserId);
 	}
 	
 	@Path("/{commentId}")
 	@DELETE()
 	public void deleteComment(@PathParam("itemCommentId") Long itemCommentId) {
-		DBManagerImpl.getInstance().deleteItemComment(itemCommentId);
+		DBManager.getInstance().deleteItemComment(itemCommentId);
 	}
 }
