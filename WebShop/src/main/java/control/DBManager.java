@@ -119,7 +119,8 @@ public class DBManager implements IDBManager {
 
 	@SuppressWarnings("unchecked")
 	public List<ItemComment> getItemComments(Long itemId) {
-		Query query = entityManager.createQuery("SELECT ic FROM " + ItemComment.class.getSimpleName() + " ic");
+		Query query = entityManager.createQuery("SELECT ic FROM " + ItemComment.class.getSimpleName() + " ic where ic.item = ?1");
+		query.setParameter(1, getItem(itemId));
     	
     	return (List<ItemComment>)query.getResultList();
 	}
