@@ -60,10 +60,14 @@ public class DBManager implements IDBManager {
     	return (List<Item>)query.getResultList();
 	}
 
-	public void createItem(String title, String description, BigDecimal price, Long categoryId, Long createUserId) {
+	public void createItem(String title, String description, BigDecimal price, Long categoryId, User createUser) {
+		if (createUser == null || !createUser.isItemWrite()) {
+			return;
+		}
+		
 		EntityTransaction transaction = startSaveTransaction();
 		
-		Item item = new Item(getCategoryById(categoryId), title, description, price, getUserById(createUserId), getUserById(createUserId));
+		Item item = new Item(getCategoryById(categoryId), title, description, price, createUser, createUser);
     	
     	entityManager.persist(item);
         transaction.commit();
@@ -82,7 +86,11 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, Long updateUserId) {
+	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser) {
+		if (updateUser == null || !updateUser.isItemWrite()) {
+			return;
+		}
+		
 		EntityTransaction transaction = startSaveTransaction();
 		
 		Item item = getItem(itemId);
@@ -90,7 +98,7 @@ public class DBManager implements IDBManager {
 			item.setTitle(title);
 			item.setDescription(description);
 			item.setPrice(price);
-			item.setUpdateUser(getUserById(updateUserId));
+			item.setUpdateUser(updateUser);
 			item.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}
 		
@@ -119,10 +127,14 @@ public class DBManager implements IDBManager {
 	
 	/* =========================== ItemComment functions =========================== */
 	
-	public void createItemComment(String text, Long itemId, Long createUserId) {
+	public void createItemComment(String text, Long itemId, User createUser) {
+		if (createUser == null || !createUser.isItemCommentWrite()) {
+			return;
+		}
+		
 		EntityTransaction transaction = startSaveTransaction();
 		
-		ItemComment itemComment = new ItemComment(getItem(itemId), text, getUserById(createUserId), getUserById(createUserId));
+		ItemComment itemComment = new ItemComment(getItem(itemId), text, createUser, createUser);
     	
     	entityManager.persist(itemComment);
         transaction.commit();
@@ -141,13 +153,17 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public void editItemComment(Long itemCommentId, String text, Long updateUserId) {
+	public void editItemComment(Long itemCommentId, String text, User updateUser) {
+		if (updateUser == null || !updateUser.isItemCommentWrite()) {
+			return;
+		}
+		
 		EntityTransaction transaction = startSaveTransaction();
 		
 		ItemComment itemComment = getItemComment(itemCommentId);
 		if (itemComment != null) {
 			itemComment.setText(text);
-			itemComment.setUpdateUser(getUserById(updateUserId));
+			itemComment.setUpdateUser(updateUser);
 			itemComment.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}
 		
@@ -189,23 +205,31 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 	
-	public void createCategory(String name, String description, Long createUserId) {
+	public void createCategory(String name, String description, User createUser) {
+		if (createUser == null || !createUser.isCategoryWrite()) {
+			return;
+		}
+		
 		EntityTransaction transaction = startSaveTransaction();
 		
-    	Category category = new Category(name, description, getUserById(createUserId), getUserById(createUserId));
+    	Category category = new Category(name, description, createUser, createUser);
     	
     	entityManager.persist(category);
         transaction.commit();
 	}
 
-	public void editCategory(Long categoryId, String name, String description, Long updateUserId) {
+	public void editCategory(Long categoryId, String name, String description, User updateUser) {
+		if (updateUser == null || !updateUser.isCategoryWrite()) {
+			return;
+		}
+		
 		EntityTransaction transaction = startSaveTransaction();
 		
 		Category category = getCategoryById(categoryId);
 		if (category != null) {
 			category.setName(name);
 			category.setDescription(description);
-			category.setUpdateUser(getUserById(updateUserId));
+			category.setUpdateUser(updateUser);
 			category.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}
 		

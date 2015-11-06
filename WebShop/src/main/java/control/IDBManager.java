@@ -7,21 +7,21 @@ import model.*;
 
 public interface IDBManager {
 	public List<Item> getItems();
-	public void createItem(String title, String description, BigDecimal price, Long categoryId, Long createUserId);
+	public void createItem(String title, String description, BigDecimal price, Long categoryId, User createUser);
 	public Item getItem(Long itemId);
-	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, Long updateUserId);
+	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser);
 	public void deleteItem(Long itemId);
 	public List<ItemComment> getItemComments(Long itemId);
 	
-	public void createItemComment(String text, Long itemId, Long createUserId);
+	public void createItemComment(String text, Long itemId, User createUser);
 	public ItemComment getItemComment(Long itemCommentId);
-	public void editItemComment(Long itemCommentId, String text, Long updateUserId);
+	public void editItemComment(Long itemCommentId, String text, User updateUser);
 	public void deleteItemComment(Long itemCommentId);
 	
 	public List<Category> getCategories();
 	public Category getCategoryById(Long categoryId);
-	public void createCategory(String name, String description, Long createUserId);
-	public void editCategory(Long categoryId, String name, String description, Long updateUserId);
+	public void createCategory(String name, String description, User createUser);
+	public void editCategory(Long categoryId, String name, String description, User updateUser);
 	public void deleteCategory(Long categoryId);
 	public List<Item> getItems(Long categoryId);
 	
