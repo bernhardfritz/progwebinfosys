@@ -15,7 +15,7 @@
                 <div class="list-group">
                 	<%
 						long categoryId = -1L;
-						List<Category> categories = DBManagerImpl.getInstance().getCategories();
+						List<Category> categories = DBManager.getInstance().getCategories();
 						for(Category category : categories) {
 							if(categoryId == -1L) {
 								categoryId = category.getId();
@@ -33,7 +33,7 @@
 						if(request.getParameter("categoryId") != null) {
 							categoryId = Long.valueOf(request.getParameter("categoryId"));
 						}
-						List<Item> items = DBManagerImpl.getInstance().getItems(categoryId);
+						List<Item> items = DBManager.getInstance().getItems(categoryId);
 						for(Item item : items) {
 							out.println("<div class='col-sm-4 col-lg-4 col-md-4'>");
 							out.println("<div class='thumbnail'>");

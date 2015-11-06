@@ -17,18 +17,18 @@ import model.ItemComment;
 import model.Privileges;
 import model.User;
 
-public class DBManagerImpl implements IDBManager {
+public class DBManager implements IDBManager {
 	
 	private EntityManagerFactory factory;
 	
     private EntityManager entityManager;
 	
-	private DBManagerImpl() {
+	private DBManager() {
 		init();
 	}
 
 	private static class SingletonHelper {
-        private static final IDBManager INSTANCE = new DBManagerImpl();
+        private static final IDBManager INSTANCE = new DBManager();
     }
 
     public static IDBManager getInstance() {
@@ -314,6 +314,6 @@ public class DBManagerImpl implements IDBManager {
 			return userList.get(0);
 		}
 		
-		return null;
+		return getUserById(3L);
 	}
 }

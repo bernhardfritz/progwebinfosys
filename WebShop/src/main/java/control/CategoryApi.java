@@ -17,39 +17,39 @@ public class CategoryApi {
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCategories() {
-		return Response.ok(DBManagerImpl.getInstance().getCategories()).build();
+		return Response.ok(DBManager.getInstance().getCategories()).build();
 	}
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void postCategory(@FormParam("name") String name, @FormParam("description") String description, @FormParam("createUserId") Long createUserId) {
-		DBManagerImpl.getInstance().createCategory(name, description, createUserId);
+		DBManager.getInstance().createCategory(name, description, createUserId);
 	}
 	
 	@Path("/{categoryId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void putCategory(@PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description, @FormParam("updateUserId") Long updateUserId) {
-		DBManagerImpl.getInstance().editCategory(categoryId, name, description, updateUserId);
+		DBManager.getInstance().editCategory(categoryId, name, description, updateUserId);
 	}
 	
 	@Path("/{categoryId}")
 	@DELETE()
 	public void deleteCategory(@PathParam("categoryId") Long categoryId) {
-		DBManagerImpl.getInstance().deleteCategory(categoryId);
+		DBManager.getInstance().deleteCategory(categoryId);
 	}
 	
 	@Path("/{categoryId}")
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCategory(@PathParam("categoryId") Long categoryId) {
-		return Response.ok(DBManagerImpl.getInstance().getCategoryById(categoryId)).build();
+		return Response.ok(DBManager.getInstance().getCategoryById(categoryId)).build();
 	}
 	
 	@Path("/{categoryId}/item")
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getItems(@PathParam("categoryId") Long categoryId) {
-		return Response.ok(DBManagerImpl.getInstance().getItems(categoryId)).build();
+		return Response.ok(DBManager.getInstance().getItems(categoryId)).build();
 	}
 }
