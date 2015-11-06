@@ -4,45 +4,45 @@ package model;
 // 111111111 -> all privileges
 
 public class Privileges {
-	int bitmap;
+	int bitmapValue;
 	
 	public Privileges(int bitmap) {
-		this.bitmap = bitmap;
+		this.bitmapValue = Integer.parseInt(String.valueOf(bitmap), 2);
 	}
 
 	public boolean isCategoryRead() {
-		return (bitmap & 0b100000000) == 1;
+		return (bitmapValue & 0b100000000) > 0;
 	}
 
 	public boolean isCategoryWrite() {
-		return (bitmap & 0b010000000) == 1;
+		return (bitmapValue & 0b010000000) > 0;
 	}
 
 	public boolean isCategoryDelete() {
-		return (bitmap & 0b001000000) == 1;
+		return (bitmapValue & 0b001000000) > 0;
 	}
 
 	public boolean isItemRead() {
-		return (bitmap & 0b000100000) == 1;
+		return (bitmapValue & 0b000100000) > 0;
 	}
 
 	public boolean isItemWrite() {
-		return (bitmap & 0b000010000) == 1;
+		return (bitmapValue & 0b000010000) > 0;
 	}
 
 	public boolean isItemDelete() {
-		return (bitmap & 0b000001000) == 1;
+		return (bitmapValue & 0b000001000) > 0;
 	}
 
 	public boolean isItemCommentRead() {
-		return (bitmap & 0b000000100) == 1;
+		return (bitmapValue & 0b000000100) > 0;
 	}
 
 	public boolean isItemCommentWrite() {
-		return (bitmap & 0b000000010) == 1;
+		return (bitmapValue & 0b000000010) > 0;
 	}
 
 	public boolean isItemCommentDelete() {
-		return (bitmap & 0b000000001) == 1;
+		return (bitmapValue & 0b000000001) > 0;
 	}
 }
