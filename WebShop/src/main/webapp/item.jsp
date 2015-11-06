@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.*, model.*, control.*" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +52,7 @@
            		out.println("<span class='glyphicon glyphicon-star'></span>");
            		out.println("<span class='glyphicon glyphicon-star-empty'></span>");
            		out.println(comment.getCreateUser().getUsername());
-           		out.println("<span class='pull-right'>" + comment.getCreateTimestamp() + "</span>");
+           		out.println("<span class='pull-right'>" + new SimpleDateFormat("dd.MM.yyyy kk:mm").format(comment.getCreateTimestamp()) + "</span>");
            		out.println("<p>" + comment.getText() + "</p>");
            		out.println("</div>");
            		out.println("</div>");
