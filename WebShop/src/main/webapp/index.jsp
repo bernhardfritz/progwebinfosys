@@ -22,8 +22,13 @@
 							}
 							out.println("<a href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item'>" + category.getName() + "</a>");
 						}
+						
+						User currentUser = (User)session.getAttribute("user");
+		           		if (currentUser != null && currentUser.isCategoryWrite()) {
+		           			out.println("<a href='#' class='list-group-item' data-toggle='modal' data-target='#categoryModal'>Create new category</a>");
+		           		}
 					%>
-					<a href="#" class="list-group-item" data-toggle="modal" data-target="#categoryModal">Create new category</a>
+					
                 </div>
             </div>
             <div class="col-md-9">
@@ -58,7 +63,11 @@
 					%>
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal">Create new item</button>
+                    	<%
+			           		if (currentUser != null && currentUser.isItemWrite()) {
+			           			out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#itemModal'>Create new item</button>");
+			           		}
+                    	%>
                     </div>
                 </div>
             </div>
