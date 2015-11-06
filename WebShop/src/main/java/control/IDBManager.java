@@ -19,12 +19,14 @@ public interface IDBManager {
 	public void deleteItemComment(Long itemCommentId);
 	
 	public List<Category> getCategories();
+	public Category getCategoryById(Long categoryId);
 	public void createCategory(String name, String description, Long createUserId);
 	public void editCategory(Long categoryId, String name, String description, Long updateUserId);
 	public void deleteCategory(Long categoryId);
 	public List<Item> getItems(Long categoryId);
 	
 	public List<User> getUsers();
+	public User getUserById(Long userId);
 	public void createUser(String username, String password, int bitmap);
 	public void editUser(Long userId, String password, int bitmap);
 	public void deleteUser(Long userId);

@@ -39,6 +39,12 @@ public class CategoryApi {
 		DBManagerImpl.getInstance().deleteCategory(categoryId);
 	}
 	
+	@Path("/{categoryId}")
+	@GET()
+	public void getCategory(@PathParam("categoryId") Long categoryId) {
+		Response.ok(DBManagerImpl.getInstance().getCategoryById(categoryId)).build();
+	}
+	
 	@Path("/{categoryId}/item")
 	@GET()
 	public Response getItems(@PathParam("categoryId") Long categoryId) {

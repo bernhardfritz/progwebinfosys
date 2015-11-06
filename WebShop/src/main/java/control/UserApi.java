@@ -27,6 +27,13 @@ public class UserApi {
 	}
 	
 	@Path("/{userId}")
+	@GET()
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUser(@PathParam("userId") Long userId) {
+		return Response.ok(DBManagerImpl.getInstance().getUserById(userId)).build();
+	}
+	
+	@Path("/{userId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
