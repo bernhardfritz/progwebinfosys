@@ -23,7 +23,7 @@
 							out.println("<a href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item'>" + category.getName() + "</a>");
 						}
 					%>
-					<a href="#" class="list-group-item">Create new category...</a>
+					<a href="createCategory.jsp" class="list-group-item">Create new category...</a>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
 					%>
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <a class="btn btn-primary" href="#">Create new article...</a>
+                        <a class="btn btn-primary" href="createItem.jsp">Create new item...</a>
                     </div>
                 </div>
             </div>

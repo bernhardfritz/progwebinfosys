@@ -1,7 +1,10 @@
 package control;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -11,8 +14,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import model.User;
 
 @Path("/item")
 public class ItemApi {
@@ -24,8 +30,17 @@ public class ItemApi {
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postItem(@FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId, @FormParam("createUserId") Long createUserId) {
-		DBManager.getInstance().createItem(title, description, price, categoryId, createUserId);
+	public void postItem(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		if (currentUser != null && currentUser.isItemWrite()) {
+			DBManager.getInstance().createItem(title, description, price, categoryId, currentUser.getId());
+		}
+		
+		try {
+			res.sendRedirect("/WebShop/index.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Path("/{itemId}")
