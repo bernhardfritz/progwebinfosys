@@ -1,3 +1,11 @@
+Technologien:
+	Server: Jetty
+	Build: Gradle
+	REST: Jersey
+	DB: MySQL
+	DB-Anbindung: JPA
+
+
 Default-User:
   Username: admin
   Password: secret
@@ -7,6 +15,7 @@ Default-User:
 
   Username: guest
   Password: password
+
 
 GET /WebShop/api/item ... list all items
 POST /WebShop/api/item ... create a new item with specified parameters
