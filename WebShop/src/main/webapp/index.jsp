@@ -23,10 +23,9 @@
 							out.println("<a href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item'>" + category.getName() + "</a>");
 						}
 					%>
-					<a href="createCategory.jsp" class="list-group-item">Create new category...</a>
+					<a href="#" class="list-group-item" data-toggle="modal" data-target="#categoryModal">Create new category...</a>
                 </div>
             </div>
-
             <div class="col-md-9">
                 <div class="row">
 					<%
@@ -59,13 +58,79 @@
 					%>
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <a class="btn btn-primary" href="createItem.jsp">Create new item...</a>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#itemModal">Create new item...</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+	<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="commentModalLabel">Create category</h4>
+	      </div>
+	      <form action="/WebShop/api/category" method="post">
+		      <div class="modal-body">
+		          <div class="form-group">
+		            <label for="name" class="control-label">Name:</label>
+		            <input type="text" class="form-control" name="name" id="name" />
+		          </div>
+		          <div class="form-group">
+		            <label for="description" class="control-label">Description:</label>
+		            <textarea class="form-control" name="description" id="description"></textarea>
+		          </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary">Save</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="commentModalLabel">Create item</h4>
+	      </div>
+	      <form action="/WebShop/api/item" method="post">
+		      <div class="modal-body">
+		          <div class="form-group">
+		            <label for="title" class="control-label">Title:</label>
+		            <input type="text" class="form-control" name="title" id="title" />
+		          </div>
+		          <div class="form-group">
+		          	<label for="price" class="control-label">Price:</label>
+		            <input type='text' class="form-control" name='price' />
+		          </div>
+		          <div class="form-group">
+		            <label for="description" class="control-label">Description:</label>
+		            <textarea class="form-control" name="description" id="description"></textarea>
+		          </div>
+		          <div class="form-group">
+		          	<label for="categoryId" class="control-lagel">Category</label>
+		          	<select name="categoryId">
+						<option value="null">Choose category...</option>
+							<%
+								for (Category c : DBManager.getInstance().getCategories()) {
+									out.println("<option value='" + c.getId() + "'>" + c.getName() + "</option>");
+								}
+							%>
+					</select>
+		          </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary">Save</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
     <jsp:include page="footer.jsp" />
 </body>
 
