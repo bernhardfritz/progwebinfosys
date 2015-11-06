@@ -51,6 +51,15 @@ public class UserApi {
 		DBManagerImpl.getInstance().deleteUser(userId);
 	}
 	
+	@Path("/login")
+	@POST()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void loginUser(@Context HttpServletRequest req, @FormParam("username") String username, @FormParam("password") String password) {
+		HttpSession session = req.getSession(true);
+		DBManagerImpl.getInstance().login(username, password);
+		session.setAttribute("user", user);
+	}
+	
 	@Path("/test")
 	@GET
     @Produces("text/plain")
