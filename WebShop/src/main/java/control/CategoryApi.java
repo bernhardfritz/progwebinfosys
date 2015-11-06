@@ -41,8 +41,8 @@ public class CategoryApi {
 	
 	@Path("/{categoryId}")
 	@GET()
-	public void getCategory(@PathParam("categoryId") Long categoryId) {
-		Response.ok(DBManagerImpl.getInstance().getCategoryById(categoryId)).build();
+	public Response getCategory(@PathParam("categoryId") Long categoryId) {
+		return Response.ok(DBManagerImpl.getInstance().getCategoryById(categoryId)).build();
 	}
 	
 	@Path("/{categoryId}/item")
