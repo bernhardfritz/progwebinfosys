@@ -115,7 +115,10 @@ public class DBManagerImpl implements IDBManager {
     	
     	return (List<ItemComment>)query.getResultList();
 	}
-
+	
+	
+	/* =========================== ItemComment functions =========================== */
+	
 	public void createItemComment(String text, Long itemId, Long createUserId) {
 		EntityTransaction transaction = startSaveTransaction();
 		
@@ -124,9 +127,6 @@ public class DBManagerImpl implements IDBManager {
     	entityManager.persist(itemComment);
         transaction.commit();
 	}
-	
-	
-	/* =========================== ItemComment functions =========================== */
 
 	@SuppressWarnings("unchecked")
 	public ItemComment getItemComment(Long itemCommentId) {
