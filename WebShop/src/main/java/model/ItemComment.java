@@ -30,7 +30,7 @@ public class ItemComment implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idItem")
-	private Item Item;
+	private Item item;
 	
 	@Column(name = "text")
 	private String text;
@@ -51,8 +51,8 @@ public class ItemComment implements Serializable {
 	
 	public ItemComment() {}
 
-	public ItemComment(model.Item item, String text, User createUser, User updateUser) {
-		Item = item;
+	public ItemComment(Item item, String text, User createUser, User updateUser) {
+		this.item = item;
 		this.text = text;
 		this.createUser = createUser;
 		this.createTimestamp = new Timestamp(new Date().getTime());
@@ -69,11 +69,11 @@ public class ItemComment implements Serializable {
 	}
 
 	public Item getItem() {
-		return Item;
+		return item;
 	}
 
 	public void setItem(Item item) {
-		Item = item;
+		this.item = item;
 	}
 
 	public String getText() {
