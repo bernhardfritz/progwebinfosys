@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -73,7 +74,14 @@ public class ItemApi {
 	@Path("/{itemId}/comment")
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postItemComment(@FormParam("text") String text, @PathParam("itemId") Long itemId, @PathParam("createUserId") Long createUserId) {
-		DBManager.getInstance().createItemComment(text, itemId, createUserId);
+	public void postItemComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("text") String text, @PathParam("itemId") Long itemId, @PathParam("createUserId") Long createUserId) {
+		HttpSession session = req.getSession(true);
+		User user = (User)session.getAttribute("user");
+		DBManager.getInstance().createItemComment(text, itemId, user.getId());
+		try {
+			res.sendRedirect("/WebShop/item.jsp?itemId=" + itemId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

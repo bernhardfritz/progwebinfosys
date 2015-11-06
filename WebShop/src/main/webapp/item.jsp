@@ -53,6 +53,8 @@
            		out.println(comment.getCreateUser().getUsername());
            		out.println("<span class='pull-right'>" + comment.getCreateTimestamp() + "</span>");
            		out.println("<p>" + comment.getText() + "</p>");
+           		out.println("</div>");
+           		out.println("</div>");
            	}
            %>
        </div>

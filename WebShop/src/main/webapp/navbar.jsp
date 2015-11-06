@@ -28,7 +28,7 @@
       		out.println("<form action='/WebShop/api/user/logout' method='post' class='navbar-form navbar-right'>");
       		out.println("<text class='text-muted'>Hello, " + user.getUsername() + "!</text>");
       		out.println("&nbsp;");
-      		out.println("<button type='submit' class='btn btn-danger'>Logout</a>");
+      		out.println("<button type='submit' class='btn btn-danger'>Logout</button>");
       		out.println("</form>");
       	}
       %>
