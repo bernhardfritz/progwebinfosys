@@ -31,9 +31,7 @@ public class CategoryApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void postCategory(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("name") String name, @FormParam("description") String description) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		if (currentUser != null && currentUser.isCategoryWrite()) {
-			DBManager.getInstance().createCategory(name, description, ((User)req.getSession().getAttribute("user")).getId());
-		}
+		DBManager.getInstance().createCategory(name, description, currentUser);
 		
 		try {
 			res.sendRedirect("/WebShop/index.jsp");
@@ -47,9 +45,7 @@ public class CategoryApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void putCategory(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		if (currentUser != null && currentUser.isCategoryWrite()) {
-			DBManager.getInstance().editCategory(categoryId, name, description, currentUser.getId());
-		}
+		DBManager.getInstance().editCategory(categoryId, name, description, currentUser);
 		
 		try {
 			res.sendRedirect("/WebShop/index.jsp");

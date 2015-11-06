@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -33,9 +32,7 @@ public class ItemApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void postItem(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		if (currentUser != null && currentUser.isItemWrite()) {
-			DBManager.getInstance().createItem(title, description, price, categoryId, currentUser.getId());
-		}
+		DBManager.getInstance().createItem(title, description, price, categoryId, currentUser);
 		
 		try {
 			res.sendRedirect("/WebShop/index.jsp");
@@ -54,8 +51,15 @@ public class ItemApi {
 	@Path("/{itemId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void putItem(@PathParam("itemId") Long itemId, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId, @FormParam("updateUserId") Long updateUserId) {
-		DBManager.getInstance().editItem(itemId, title, description, price, categoryId, updateUserId);
+	public void putItem(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("itemId") Long itemId, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		DBManager.getInstance().editItem(itemId, title, description, price, categoryId, currentUser);
+		
+		try {
+			res.sendRedirect("/WebShop/index.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Path("/{itemId}")
@@ -74,10 +78,10 @@ public class ItemApi {
 	@Path("/{itemId}/comment")
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postItemComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("text") String text, @PathParam("itemId") Long itemId, @PathParam("createUserId") Long createUserId) {
-		HttpSession session = req.getSession(true);
-		User user = (User)session.getAttribute("user");
-		DBManager.getInstance().createItemComment(text, itemId, user.getId());
+	public void postItemComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("text") String text, @PathParam("itemId") Long itemId) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		DBManager.getInstance().createItemComment(text, itemId, currentUser);
+		
 		try {
 			res.sendRedirect("/WebShop/item.jsp?itemId=" + itemId);
 		} catch (IOException e) {

@@ -1,5 +1,9 @@
 package control;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -8,7 +12,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+
+import model.User;
 
 @Path("/comment")
 public class CommentApi {
@@ -22,8 +29,15 @@ public class CommentApi {
 	@Path("/{commentId}")
 	@PUT()
 	@Consumes("application/x-www-form-urlencoded")
-	public void putComment(@PathParam("itemCommentId") Long itemCommentId, @FormParam("text") String text, @FormParam("updateUserId") Long updateUserId) {
-		DBManager.getInstance().editItemComment(itemCommentId, text, updateUserId);
+	public void putComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("itemCommentId") Long itemCommentId, @FormParam("text") String text) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		DBManager.getInstance().editItemComment(itemCommentId, text, currentUser);
+		
+		try {
+			res.sendRedirect("/WebShop/index.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Path("/{commentId}")
