@@ -41,12 +41,14 @@ public class CategoryApi {
 	
 	@Path("/{categoryId}")
 	@GET()
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCategory(@PathParam("categoryId") Long categoryId) {
 		return Response.ok(DBManagerImpl.getInstance().getCategoryById(categoryId)).build();
 	}
 	
 	@Path("/{categoryId}/item")
 	@GET()
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getItems(@PathParam("categoryId") Long categoryId) {
 		return Response.ok(DBManagerImpl.getInstance().getItems(categoryId)).build();
 	}
