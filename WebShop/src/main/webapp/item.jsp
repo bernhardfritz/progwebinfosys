@@ -38,7 +38,7 @@
        </div>
        <div class="well">
            <div class="text-right">
-               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#commentModal">Leave a review</button>
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">Leave a review</button>
            </div>
            <hr>
            <%
@@ -64,7 +64,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="commentModalLabel">New message</h4>
+	        <h4 class="modal-title" id="commentModalLabel">Create review</h4>
 	      </div>
 	      <form action="/WebShop/api/item/<%= item.getId() %>/comment" method="post">
 		      <div class="modal-body">
@@ -75,7 +75,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-primary">Send message</button>
+		        <button type="submit" class="btn btn-primary">Save</button>
 		      </div>
 	      </form>
 	    </div>

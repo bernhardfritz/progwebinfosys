@@ -58,7 +58,7 @@
 					%>
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#itemModal">Create new item...</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal">Create new item...</button>
                     </div>
                 </div>
             </div>
