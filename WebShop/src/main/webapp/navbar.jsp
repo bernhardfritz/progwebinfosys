@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">WebShop</a>
+      <a class="navbar-brand" href="index.jsp">WebShop</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <%
@@ -26,6 +26,8 @@
           	out.println("</form>");	
       	} else {
       		out.println("<form action='/WebShop/api/user/logout' method='post' class='navbar-form navbar-right'>");
+      		out.println("<text class='text-muted'>Hello, " + user.getUsername() + "!</text>");
+      		out.println("&nbsp;");
       		out.println("<button type='submit' class='btn btn-danger'>Logout</a>");
       		out.println("</form>");
       	}

@@ -8,3 +8,4 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/shop-homepage.css" rel="stylesheet">
+<link href="css/shop-item.css" rel="stylesheet">

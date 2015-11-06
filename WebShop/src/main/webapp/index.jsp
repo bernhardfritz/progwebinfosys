@@ -40,7 +40,7 @@
                             out.println("<img src='http://placehold.it/320x150' alt=''>");
                             out.println("<div class='caption'>");
 							out.println("<h4 class='pull-right'>" + item.getPrice() + "&euro;</h4>");
-                            out.println("<h4><a href='#'>" + item.getTitle() + "</a></h4>");
+                            out.println("<h4><a href='item.jsp?itemId=" + item.getId() + "'>" + item.getTitle() + "</a></h4>");
                             out.println("<p>" + item.getDescription() + "</p>");
                             out.println("</div>");
                             out.println("<div class='ratings'>");
