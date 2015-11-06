@@ -39,7 +39,12 @@
        </div>
        <div class="well">
            <div class="text-right">
-               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">Leave a review</button>
+	           <%
+	           		User currentUser = (User)session.getAttribute("user");
+	           		if (currentUser != null && currentUser.isItemCommentWrite()) {
+	           			out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#commentModal'>Leave a review</button>");
+	           		}
+	           %>
            </div>
            <hr>
            <%
