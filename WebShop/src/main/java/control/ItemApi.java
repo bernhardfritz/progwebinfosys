@@ -24,41 +24,41 @@ public class ItemApi {
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postItem(@FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Integer categoryId, @FormParam("createUserId") Integer createUserId) {
+	public void postItem(@FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId, @FormParam("createUserId") Long createUserId) {
 		DBManagerImpl.getInstance().createItem(title, description, price, categoryId, createUserId);
 	}
 	
 	@Path("/{itemId}")
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getItem(@PathParam("itemId") Integer itemId) {
+	public Response getItem(@PathParam("itemId") Long itemId) {
 		return Response.ok(DBManagerImpl.getInstance().getItem(itemId)).build();
 	}
 	
 	@Path("/{itemId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void putItem(@PathParam("itemId") Integer itemId, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Integer categoryId, @FormParam("updateUserId") Integer updateUserId) {
+	public void putItem(@PathParam("itemId") Long itemId, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId, @FormParam("updateUserId") Long updateUserId) {
 		DBManagerImpl.getInstance().editItem(itemId, title, description, price, categoryId, updateUserId);
 	}
 	
 	@Path("/{itemId}")
 	@DELETE()
-	public void deleteItem(@PathParam("itemId") Integer itemId) {
+	public void deleteItem(@PathParam("itemId") Long itemId) {
 		DBManagerImpl.getInstance().deleteItem(itemId);
 	}
 	
 	@Path("/{itemId}/comment")
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getComments(@PathParam("itemId") Integer itemId) {
-		return Response.ok(DBManagerImpl.getInstance().getComments(itemId)).build();
+	public Response getItemComments(@PathParam("itemId") Long itemId) {
+		return Response.ok(DBManagerImpl.getInstance().getItemComments(itemId)).build();
 	}
 	
 	@Path("/{itemId}/comment")
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postComment(@FormParam("text") String text, @PathParam("itemId") Integer itemId, @PathParam("createUserId") Integer createUserId) {
-		DBManagerImpl.getInstance().createComment(text, itemId, createUserId);
+	public void postItemComment(@FormParam("text") String text, @PathParam("itemId") Long itemId, @PathParam("createUserId") Long createUserId) {
+		DBManagerImpl.getInstance().createItemComment(text, itemId, createUserId);
 	}
 }

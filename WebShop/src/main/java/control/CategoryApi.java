@@ -22,26 +22,26 @@ public class CategoryApi {
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postCategory(@FormParam("name") String name, @FormParam("description") String description, @FormParam("createUserId") Integer createUserId) {
+	public void postCategory(@FormParam("name") String name, @FormParam("description") String description, @FormParam("createUserId") Long createUserId) {
 		DBManagerImpl.getInstance().createCategory(name, description, createUserId);
 	}
 	
 	@Path("/{categoryId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void putCategory(@PathParam("categoryId") Integer categoryId, @FormParam("name") String name, @FormParam("description") String description, @FormParam("updateUserId") Integer updateUserId) {
+	public void putCategory(@PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description, @FormParam("updateUserId") Long updateUserId) {
 		DBManagerImpl.getInstance().editCategory(categoryId, name, description, updateUserId);
 	}
 	
 	@Path("/{categoryId}")
 	@DELETE()
-	public void deleteCategory(@PathParam("categoryId") Integer categoryId) {
+	public void deleteCategory(@PathParam("categoryId") Long categoryId) {
 		DBManagerImpl.getInstance().deleteCategory(categoryId);
 	}
 	
 	@Path("/{categoryId}/item")
 	@GET()
-	public Response getItems(@PathParam("categoryId") Integer categoryId) {
+	public Response getItems(@PathParam("categoryId") Long categoryId) {
 		return Response.ok(DBManagerImpl.getInstance().getItems(categoryId)).build();
 	}
 }

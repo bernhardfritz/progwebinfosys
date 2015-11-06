@@ -29,13 +29,13 @@ public class UserApi {
 	@Path("/{userId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void putUser(@PathParam("userId") Integer userId, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
+	public void putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
 		DBManagerImpl.getInstance().editUser(userId, password, bitmap);
 	}
 	
 	@Path("/{userId}")
 	@DELETE()
-	public void deleteUser(@PathParam("userId") Integer userId) {
-		DBManagerImpl.getInstance().deleteUser();
+	public void deleteUser(@PathParam("userId") Long userId) {
+		DBManagerImpl.getInstance().deleteUser(userId);
 	}
 }

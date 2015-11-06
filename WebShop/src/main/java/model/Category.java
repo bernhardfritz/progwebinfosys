@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -13,10 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "Category")
-public class Category {
-	
+public class Category implements Serializable {
+
+	private static final long serialVersionUID = 3150350118395151522L;
+
 	@Id
 	@Column(name = "idCategory")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +54,7 @@ public class Category {
 		this.name = name;
 		this.description = description;
 		this.createUser = createUser;
-		this.updateTimestamp = new Timestamp(new Date().getTime());
+		this.createTimestamp = new Timestamp(new Date().getTime());
 		this.updateUser = updateUser;
 		this.updateTimestamp = new Timestamp(new Date().getTime());
 	}

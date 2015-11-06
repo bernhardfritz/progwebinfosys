@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -13,12 +14,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "ItemComment")
-public class ItemComment {
+public class ItemComment implements Serializable {
+
+	private static final long serialVersionUID = 6872762969478955034L;
 
 	@Id
-	@Column(name = "idItem")
+	@Column(name = "idItemComment")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	

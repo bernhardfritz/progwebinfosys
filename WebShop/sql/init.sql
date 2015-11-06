@@ -96,3 +96,7 @@ GRANT USAGE ON *.* TO 'webshopUser'@'localhost' IDENTIFIED BY 'webshop';
 
 GRANT ALL PRIVILEGES ON WebShop.* TO 'webshopUser'@'localhost';
 FLUSH PRIVILEGES;
+
+INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `createTimestamp`) VALUES ('admin', 'secret', 1, 1, 1, 1, 1, 1, 1, 1, 1, NOW());
+INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `createTimestamp`) VALUES ('user', 'password', 1, 0, 0, 1, 0, 0, 1, 1, 0, NOW());
+INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `createTimestamp`) VALUES ('guest', 'password', 1, 0, 0, 1, 0, 0, 1, 0, 0, NOW());

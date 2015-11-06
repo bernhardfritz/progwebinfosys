@@ -16,6 +16,8 @@ dependencies {
     compile 'com.sun.jersey:jersey-json:1.19'
     compile 'mysql:mysql-connector-java:5.1.37'
     compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final'
+    compile 'org.hibernate:hibernate-entitymanager:4.1.7.Final'
+    compile 'org.slf4j:slf4j-simple:1.6.1'
 }
 
 test {

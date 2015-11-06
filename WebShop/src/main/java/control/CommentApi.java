@@ -15,20 +15,20 @@ public class CommentApi {
 	@Path("/{commentId}")
 	@GET()
 	@Produces("application/json")
-	public Response getComment(@PathParam("commentId") Integer commentId) {
-		return Response.ok(DBManagerImpl.getInstance().getComment(commentId)).build();
+	public Response getComment(@PathParam("itemCommentId") Long itemCommentId) {
+		return Response.ok(DBManagerImpl.getInstance().getItemComment(itemCommentId)).build();
 	}
 	
 	@Path("/{commentId}")
 	@PUT()
 	@Consumes("application/x-www-form-urlencoded")
-	public void putComment(@PathParam("commentId") Integer commentId, @FormParam("text") String text, @FormParam("updateUserId") Integer updateUserId) {
-		DBManagerImpl.getInstance().editComment(commentId, text, updateUserId);
+	public void putComment(@PathParam("itemCommentId") Long itemCommentId, @FormParam("text") String text, @FormParam("updateUserId") Long updateUserId) {
+		DBManagerImpl.getInstance().editItemComment(itemCommentId, text, updateUserId);
 	}
 	
 	@Path("/{commentId}")
 	@DELETE()
-	public void deleteComment(@PathParam("commentId") Integer commentId) {
-		DBManagerImpl.getInstance().deleteComment(commentId);
+	public void deleteComment(@PathParam("itemCommentId") Long itemCommentId) {
+		DBManagerImpl.getInstance().deleteItemComment(itemCommentId);
 	}
 }
