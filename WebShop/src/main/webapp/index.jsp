@@ -43,7 +43,7 @@
                             out.println("<p>" + item.getDescription() + "</p>");
                             out.println("</div>");
                             out.println("<div class='ratings'>");
-                            out.println("<p class='pull-right'>0 reviews</p>");
+                            out.println("<p class='pull-right'>" + DBManager.getInstance().getItemComments(item.getId()).size() + " reviews</p>");
                             out.println("<p>");
                             out.println("<span class='glyphicon glyphicon-star'></span>");
 							out.println("<span class='glyphicon glyphicon-star'></span>");
