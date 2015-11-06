@@ -1,3 +1,13 @@
+Default-User:
+  Username: admin
+  Password: secret
+
+  Username: user
+  Password: password
+
+  Username: guest
+  Password: password
+
 GET /WebShop/api/item ... list all items
 POST /WebShop/api/item ... create a new item with specified parameters
 GET /WebShop/api/item/(itemId) ... return information about item with specified itemId
