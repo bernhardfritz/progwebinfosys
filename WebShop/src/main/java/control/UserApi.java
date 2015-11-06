@@ -1,5 +1,7 @@
 package control;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -9,8 +11,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import model.User;
 
 @Path("/user")
 public class UserApi {
@@ -45,4 +50,24 @@ public class UserApi {
 	public void deleteUser(@PathParam("userId") Long userId) {
 		DBManagerImpl.getInstance().deleteUser(userId);
 	}
+	
+	@Path("/test")
+	@GET
+    @Produces("text/plain")
+    public String test(@Context HttpServletRequest req) {
+    	HttpSession session = req.getSession(true);
+    	User user = (User)session.getAttribute("user");
+    	
+    	String output = "";
+    	if (user == null) {
+    		user = DBManagerImpl.getInstance().getUserById(3L);
+    		session.setAttribute("user", user);
+    		output = "No user logged in, automatic login: " + user.getUsername();
+    	}
+    	else {
+    		output = "Logged in user: " + user.getUsername();
+    	}
+    	
+    	return output;
+    }
 }
