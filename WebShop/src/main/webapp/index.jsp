@@ -12,31 +12,27 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <div class="list-group">
+                <ul class="list-group">
                 	<%
 						long categoryId = -1L;
+                		if(request.getParameter("categoryId") != null) {
+							categoryId = Long.valueOf(request.getParameter("categoryId"));
+						}
 						List<Category> categories = DBManager.getInstance().getCategories();
 						for(Category category : categories) {
 							if(categoryId == -1L) {
 								categoryId = category.getId();
 							}
-							out.println("<a href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item'>" + category.getName() + "</a>");
+							String suffix = category.getId() == categoryId ? "active" : "";
+							out.println("<a href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item " + suffix + "'>" + category.getName() + "</a>");
 						}
-						
-						User currentUser = (User)session.getAttribute("user");
-		           		if (currentUser != null && currentUser.isCategoryWrite()) {
-		           			out.println("<a href='#' class='list-group-item' data-toggle='modal' data-target='#categoryModal'>Create new category</a>");
-		           		}
 					%>
-					
-                </div>
+					<a href="#" class="list-group-item" data-toggle="modal" data-target="#categoryModal">Create new category...</a>
+                </ul>
             </div>
             <div class="col-md-9">
                 <div class="row">
 					<%
-						if(request.getParameter("categoryId") != null) {
-							categoryId = Long.valueOf(request.getParameter("categoryId"));
-						}
 						List<Item> items = DBManager.getInstance().getItems(categoryId);
 						for(Item item : items) {
 							out.println("<div class='col-sm-4 col-lg-4 col-md-4'>");
@@ -63,11 +59,7 @@
 					%>
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                    	<%
-			           		if (currentUser != null && currentUser.isItemWrite()) {
-			           			out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#itemModal'>Create new item</button>");
-			           		}
-                    	%>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal">Create new item</button>
                     </div>
                 </div>
             </div>
