@@ -7,7 +7,7 @@ import model.*;
 
 public interface IDBManager {
 	public List<Item> getItems();
-	public void createItem(String title, String description, BigDecimal price, Long categoryId, User createUser);
+	public Item createItem(String title, String description, BigDecimal price, Long categoryId, User createUser);
 	public Item getItem(Long itemId);
 	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser);
 	public void deleteItem(Long itemId);
@@ -20,7 +20,7 @@ public interface IDBManager {
 	
 	public List<Category> getCategories();
 	public Category getCategoryById(Long categoryId);
-	public void createCategory(String name, String description, User createUser);
+	public Category createCategory(String name, String description, User createUser);
 	public void editCategory(Long categoryId, String name, String description, User updateUser);
 	public void deleteCategory(Long categoryId);
 	public List<Item> getItems(Long categoryId);

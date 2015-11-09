@@ -60,9 +60,9 @@ public class DBManager implements IDBManager {
     	return (List<Item>)query.getResultList();
 	}
 
-	public void createItem(String title, String description, BigDecimal price, Long categoryId, User createUser) {
+	public Item createItem(String title, String description, BigDecimal price, Long categoryId, User createUser) {
 		if (createUser == null || !createUser.isItemWrite()) {
-			return;
+			return null;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
@@ -71,6 +71,7 @@ public class DBManager implements IDBManager {
     	
     	entityManager.persist(item);
         transaction.commit();
+        return item;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -206,9 +207,9 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 	
-	public void createCategory(String name, String description, User createUser) {
+	public Category createCategory(String name, String description, User createUser) {
 		if (createUser == null || !createUser.isCategoryWrite()) {
-			return;
+			return null;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
@@ -217,6 +218,7 @@ public class DBManager implements IDBManager {
     	
     	entityManager.persist(category);
         transaction.commit();
+        return category;
 	}
 
 	public void editCategory(Long categoryId, String name, String description, User updateUser) {

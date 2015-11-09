@@ -17,6 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import model.Category;
 import model.User;
 
 @Path("/category")
@@ -31,10 +32,10 @@ public class CategoryApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void postCategory(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("name") String name, @FormParam("description") String description) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		DBManager.getInstance().createCategory(name, description, currentUser);
+		Category category = DBManager.getInstance().createCategory(name, description, currentUser);
 		
 		try {
-			res.sendRedirect("/WebShop/index.jsp");
+			res.sendRedirect("/WebShop/index.jsp?categoryId=" + category.getId());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

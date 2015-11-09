@@ -18,6 +18,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import model.Item;
 import model.User;
 
 @Path("/item")
@@ -32,10 +33,10 @@ public class ItemApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void postItem(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		DBManager.getInstance().createItem(title, description, price, categoryId, currentUser);
+		Item item = DBManager.getInstance().createItem(title, description, price, categoryId, currentUser);
 		
 		try {
-			res.sendRedirect("/WebShop/index.jsp");
+			res.sendRedirect("/WebShop/item.jsp?itemId=" + item.getId());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
