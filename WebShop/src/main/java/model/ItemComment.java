@@ -35,6 +35,9 @@ public class ItemComment implements Serializable {
 	@Column(name = "text")
 	private String text;
 	
+	@Column(name = "rating")
+	private Integer rating;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "createUser")
 	private User createUser;
@@ -51,9 +54,10 @@ public class ItemComment implements Serializable {
 	
 	public ItemComment() {}
 
-	public ItemComment(Item item, String text, User createUser, User updateUser) {
+	public ItemComment(Item item, String text, Integer rating, User createUser, User updateUser) {
 		this.item = item;
 		this.text = text;
+		this.rating = rating;
 		this.createUser = createUser;
 		this.createTimestamp = new Timestamp(new Date().getTime());
 		this.updateUser = updateUser;
@@ -82,6 +86,14 @@ public class ItemComment implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
 	}
 
 	public User getCreateUser() {

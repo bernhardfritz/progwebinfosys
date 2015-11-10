@@ -79,9 +79,9 @@ public class ItemApi {
 	@Path("/{itemId}/comment")
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postItemComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("text") String text, @PathParam("itemId") Long itemId) {
+	public void postItemComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("text") String text, @PathParam("itemId") Long itemId, @FormParam("rating") Integer rating) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		DBManager.getInstance().createItemComment(text, itemId, currentUser);
+		DBManager.getInstance().createItemComment(text, itemId, rating, currentUser);
 		
 		try {
 			res.sendRedirect("/WebShop/item.jsp?itemId=" + itemId);

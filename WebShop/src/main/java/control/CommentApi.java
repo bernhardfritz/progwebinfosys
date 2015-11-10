@@ -29,9 +29,9 @@ public class CommentApi {
 	@Path("/{commentId}")
 	@PUT()
 	@Consumes("application/x-www-form-urlencoded")
-	public void putComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("itemCommentId") Long itemCommentId, @FormParam("text") String text) {
+	public void putComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("itemCommentId") Long itemCommentId, @FormParam("text") String text, @FormParam("rating") Integer rating) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		DBManager.getInstance().editItemComment(itemCommentId, text, currentUser);
+		DBManager.getInstance().editItemComment(itemCommentId, text, rating, currentUser);
 		
 		try {
 			res.sendRedirect("/WebShop/index.jsp");

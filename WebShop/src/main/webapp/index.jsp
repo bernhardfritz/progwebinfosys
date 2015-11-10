@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.DecimalFormatSymbols"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.util.*, model.*, control.*" %>
 <!DOCTYPE html>
@@ -38,13 +40,15 @@
             <div class="col-md-9">
                 <div class="row">
 					<%
+						DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.GERMAN);
+	           			DecimalFormat decimalFormatter = new DecimalFormat("#,##0.00", symbols);
 						List<Item> items = DBManager.getInstance().getItems(categoryId);
 						for(Item item : items) {
 							out.println("<div class='col-sm-4 col-lg-4 col-md-4'>");
 							out.println("<div class='thumbnail'>");
                             out.println("<img src='http://placehold.it/320x150' alt=''>");
                             out.println("<div class='caption'>");
-							out.println("<h4 class='pull-right'>" + item.getPrice() + "&euro;</h4>");
+							out.println("<h4 class='pull-right'>" + decimalFormatter.format(item.getPrice()) + "&euro;</h4>");
                             out.println("<h4><a href='item.jsp?itemId=" + item.getId() + "'>" + item.getTitle() + "</a></h4>");
                             out.println("<p>" + item.getDescription() + "</p>");
                             out.println("</div>");

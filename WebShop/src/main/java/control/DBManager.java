@@ -61,7 +61,7 @@ public class DBManager implements IDBManager {
 	}
 
 	public Item createItem(String title, String description, BigDecimal price, Long categoryId, User createUser) {
-		if (createUser == null || !createUser.isItemWrite()) {
+		if (createUser == null || !createUser.isItemWrite() || title.isEmpty() || price == null) {
 			return null;
 		}
 		
@@ -88,7 +88,7 @@ public class DBManager implements IDBManager {
 	}
 
 	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser) {
-		if (updateUser == null || !updateUser.isItemWrite()) {
+		if (updateUser == null || !updateUser.isItemWrite() || title.isEmpty() || price == null) {
 			return;
 		}
 		
@@ -129,14 +129,14 @@ public class DBManager implements IDBManager {
 	
 	/* =========================== ItemComment functions =========================== */
 	
-	public void createItemComment(String text, Long itemId, User createUser) {
-		if (createUser == null || !createUser.isItemCommentWrite()) {
+	public void createItemComment(String text, Long itemId, Integer rating, User createUser) {
+		if (createUser == null || !createUser.isItemCommentWrite() || text.isEmpty() || rating == null) {
 			return;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
 		
-		ItemComment itemComment = new ItemComment(getItem(itemId), text, createUser, createUser);
+		ItemComment itemComment = new ItemComment(getItem(itemId), text, correctRating(rating), createUser, createUser);
     	
     	entityManager.persist(itemComment);
         transaction.commit();
@@ -155,8 +155,8 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public void editItemComment(Long itemCommentId, String text, User updateUser) {
-		if (updateUser == null || !updateUser.isItemCommentWrite()) {
+	public void editItemComment(Long itemCommentId, String text, Integer rating, User updateUser) {
+		if (updateUser == null || !updateUser.isItemCommentWrite() || text.isEmpty() || rating == null) {
 			return;
 		}
 		
@@ -165,6 +165,7 @@ public class DBManager implements IDBManager {
 		ItemComment itemComment = getItemComment(itemCommentId);
 		if (itemComment != null) {
 			itemComment.setText(text);
+			itemComment.setRating(correctRating(rating));
 			itemComment.setUpdateUser(updateUser);
 			itemComment.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}
@@ -182,6 +183,17 @@ public class DBManager implements IDBManager {
 		}
 		
 		transaction.commit();
+	}
+	
+	public Integer correctRating(Integer rating) {
+		if (rating < 0) {
+			return 0;
+		}
+		else if (rating > 5) {
+			return 5;
+		}
+		
+		return rating;
 	}
 	
 	
@@ -208,7 +220,7 @@ public class DBManager implements IDBManager {
 	}
 	
 	public Category createCategory(String name, String description, User createUser) {
-		if (createUser == null || !createUser.isCategoryWrite()) {
+		if (createUser == null || !createUser.isCategoryWrite() || name.isEmpty()) {
 			return null;
 		}
 		
@@ -222,7 +234,7 @@ public class DBManager implements IDBManager {
 	}
 
 	public void editCategory(Long categoryId, String name, String description, User updateUser) {
-		if (updateUser == null || !updateUser.isCategoryWrite()) {
+		if (updateUser == null || !updateUser.isCategoryWrite() || name.isEmpty()) {
 			return;
 		}
 		
@@ -284,6 +296,10 @@ public class DBManager implements IDBManager {
 	}
 
 	public void createUser(String username, String password, int bitmap) {
+		if (username.isEmpty() || password.isEmpty()) {
+			return;
+		}
+		
 		Privileges privileges = new Privileges(bitmap);		
 		EntityTransaction transaction = startSaveTransaction();
 		
@@ -297,6 +313,10 @@ public class DBManager implements IDBManager {
 	}
 
 	public void editUser(Long userId, String password, int bitmap) {
+		if (password.isEmpty()) {
+			return;
+		}
+		
 		Privileges privileges = new Privileges(bitmap);		
 		EntityTransaction transaction = startSaveTransaction();
 		
