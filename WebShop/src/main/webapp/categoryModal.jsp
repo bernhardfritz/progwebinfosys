@@ -5,11 +5,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="commentModalLabel">Create category</h4>
       </div>
-      <form action="/WebShop/api/category" method="post">
+      <form action="/WebShop/api/category" method="post" role="form" data-toggle="validator">
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="name" class="control-label">Name:</label>
-	            <input type="text" class="form-control" name="name" id="name" autofocus />
+	            <input type="text" class="form-control" name="name" id="name" autofocus required />
 	          </div>
 	          <div class="form-group">
 	            <label for="description" class="control-label">Description:</label>

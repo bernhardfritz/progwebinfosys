@@ -23,7 +23,8 @@
             out.println("<input type='password' name='password' placeholder='Password' class='form-control'>");
             out.println("</div>");
             out.println("<button type='submit' class='btn btn-success'>Sign in</button>");
-          	out.println("</form>");	
+            out.println("<a class='btn btn-primary' href='#' data-toggle='modal' data-target='#signUpModal'>Sign up</a>");
+          	out.println("</form>");
       	} else {
       		out.println("<form action='/WebShop/api/user/logout' method='post' class='navbar-form navbar-right'>");
       		out.println("<text class='text-muted'>Hello, " + user.getUsername() + "!</text>");
@@ -35,3 +36,4 @@
     </div>
   </div>
 </nav>
+<jsp:include page="signUpModal.jsp"></jsp:include>

@@ -93,11 +93,11 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="commentModalLabel">Create review</h4>
 	      </div>
-	      <form action="/WebShop/api/item/<%= item.getId() %>/comment" method="post">
+	      <form action="/WebShop/api/item/<%= item.getId() %>/comment" method="post" role="form" data-toggle="validator">
 		      <div class="modal-body">
 		          <div class="form-group">
 		            <label for="message-text" class="control-label">Comment:</label>
-		            <textarea class="form-control" name="text" id="message-text" autofocus></textarea>
+		            <textarea class="form-control" name="text" id="message-text" autofocus required></textarea>
 		          </div>
 		      </div>
 		      <div class="modal-footer">

@@ -6,15 +6,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="commentModalLabel">Create item</h4>
       </div>
-      <form action="/WebShop/api/item" method="post">
+      <form action="/WebShop/api/item" method="post" method="post" role="form" data-toggle="validator">
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="title" class="control-label">Title:</label>
-	            <input type="text" class="form-control" name="title" id="title" autofocus />
+	            <input type="text" class="form-control" name="title" id="title" autofocus required />
 	          </div>
 	          <div class="form-group">
 	          	<label for="price" class="control-label">Price:</label>
-	            <input type='text' class="form-control" name='price' />
+	            <input type='text' class="form-control" name='price' pattern="^\d+(\.\d{1,2})?$" required />
+	            <span class="help-block with-errors">e.g. 1.99</span>
 	          </div>
 	          <div class="form-group">
 	            <label for="description" class="control-label">Description:</label>
