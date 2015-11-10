@@ -61,7 +61,7 @@ public class DBManager implements IDBManager {
 	}
 
 	public Item createItem(String title, String description, BigDecimal price, Long categoryId, User createUser) {
-		if (createUser == null || !createUser.isItemWrite()) {
+		if (createUser == null || !createUser.isItemWrite() || title.isEmpty() || price == null) {
 			return null;
 		}
 		
@@ -88,7 +88,7 @@ public class DBManager implements IDBManager {
 	}
 
 	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser) {
-		if (updateUser == null || !updateUser.isItemWrite()) {
+		if (updateUser == null || !updateUser.isItemWrite() || title.isEmpty() || price == null) {
 			return;
 		}
 		
@@ -130,7 +130,7 @@ public class DBManager implements IDBManager {
 	/* =========================== ItemComment functions =========================== */
 	
 	public void createItemComment(String text, Long itemId, User createUser) {
-		if (createUser == null || !createUser.isItemCommentWrite()) {
+		if (createUser == null || !createUser.isItemCommentWrite() || text.isEmpty()) {
 			return;
 		}
 		
@@ -156,7 +156,7 @@ public class DBManager implements IDBManager {
 	}
 
 	public void editItemComment(Long itemCommentId, String text, User updateUser) {
-		if (updateUser == null || !updateUser.isItemCommentWrite()) {
+		if (updateUser == null || !updateUser.isItemCommentWrite() || text.isEmpty()) {
 			return;
 		}
 		
@@ -208,7 +208,7 @@ public class DBManager implements IDBManager {
 	}
 	
 	public Category createCategory(String name, String description, User createUser) {
-		if (createUser == null || !createUser.isCategoryWrite()) {
+		if (createUser == null || !createUser.isCategoryWrite() || name.isEmpty()) {
 			return null;
 		}
 		
@@ -222,7 +222,7 @@ public class DBManager implements IDBManager {
 	}
 
 	public void editCategory(Long categoryId, String name, String description, User updateUser) {
-		if (updateUser == null || !updateUser.isCategoryWrite()) {
+		if (updateUser == null || !updateUser.isCategoryWrite() || name.isEmpty()) {
 			return;
 		}
 		
@@ -284,6 +284,10 @@ public class DBManager implements IDBManager {
 	}
 
 	public void createUser(String username, String password, int bitmap) {
+		if (username.isEmpty() || password.isEmpty()) {
+			return;
+		}
+		
 		Privileges privileges = new Privileges(bitmap);		
 		EntityTransaction transaction = startSaveTransaction();
 		
@@ -297,6 +301,10 @@ public class DBManager implements IDBManager {
 	}
 
 	public void editUser(Long userId, String password, int bitmap) {
+		if (password.isEmpty()) {
+			return;
+		}
+		
 		Privileges privileges = new Privileges(bitmap);		
 		EntityTransaction transaction = startSaveTransaction();
 		

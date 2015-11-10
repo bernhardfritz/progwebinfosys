@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.DecimalFormatSymbols"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.*, model.*, control.*" %>
@@ -41,7 +43,14 @@
 		      	<div class="thumbnail">
 		           <img class="img-responsive" src="http://placehold.it/800x300" alt="">
 		           <div class="caption-full">
-		               <h4 class="pull-right"><%= item.getPrice() %>&euro;</h4>
+		               <h4 class="pull-right">
+		               		<% 
+		               			DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.GERMAN);
+		               			DecimalFormat decimalFormatter = new DecimalFormat("#,##0.00", symbols);
+		               			out.println(decimalFormatter.format(item.getPrice()));
+		               		%>
+		               		&euro;
+		               </h4>
 		               <h1><a href="#"><%= item.getTitle() %></a></h1>
 		               <p><%= item.getDescription() %></p>
 		           </div>
