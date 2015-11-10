@@ -108,6 +108,10 @@
 		            <label for="message-text" class="control-label">Comment:</label>
 		            <textarea class="form-control" name="text" id="message-text" autofocus></textarea>
 		          </div>
+		          <div class="form-group">
+		            <label for="rating" class="control-label">Rating:</label>
+		            <input class="form-control" name="rating" id="rating"></input>
+		          </div>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

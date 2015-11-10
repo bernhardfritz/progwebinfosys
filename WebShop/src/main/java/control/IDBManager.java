@@ -13,9 +13,9 @@ public interface IDBManager {
 	public void deleteItem(Long itemId);
 	public List<ItemComment> getItemComments(Long itemId);
 	
-	public void createItemComment(String text, Long itemId, User createUser);
+	public void createItemComment(String text, Long itemId, Integer rating, User createUser);
 	public ItemComment getItemComment(Long itemCommentId);
-	public void editItemComment(Long itemCommentId, String text, User updateUser);
+	public void editItemComment(Long itemCommentId, String text, Integer rating, User updateUser);
 	public void deleteItemComment(Long itemCommentId);
 	
 	public List<Category> getCategories();

@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS WebShop CHARACTER SET utf8;
 
 CREATE TABLE `WebShop`.`User` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(40) NOT NULL,
+  `username` VARCHAR(40) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `categoryRead` BIT NOT NULL,
   `categoryWrite` BIT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE `WebShop`.`User` (
   
 CREATE TABLE `WebShop`.`Category` (
   `idCategory` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(60) NOT NULL,
+  `name` VARCHAR(60) NOT NULL UNIQUE,
   `description` VARCHAR(150) NULL,
   `createUser` INT NOT NULL,
   `createTimestamp` DATETIME NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `WebShop`.`Category` (
 CREATE TABLE `WebShop`.`Item` (
   `idItem` INT NOT NULL AUTO_INCREMENT,
   `idCategory` INT NOT NULL,
-  `title` VARCHAR(50) NOT NULL,
+  `title` VARCHAR(50) NOT NULL UNIQUE,
   `description` VARCHAR(150) NULL,
   `price` DOUBLE NOT NULL,
   `createUser` INT NOT NULL,
@@ -70,6 +70,7 @@ CREATE TABLE `WebShop`.`ItemComment` (
   `idItemComment` INT NOT NULL AUTO_INCREMENT,
   `idItem` INT NOT NULL,
   `text` VARCHAR(250) NOT NULL,
+  `rating` INT NOT NULL,
   `createUser` INT NOT NULL,
   `createTimestamp` DATETIME NOT NULL,
   `updateUser` INT NOT NULL,

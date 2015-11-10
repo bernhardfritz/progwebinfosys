@@ -129,14 +129,14 @@ public class DBManager implements IDBManager {
 	
 	/* =========================== ItemComment functions =========================== */
 	
-	public void createItemComment(String text, Long itemId, User createUser) {
-		if (createUser == null || !createUser.isItemCommentWrite() || text.isEmpty()) {
+	public void createItemComment(String text, Long itemId, Integer rating, User createUser) {
+		if (createUser == null || !createUser.isItemCommentWrite() || text.isEmpty() || rating == null) {
 			return;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
 		
-		ItemComment itemComment = new ItemComment(getItem(itemId), text, createUser, createUser);
+		ItemComment itemComment = new ItemComment(getItem(itemId), text, correctRating(rating), createUser, createUser);
     	
     	entityManager.persist(itemComment);
         transaction.commit();
@@ -155,8 +155,8 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public void editItemComment(Long itemCommentId, String text, User updateUser) {
-		if (updateUser == null || !updateUser.isItemCommentWrite() || text.isEmpty()) {
+	public void editItemComment(Long itemCommentId, String text, Integer rating, User updateUser) {
+		if (updateUser == null || !updateUser.isItemCommentWrite() || text.isEmpty() || rating == null) {
 			return;
 		}
 		
@@ -165,6 +165,7 @@ public class DBManager implements IDBManager {
 		ItemComment itemComment = getItemComment(itemCommentId);
 		if (itemComment != null) {
 			itemComment.setText(text);
+			itemComment.setRating(correctRating(rating));
 			itemComment.setUpdateUser(updateUser);
 			itemComment.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}
@@ -182,6 +183,17 @@ public class DBManager implements IDBManager {
 		}
 		
 		transaction.commit();
+	}
+	
+	public Integer correctRating(Integer rating) {
+		if (rating < 0) {
+			return 0;
+		}
+		else if (rating > 5) {
+			return 5;
+		}
+		
+		return rating;
 	}
 	
 	
