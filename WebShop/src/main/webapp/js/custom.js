@@ -51,12 +51,22 @@ jQuery.each( [ "put", "delete" ], function( i, method ) {
   };
 });
 
+function serializedStringToJSON(qs) {            
+    var pairs = qs.split('&');
+    
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+
+    return JSON.parse(JSON.stringify(result));
+}
+
 $("#editCategoryForm" ).on( "submit", function( event ) {
 	event.preventDefault();
-	var arr = $(this).serialize().split('&');
-	var name = arr[0].split('=')[1];
-	var description = arr[1].split('=')[1];
-	$.put($(this).attr('action'), {name: name, description: description}, function(result){
+	var form = serializedStringToJSON($(this).serialize());
+	$.put($(this).attr('action'), {name: form.name, description: form.description}, function(result){
 		window.location.href = "/WebShop/index.jsp";
 	});
 });
@@ -70,13 +80,9 @@ $("#deleteCategoryForm").on("submit", function(event) {
 
 $("#editItemForm").on("submit", function(event) {
 	event.preventDefault();
-	var arr = $(this).serialize().split('&');
-	var title = arr[0].split('=')[1];
-	var price = arr[1].split('=')[1];
-	var description = arr[2].split('=')[1];
-	var categoryId = arr[3].split('=')[1];
+	var form = serializedStringToJSON($(this).serialize());
 	var itemId = $(this).attr('action').split('/')[4];
-	$.put($(this).attr('action'), {title: title, price: price, description: description, categoryId: categoryId}, function(result) {
+	$.put($(this).attr('action'), {title: form.title, price: form.price, description: form.description, categoryId: form.categoryId}, function(result) {
 		window.location.href = "/WebShop/item.jsp?itemId=" + itemId;
 	});
 });
@@ -87,3 +93,18 @@ $("#deleteItemForm").on("submit", function(event) {
 		window.location.href = "/WebShop/index.jsp";
 	});
 });
+
+function editComment(commentId, commentText, rating) {
+	var text = prompt("Edit comment", commentText);
+	$.put('/WebShop/api/comment/'+commentId, {text: text, rating: rating}, function(result) {
+		location.reload(true);
+	});
+}
+
+function deleteComment(commentId) {
+	if (confirm('Are you sure you want to delete this comment?')) {
+		$.delete('/WebShop/api/comment/'+commentId, {}, function(result) {
+			location.reload(true);
+		});
+	}
+}

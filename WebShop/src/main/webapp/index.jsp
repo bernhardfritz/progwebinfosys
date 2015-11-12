@@ -76,7 +76,7 @@
                     <div class="col-sm-4 col-lg-4 col-md-4">
                     	<div class="btn-group-vertical" role="group">
                     	<%
-	                    	if(currentUser != null && currentUser.isItemWrite()) {
+	                    	if(categoryId > 0 && currentUser != null && currentUser.isItemWrite()) {
 	                    		out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#itemModal'>Create new item</button>");
 	                    	}
                     		if(categoryId > 0 && currentUser != null && currentUser.isCategoryWrite()) {

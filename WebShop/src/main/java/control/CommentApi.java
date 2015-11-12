@@ -22,14 +22,14 @@ public class CommentApi {
 	@Path("/{commentId}")
 	@GET()
 	@Produces("application/json")
-	public Response getComment(@PathParam("itemCommentId") Long itemCommentId) {
+	public Response getComment(@PathParam("commentId") Long itemCommentId) {
 		return Response.ok(DBManager.getInstance().getItemComment(itemCommentId)).build();
 	}
 	
 	@Path("/{commentId}")
 	@PUT()
 	@Consumes("application/x-www-form-urlencoded")
-	public void putComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("itemCommentId") Long itemCommentId, @FormParam("text") String text, @FormParam("rating") Integer rating) {
+	public void putComment(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("commentId") Long itemCommentId, @FormParam("text") String text, @FormParam("rating") Integer rating) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
 		DBManager.getInstance().editItemComment(itemCommentId, text, rating, currentUser);
 		
@@ -42,7 +42,7 @@ public class CommentApi {
 	
 	@Path("/{commentId}")
 	@DELETE()
-	public void deleteComment(@PathParam("itemCommentId") Long itemCommentId) {
+	public void deleteComment(@PathParam("commentId") Long itemCommentId) {
 		DBManager.getInstance().deleteItemComment(itemCommentId);
 	}
 }
