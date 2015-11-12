@@ -99,6 +99,7 @@ public class DBManager implements IDBManager {
 			item.setTitle(title);
 			item.setDescription(description);
 			item.setPrice(price);
+			item.setCategory(getCategoryById(categoryId));
 			item.setUpdateUser(updateUser);
 			item.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}
