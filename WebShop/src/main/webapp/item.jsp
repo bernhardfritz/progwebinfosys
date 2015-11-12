@@ -41,7 +41,7 @@
     		</div>
     		<div class="col-md-9">
 		      	<div class="thumbnail">
-		           <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+		           <img class="img-responsive" data-src="holder.js/900x300" alt="">
 		           <div class="caption-full">
 		               <h4 class="pull-right">
 		               		<% 
@@ -57,20 +57,33 @@
 		           <div class="ratings">
 		               <p class="pull-right"><%= comments.size() %> reviews</p>
 		               <p>
-		                   <span class="glyphicon glyphicon-star"></span>
-		                   <span class="glyphicon glyphicon-star"></span>
-		                   <span class="glyphicon glyphicon-star"></span>
-		                   <span class="glyphicon glyphicon-star"></span>
-		                   <span class="glyphicon glyphicon-star-empty"></span>
-		                   4.0 stars
+		               <% 
+			               float average = 0.0f;
+			               for(ItemComment comment : comments) {
+			               		average += comment.getRating();
+			               }
+			               if(comments.size() > 0) average /= comments.size();
+			               for(int i = 0; i < Math.round(average); i++) {
+			            		out.println("<span class='glyphicon glyphicon-star'></span>");   
+			               }
+			               for(int i = Math.round(average); i < 5; i++) {
+			  					out.println("<span class='glyphicon glyphicon-star-empty'></span>");
+			               }
+			           %>
 		               </p>
 		           </div>
 		       </div>
 		       <div class="well">
 		           <div class="text-right">
 			           <%
-			           		if (currentUser != null && currentUser.isItemCommentWrite()) {
+			           		if(currentUser != null && currentUser.isItemCommentWrite()) {
 			           			out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#commentModal'>Leave a review</button>");
+			           		}
+			           		if(currentUser != null && currentUser.isItemWrite()) {
+			           			out.println("<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#editItemModal'>Edit item</button>");
+			           		}
+			           		if(currentUser != null && currentUser.isItemDelete()) {
+			           			out.println("<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteItemModal'>Delete item</button>");
 			           		}
 			           %>
 		           </div>
@@ -79,11 +92,12 @@
 		           	for(ItemComment comment : comments) {
 		           		out.println("<div class='row'>");
 		           		out.println("<div class='col-md-12'>");
-		           		out.println("<span class='glyphicon glyphicon-star'></span>");
-		           		out.println("<span class='glyphicon glyphicon-star'></span>");
-		           		out.println("<span class='glyphicon glyphicon-star'></span>");
-		           		out.println("<span class='glyphicon glyphicon-star'></span>");
-		           		out.println("<span class='glyphicon glyphicon-star-empty'></span>");
+		           		for(int i = 0; i < comment.getRating(); i++) {
+		           			out.println("<span class='glyphicon glyphicon-star'></span>");	
+		           		}
+		           		for(int i = comment.getRating(); i < 5; i++) {
+		           			out.println("<span class='glyphicon glyphicon-star-empty'></span>");
+		           		}
 		           		out.println(comment.getCreateUser().getUsername());
 		           		out.println("<span class='pull-right'>" + new SimpleDateFormat("dd.MM.yyyy kk:mm").format(comment.getCreateTimestamp()) + "</span>");
 		           		out.println("<p>" + comment.getText() + "</p>");
@@ -95,32 +109,15 @@
 	       </div>
        </div>
     </div>
-	<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="commentModalLabel">Create review</h4>
-	      </div>
-	      <form action="/WebShop/api/item/<%= item.getId() %>/comment" method="post" role="form" data-toggle="validator">
-		      <div class="modal-body">
-		          <div class="form-group">
-		            <label for="message-text" class="control-label">Comment:</label>
-		            <textarea class="form-control" name="text" id="message-text" autofocus required></textarea>
-		          </div>
-		          <div class="form-group">
-		            <label for="rating" class="control-label">Rating:</label>
-		            <input class="form-control" name="rating" id="rating"></input>
-		          </div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-primary">Save</button>
-		      </div>
-	      </form>
-	    </div>
-	  </div>
-	</div>
+	<jsp:include page="commentModal.jsp">
+		<jsp:param name="itemId" value="<%= item.getId() %>" />
+	</jsp:include>
+	<jsp:include page="editItemModal.jsp">
+		<jsp:param name="itemId" value="<%= item.getId() %>" />
+	</jsp:include>
+	<jsp:include page="deleteItemModal.jsp">
+		<jsp:param name="itemId" value="<%= item.getId() %>" />
+	</jsp:include>
 	<jsp:include page="categoryModal.jsp" />
 	<jsp:include page="footer.jsp" />
 </body>

@@ -12,4 +12,5 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/validator.min.js"></script>
+<script src="js/holder.min.js"></script>
 <script src="js/custom.js"></script>

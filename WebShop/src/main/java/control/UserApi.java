@@ -30,8 +30,13 @@ public class UserApi {
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postUser(@FormParam("username") String username, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
-		DBManager.getInstance().createUser(username, password, bitmap);
+	public void postUser(@Context HttpServletResponse res, @FormParam("username") String username, @FormParam("password") String password) {
+		DBManager.getInstance().createUser(username, password, 100100110);
+		try {
+			res.sendRedirect("/WebShop/index.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Path("/{userId}")

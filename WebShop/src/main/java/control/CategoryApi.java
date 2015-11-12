@@ -44,15 +44,9 @@ public class CategoryApi {
 	@Path("/{categoryId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void putCategory(@Context HttpServletRequest req, @Context HttpServletResponse res, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description) {
+	public void putCategory(@Context HttpServletRequest req, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
 		DBManager.getInstance().editCategory(categoryId, name, description, currentUser);
-		
-		try {
-			res.sendRedirect("/WebShop/index.jsp");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Path("/{categoryId}")

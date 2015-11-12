@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="commentModalLabel">Sign up</h4>
       </div>
-      <form action="/WebShop/api/category" method="post" role="form" data-toggle="validator">
+      <form action="/WebShop/api/user" method="post" role="form" data-toggle="validator">
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="username" class="control-label">Username:</label>
