@@ -24,7 +24,7 @@
 	          <div class="form-group">
 	          	<label for="categoryId" class="control-lagel">Category</label>
 	          	<select name="categoryId">
-					<option value="null">Choose category...</option>
+					<option value="0">Choose category...</option>
 						<%
 							for (Category c : DBManager.getInstance().getCategories()) {
 								out.println("<option value='" + c.getId() + "'>" + c.getName() + "</option>");

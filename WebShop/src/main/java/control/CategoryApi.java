@@ -35,7 +35,12 @@ public class CategoryApi {
 		Category category = DBManager.getInstance().createCategory(name, description, currentUser);
 		
 		try {
-			res.sendRedirect("/WebShop/index.jsp?categoryId=" + category.getId());
+			if (category != null) {
+				res.sendRedirect("/WebShop/index.jsp?categoryId=" + category.getId());
+			}
+			else {
+				res.sendRedirect("/WebShop/index.jsp");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

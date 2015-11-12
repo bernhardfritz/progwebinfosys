@@ -36,7 +36,12 @@ public class ItemApi {
 		Item item = DBManager.getInstance().createItem(title, description, price, categoryId, currentUser);
 		
 		try {
-			res.sendRedirect("/WebShop/item.jsp?itemId=" + item.getId());
+			if (item != null) {	
+				res.sendRedirect("/WebShop/item.jsp?itemId=" + item.getId());
+			}
+			else {
+				res.sendRedirect("/WebShop/item.jsp");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
