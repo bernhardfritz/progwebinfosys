@@ -8,8 +8,15 @@ Abgrenzung:
 	Wir haben leider nicht gewusst, wie wir diese Tests umsetzen, deswegen fehlen sie.
 	
 Reports:
-	Tests: build/reports/tests
-	Abdeckung: build/reports/cobertura
+	Unit-Tests:
+		Task: test
+		Report: /build/reports/tests
+	Integration-Tests:
+		Task: integrationTest
+		Report: /build/reports/tests
+	Abdeckung:
+		Task: cobertura (Tests ausführen + Report erstellen)
+		Report: /build/reports/cobertura
 
 
 Technologien:
