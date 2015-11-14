@@ -1,6 +1,6 @@
 package integration.simulation;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -50,7 +50,7 @@ public class SimulationTest {
 		loginAsAdmin();
 		logout();
 		
-		assertEquals(true, driver.findElement(By.id("username")).isDisplayed());
+		assertTrue(driver.findElement(By.id("username")).isDisplayed());
 	}
 	
 	public void createTestCategory() {
