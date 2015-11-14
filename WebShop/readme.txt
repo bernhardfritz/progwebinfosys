@@ -1,5 +1,5 @@
 Abgrenzung:
-	Wir haben alle GET-Methoden unserer REST-API mit Unit Tests abgedeckt.
+	Wir haben alle GET-Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.
 	Bei den POST-/PUT-/DELETE-Methoden haben wir leider nicht gewusst, wie wir diese testen hätten können.
 	Die Test-Abdeckung haben wir mit Cobertura gemacht.
 	Ebenso haben wir einen Integrationstest mit Hilfe einer Browser-Simulation umgesetzt.
@@ -10,13 +10,13 @@ Abgrenzung:
 Reports:
 	Unit-Tests:
 		Task: test
-		Report: /build/reports/tests
+		Report: /reports/unit-tests
 	Integration-Tests:
 		Task: integrationTest
-		Report: /build/reports/tests
+		Report: /reports/integration-tests
 	Abdeckung:
 		Task: cobertura (Tests ausführen + Report erstellen)
-		Report: /build/reports/cobertura
+		Report: /reports/cobertura
 
 
 Technologien:

@@ -19,7 +19,7 @@ public class SimulationTest {
 	@Before
 	public void setUp() {
 		driver = new FirefoxDriver();
-		driver.get("http://localhost:8080/WebShop");
+		driver.get("http://localhost:8081/WebShop");
 		driver.manage().window().maximize();
 	}
 	
@@ -41,6 +41,7 @@ public class SimulationTest {
 	@Test
 	public void testLogin() {
 		loginAsAdmin();
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
 		
 		assertEquals("Hello, admin!", driver.findElement(By.id("helloText")).getText());
 	}
@@ -53,47 +54,51 @@ public class SimulationTest {
 		assertTrue(driver.findElement(By.id("username")).isDisplayed());
 	}
 	
-	public void createTestCategory() {
+	public void createTestCategory(String name) {
 		loginAsAdmin();
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("createNewCategory")));
 		driver.findElement(By.id("createNewCategory")).click();
-		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryModal")));
-		driver.findElement(By.id("categoryName")).sendKeys("Test");
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("createCategoryModal")));
+		driver.findElement(By.id("categoryName")).sendKeys(name);
 		driver.findElement(By.id("categoryDescription")).sendKeys("Desc");
 		driver.findElement(By.id("saveCategory")).click();
-		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
 	}
 	
 	@Test
 	public void testCreateNewCategory() {
-		createTestCategory();
-		
-		assertEquals("Test", driver.findElement(By.id("categoryTest")).getText());
-	}
-	
-	@Test
-	public void testEditCategory() {
-		createTestCategory();
-		driver.findElement(By.id("categoryTest")).click();
-		driver.findElement(By.id("editCategory")).click();
-		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("editCategoryModal")));
-		driver.findElement(By.id("name")).clear();
-		driver.findElement(By.id("name")).sendKeys("TestNeu");
-		driver.findElement(By.id("description")).clear();
-		driver.findElement(By.id("description")).sendKeys("DescNeu");
-		driver.findElement(By.id("saveEditedCategory")).click();
-		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		createTestCategory("TestNeu");
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestNeu")));
 		
 		assertEquals("TestNeu", driver.findElement(By.id("categoryTestNeu")).getText());
 	}
 	
+	@Test
+	public void testEditCategory() {
+		createTestCategory("TestEdit");
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestEdit")));
+		driver.findElement(By.id("categoryTestEdit")).click();
+		driver.findElement(By.id("editCategory")).click();
+		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("editCategoryModal")));
+		driver.findElement(By.id("name")).clear();
+		driver.findElement(By.id("name")).sendKeys("TestEditNeu");
+		driver.findElement(By.id("description")).clear();
+		driver.findElement(By.id("description")).sendKeys("DescEditNeu");
+		driver.findElement(By.id("saveEditedCategory")).click();
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		
+		assertEquals("TestEditNeu", driver.findElement(By.id("categoryTestEditNeu")).getText());
+	}
+	
 	@Test(expected = NoSuchElementException.class)
 	public void testDeleteCategory() {
-		createTestCategory();
-		driver.findElement(By.id("categoryTest")).click();
+		createTestCategory("TestDelete");
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestDelete")));
+		driver.findElement(By.id("categoryTestDelete")).click();
 		driver.findElement(By.id("deleteCategory")).click();
-		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
 		driver.findElement(By.id("deleteCategorySubmit")).click();
-		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
-		driver.findElement(By.id("categoryTest"));
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		driver.findElement(By.id("categoryTestDelete"));
+		assertEquals(true, true);
 	}
 }
