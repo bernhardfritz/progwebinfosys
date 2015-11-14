@@ -15,7 +15,7 @@
       	User user = (User)session.getAttribute("user");
       	if(user == null) user = DBManager.getInstance().logout();
       	if(user.getId() == 3) {
-      		out.println("<form action='/WebShop/api/user/login' method='post' class='navbar-form navbar-right'>");
+      		out.println("<form action='/WebShop/api/user/login' method='post' id='loginForm' class='navbar-form navbar-right'>");
             out.println("<div class='form-group'>");
             out.println("<input id='username' type='text' name='username' placeholder='Username' class='form-control'>");
             out.println("</div>");
@@ -26,7 +26,7 @@
             out.println("<a class='btn btn-primary' href='#' data-toggle='modal' data-target='#signUpModal'>Sign up</a>");
           	out.println("</form>");
       	} else {
-      		out.println("<form action='/WebShop/api/user/logout' method='post' class='navbar-form navbar-right'>");
+      		out.println("<form action='/WebShop/api/user/logout' method='post' id='logoutForm' class='navbar-form navbar-right'>");
       		out.println("<text id='helloText' class='text-muted'>Hello, " + user.getUsername() + "!</text>");
       		out.println("&nbsp;");
       		out.println("<button id='logout' type='submit' class='btn btn-danger'>Logout</button>");

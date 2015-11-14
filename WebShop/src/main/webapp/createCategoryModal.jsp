@@ -1,11 +1,11 @@
-<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
+<div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="createCategoryModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="commentModalLabel">Create category</h4>
+        <h4 class="modal-title" id="createCategoryModalLabel">Create category</h4>
       </div>
-      <form action="/WebShop/api/category" method="post" role="form" data-toggle="validator">
+      <form action="/WebShop/api/category" method="post" role="form" id="createCategoryForm" data-toggle="validator">
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="name" class="control-label">Name:</label>

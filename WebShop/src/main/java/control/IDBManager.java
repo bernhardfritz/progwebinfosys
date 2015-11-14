@@ -9,27 +9,27 @@ public interface IDBManager {
 	public List<Item> getItems();
 	public Item createItem(String title, String description, BigDecimal price, Long categoryId, User createUser);
 	public Item getItem(Long itemId);
-	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser);
-	public void deleteItem(Long itemId);
+	public Item editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser);
+	public boolean deleteItem(Long itemId);
 	public List<ItemComment> getItemComments(Long itemId);
 	
-	public void createItemComment(String text, Long itemId, Integer rating, User createUser);
+	public ItemComment createItemComment(String text, Long itemId, Integer rating, User createUser);
 	public ItemComment getItemComment(Long itemCommentId);
-	public void editItemComment(Long itemCommentId, String text, Integer rating, User updateUser);
-	public void deleteItemComment(Long itemCommentId);
+	public ItemComment editItemComment(Long itemCommentId, String text, Integer rating, User updateUser);
+	public boolean deleteItemComment(Long itemCommentId);
 	
 	public List<Category> getCategories();
 	public Category getCategoryById(Long categoryId);
 	public Category createCategory(String name, String description, User createUser);
-	public void editCategory(Long categoryId, String name, String description, User updateUser);
-	public void deleteCategory(Long categoryId);
+	public Category editCategory(Long categoryId, String name, String description, User updateUser);
+	public boolean deleteCategory(Long categoryId);
 	public List<Item> getItems(Long categoryId);
 	
 	public List<User> getUsers();
 	public User getUserById(Long userId);
-	public void createUser(String username, String password, int bitmap);
-	public void editUser(Long userId, String password, int bitmap);
-	public void deleteUser(Long userId);
+	public User createUser(String username, String password, int bitmap);
+	public User editUser(Long userId, String password, int bitmap);
+	public boolean deleteUser(Long userId);
 	public User login(String username, String password);
 	public User logout();
 }

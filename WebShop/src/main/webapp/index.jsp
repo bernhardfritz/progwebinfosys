@@ -32,7 +32,7 @@
 						
 						User currentUser = (User)session.getAttribute("user");
                     	if (currentUser != null && currentUser.isCategoryWrite()) {
-                    		out.println("<a id='createNewCategory' href='#' class='list-group-item' data-toggle='modal' data-target='#categoryModal'>Create new category...</a>");
+                    		out.println("<a id='createNewCategory' href='#' class='list-group-item' data-toggle='modal' data-target='#createCategoryModal'>Create new category...</a>");
                     	}
 					%>
                 </ul>
@@ -77,7 +77,7 @@
                     	<div class="btn-group-vertical" role="group">
                     	<%
 	                    	if(categoryId > 0 && currentUser != null && currentUser.isItemWrite()) {
-	                    		out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#itemModal'>Create new item</button>");
+	                    		out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#createItemModal'>Create new item</button>");
 	                    	}
                     		if(categoryId > 0 && currentUser != null && currentUser.isCategoryWrite()) {
                     			out.println("<button id='editCategory' type='button' class='btn btn-warning' data-toggle='modal' data-target='#editCategoryModal'>Edit category</button>");
@@ -92,14 +92,14 @@
             </div>
         </div>
     </div>
-	<jsp:include page="categoryModal.jsp" />
+	<jsp:include page="createCategoryModal.jsp" />
 	<jsp:include page="editCategoryModal.jsp">
 		<jsp:param name="categoryId" value="<%= categoryId %>" />
 	</jsp:include>	
 	<jsp:include page="deleteCategoryModal.jsp">
 		<jsp:param name="categoryId" value="<%= categoryId %>" />
 	</jsp:include>
-	<jsp:include page="itemModal.jsp" />
+	<jsp:include page="createItemModal.jsp" />
     <jsp:include page="footer.jsp" />
 </body>
 

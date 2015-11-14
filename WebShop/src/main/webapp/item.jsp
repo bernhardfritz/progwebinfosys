@@ -34,7 +34,7 @@
 						
 						User currentUser = (User)session.getAttribute("user");
                     	if (currentUser != null && currentUser.isCategoryWrite()) {
-                    		out.println("<a href='#' class='list-group-item' data-toggle='modal' data-target='#categoryModal'>Create new category...</a>");
+                    		out.println("<a href='#' class='list-group-item' data-toggle='modal' data-target='#createCategoryModal'>Create new category...</a>");
                     	}
 					%>
                 </ul>
@@ -77,7 +77,7 @@
 		           <div class="text-right">
 			           <%
 			           		if(currentUser != null && currentUser.isItemCommentWrite()) {
-			           			out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#commentModal'>Leave a review</button>");
+			           			out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#createCommentModal'>Leave a review</button>");
 			           		}
 			           		if(currentUser != null && currentUser.isItemWrite()) {
 			           			out.println("<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#editItemModal'>Edit item</button>");
@@ -111,7 +111,7 @@
 	       </div>
        </div>
     </div>
-	<jsp:include page="commentModal.jsp">
+	<jsp:include page="createCommentModal.jsp">
 		<jsp:param name="itemId" value="<%= item.getId() %>" />
 	</jsp:include>
 	<jsp:include page="editItemModal.jsp">
@@ -120,6 +120,6 @@
 	<jsp:include page="deleteItemModal.jsp">
 		<jsp:param name="itemId" value="<%= item.getId() %>" />
 	</jsp:include>
-	<jsp:include page="categoryModal.jsp" />
+	<jsp:include page="createCategoryModal.jsp" />
 	<jsp:include page="footer.jsp" />
 </body>

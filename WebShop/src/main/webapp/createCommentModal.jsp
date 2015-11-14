@@ -1,11 +1,11 @@
-<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel">
+<div class="modal fade" id="createCommentModal" tabindex="-1" role="dialog" aria-labelledby="createCommentModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="commentModalLabel">Create review</h4>
+        <h4 class="modal-title" id="createCommentModalLabel">Create review</h4>
       </div>
-      <form action="/WebShop/api/item/<%= request.getParameter("itemId") %>/comment" method="post" role="form" data-toggle="validator">
+      <form action="/WebShop/api/item/<%= request.getParameter("itemId") %>/comment" method="post" id="createCommentForm" role="form" data-toggle="validator">
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="message-text" class="control-label">Comment:</label>

@@ -94,9 +94,9 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public void editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser) {
+	public Item editItem(Long itemId, String title, String description, BigDecimal price, Long categoryId, User updateUser) {
 		if (updateUser == null || !updateUser.isItemWrite() || title.isEmpty() || price == null) {
-			return;
+			return null;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
@@ -114,13 +114,16 @@ public class DBManager implements IDBManager {
 		try {
 			entityManager.persist(item);
 			transaction.commit();
+			return item;
 		}
 		catch (Exception e) {
     		transaction.rollback();
     	}
+		
+		return null;
 	}
 
-	public void deleteItem(Long itemId) {
+	public boolean deleteItem(Long itemId) {
 		EntityTransaction transaction = startSaveTransaction();
 		
 		Item item = getItem(itemId);
@@ -128,7 +131,14 @@ public class DBManager implements IDBManager {
 			entityManager.remove(item);
 		}
 		
-		transaction.commit();
+		try {
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return false;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -142,17 +152,24 @@ public class DBManager implements IDBManager {
 	
 	/* =========================== ItemComment functions =========================== */
 	
-	public void createItemComment(String text, Long itemId, Integer rating, User createUser) {
+	public ItemComment createItemComment(String text, Long itemId, Integer rating, User createUser) {
 		if (createUser == null || !createUser.isItemCommentWrite() || text.isEmpty() || rating == null) {
-			return;
+			return null;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
 		
 		ItemComment itemComment = new ItemComment(getItem(itemId), text, correctRating(rating), createUser, createUser);
-	
-		entityManager.persist(itemComment);
-		transaction.commit();
+		
+		try {
+			entityManager.persist(itemComment);
+			transaction.commit();
+			return itemComment;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -168,9 +185,9 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public void editItemComment(Long itemCommentId, String text, Integer rating, User updateUser) {
+	public ItemComment editItemComment(Long itemCommentId, String text, Integer rating, User updateUser) {
 		if (updateUser == null || !updateUser.isItemCommentWrite() || text.isEmpty() || rating == null) {
-			return;
+			return null;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
@@ -183,11 +200,18 @@ public class DBManager implements IDBManager {
 			itemComment.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}
 		
-		entityManager.persist(itemComment);
-		transaction.commit();
+		try {
+			entityManager.persist(itemComment);
+			transaction.commit();
+			return itemComment;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
 	}
 
-	public void deleteItemComment(Long itemCommentId) {
+	public boolean deleteItemComment(Long itemCommentId) {
 		EntityTransaction transaction = startSaveTransaction();
 		
 		ItemComment itemComment = getItemComment(itemCommentId);
@@ -195,7 +219,14 @@ public class DBManager implements IDBManager {
 			entityManager.remove(itemComment);
 		}
 		
-		transaction.commit();
+		try {
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return false;
 	}
 	
 	public Integer correctRating(Integer rating) {
@@ -253,9 +284,9 @@ public class DBManager implements IDBManager {
         return null;
 	}
 
-	public void editCategory(Long categoryId, String name, String description, User updateUser) {
+	public Category editCategory(Long categoryId, String name, String description, User updateUser) {
 		if (updateUser == null || !updateUser.isCategoryWrite() || name.isEmpty()) {
-			return;
+			return null;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
@@ -271,13 +302,16 @@ public class DBManager implements IDBManager {
 		try {
 			entityManager.persist(category);
 			transaction.commit();
+			return category;
 		}
 		catch (Exception e) {
     		transaction.rollback();
     	}
+		
+		return null;
 	}
 
-	public void deleteCategory(Long categoryId) {
+	public boolean deleteCategory(Long categoryId) {
 		EntityTransaction transaction = startSaveTransaction();
 		
 		Category category = getCategoryById(categoryId);
@@ -285,7 +319,14 @@ public class DBManager implements IDBManager {
 			entityManager.remove(category);
 		}
 		
-		transaction.commit();
+		try {
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return false;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -320,9 +361,9 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public void createUser(String username, String password, int bitmap) {
+	public User createUser(String username, String password, int bitmap) {
 		if (username.isEmpty() || password.isEmpty()) {
-			return;
+			return null;
 		}
 		
 		Privileges privileges = new Privileges(bitmap);		
@@ -336,15 +377,18 @@ public class DBManager implements IDBManager {
     	try {
     		entityManager.persist(user);
             transaction.commit();
+            return user;
     	}
     	catch (Exception e) {
     		transaction.rollback();
     	}
+    	
+    	return null;
 	}
 
-	public void editUser(Long userId, String password, int bitmap) {
+	public User editUser(Long userId, String password, int bitmap) {
 		if (password.isEmpty()) {
-			return;
+			return null;
 		}
 		
 		Privileges privileges = new Privileges(bitmap);		
@@ -364,11 +408,18 @@ public class DBManager implements IDBManager {
 			user.setItemCommentDelete(privileges.isItemCommentDelete());
 		}
 		
-		entityManager.persist(user);
-		transaction.commit();
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
 	}
 
-	public void deleteUser(Long userId) {
+	public boolean deleteUser(Long userId) {
 		EntityTransaction transaction = startSaveTransaction();
 		
 		User user = getUserById(userId);
@@ -377,7 +428,14 @@ public class DBManager implements IDBManager {
 			entityManager.remove(user);
 		}
 		
-		transaction.commit();
+		try {
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return false;
 	}
 	
 	@SuppressWarnings("unchecked")

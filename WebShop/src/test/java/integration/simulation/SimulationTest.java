@@ -19,7 +19,7 @@ public class SimulationTest {
 	@Before
 	public void setUp() {
 		driver = new FirefoxDriver();
-		driver.get("http://localhost:8081/WebShop");
+		driver.get("http://localhost:8080/WebShop");
 		driver.manage().window().maximize();
 	}
 	

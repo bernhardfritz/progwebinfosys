@@ -25,11 +25,17 @@ function emptyStars(amount) {
 }
 
 function setRating(amount) {
-	rated = false;
-	emptyStars(5);
-	fillStars(amount);
-	rating = amount;
-	rated = true;
+	if(rating == amount) {
+		rated = false;
+		emptyStars(5);
+		rating = 0;
+	} else {
+		rated = false;
+		emptyStars(5);
+		fillStars(amount);
+		rating = amount;
+		rated = true;
+	}
 	document.getElementById("rating").value = rating;
 }
 
@@ -63,11 +69,19 @@ function serializedStringToJSON(qs) {
     return JSON.parse(JSON.stringify(result));
 }
 
-$("#editCategoryForm" ).on( "submit", function( event ) {
+$("#createCategoryForm").on("submit", function(event) {
 	event.preventDefault();
 	var form = serializedStringToJSON($(this).serialize());
-	$.put($(this).attr('action'), {name: form.name, description: form.description}, function(result){
-		window.location.href = "/WebShop/index.jsp";
+	$.post($(this).attr('action'), {name: form.name, description: form.description}, function(result) {
+		window.location.href = "/WebShop/index.jsp?categoryId=" + result.id;
+	});
+});
+
+$("#editCategoryForm").on("submit", function(event) {
+	event.preventDefault();
+	var form = serializedStringToJSON($(this).serialize());
+	$.put($(this).attr('action'), {name: form.name, description: form.description}, function(result) {
+		location.reload(true);
 	});
 });
 
@@ -75,6 +89,14 @@ $("#deleteCategoryForm").on("submit", function(event) {
 	event.preventDefault();
 	$.delete($(this).attr('action'), {}, function(result) {
 		window.location.href = "/WebShop/index.jsp";
+	});
+});
+
+$("#createItemForm").on("submit", function(event) {
+	event.preventDefault();
+	var form = serializedStringToJSON($(this).serialize());
+	$.post($(this).attr('action'), {title: form.title, price: form.price, description: form.description, categoryId: form.categoryId}, function(result) {
+		window.location.href = "/WebShop/item.jsp?itemId=" + result.id;
 	});
 });
 
@@ -92,6 +114,37 @@ $("#deleteItemForm").on("submit", function(event) {
 	$.delete($(this).attr('action'), {}, function(result) {
 		window.location.href = "/WebShop/index.jsp";
 	});
+});
+
+$("#createCommentForm").on("submit", function(event) {
+	event.preventDefault();
+	var form = serializedStringToJSON($(this).serialize());
+	$.post($(this).attr('action'), {text: form.text, rating: form.rating}, function(result) {
+		location.reload(true);
+	});
+});
+
+$("#loginForm").on("submit", function(event) {
+	event.preventDefault();
+	var form = serializedStringToJSON($(this).serialize());
+	$.post($(this).attr('action'), {username: form.username, password: form.password}, function(result) {
+		location.reload(true);
+	});
+});
+
+$("#signupForm").on("submit", function(event) {
+	event.preventDefault();
+	var form = serializedStringToJSON($(this).serialize());
+	$.post($(this).attr('action'), {username: form.username, password: form.password}, function(result) {
+		location.reload(true);
+	});
+});
+
+$("#logoutForm").on("submit", function(event) {
+	event.preventDefault();
+	$.post($(this).attr('action'), {}, function(result) {
+		location.reload(true);
+	})
 });
 
 function editComment(commentId, commentText, rating) {

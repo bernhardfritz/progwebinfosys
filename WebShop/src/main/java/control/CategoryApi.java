@@ -1,9 +1,9 @@
 package control;
 
-import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import model.Category;
 import model.User;
@@ -30,34 +31,30 @@ public class CategoryApi {
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postCategory(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("name") String name, @FormParam("description") String description) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response postCategory(@Context HttpServletRequest req, @FormParam("name") String name, @FormParam("description") String description) throws URISyntaxException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
 		Category category = DBManager.getInstance().createCategory(name, description, currentUser);
-		
-		try {
-			if (category != null) {
-				res.sendRedirect("/WebShop/index.jsp?categoryId=" + category.getId());
-			}
-			else {
-				res.sendRedirect("/WebShop/index.jsp");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if(category != null) return Response.ok(category).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
 	@Path("/{categoryId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void putCategory(@Context HttpServletRequest req, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putCategory(@Context HttpServletRequest req, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		DBManager.getInstance().editCategory(categoryId, name, description, currentUser);
+		Category category = DBManager.getInstance().editCategory(categoryId, name, description, currentUser);
+		if(category != null) return Response.ok(category).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
 	@Path("/{categoryId}")
 	@DELETE()
-	public void deleteCategory(@PathParam("categoryId") Long categoryId) {
-		DBManager.getInstance().deleteCategory(categoryId);
+	public Response deleteCategory(@PathParam("categoryId") Long categoryId) {
+		if(DBManager.getInstance().deleteCategory(categoryId)) return Response.noContent().build();
+		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
 	@Path("/{categoryId}")

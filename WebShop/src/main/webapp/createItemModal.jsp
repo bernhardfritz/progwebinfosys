@@ -1,12 +1,12 @@
 <%@ page import="model.*, control.*" %>
-<div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel">
+<div class="modal fade" id="createItemModal" tabindex="-1" role="dialog" aria-labelledby="createItemModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="commentModalLabel">Create item</h4>
+        <h4 class="modal-title" id="createItemModalLabel">Create item</h4>
       </div>
-      <form action="/WebShop/api/item" method="post" method="post" role="form" data-toggle="validator">
+      <form action="/WebShop/api/item" method="post" id="createItemForm" role="form" data-toggle="validator">
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="title" class="control-label">Title:</label>

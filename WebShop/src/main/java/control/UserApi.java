@@ -1,9 +1,9 @@
 package control;
 
-import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import model.User;
 
@@ -30,13 +31,11 @@ public class UserApi {
 	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void postUser(@Context HttpServletResponse res, @FormParam("username") String username, @FormParam("password") String password) {
-		DBManager.getInstance().createUser(username, password, 100100110);
-		try {
-			res.sendRedirect("/WebShop/index.jsp");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response postUser(@FormParam("username") String username, @FormParam("password") String password) throws URISyntaxException {
+		User user = DBManager.getInstance().createUser(username, password, 100100110);
+		if(user != null) return Response.ok(user).build();
+		else return Response.serverError().build();
 	}
 	
 	@Path("/{userId}")
@@ -49,40 +48,40 @@ public class UserApi {
 	@Path("/{userId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
-		DBManager.getInstance().editUser(userId, password, bitmap);
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
+		User user = DBManager.getInstance().editUser(userId, password, bitmap);
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
 	@Path("/{userId}")
 	@DELETE()
-	public void deleteUser(@PathParam("userId") Long userId) {
-		DBManager.getInstance().deleteUser(userId);
+	public Response deleteUser(@PathParam("userId") Long userId) {
+		if(DBManager.getInstance().deleteUser(userId)) return Response.noContent().build();
+		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
 	@Path("/login")
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void loginUser(@Context HttpServletRequest req, @Context HttpServletResponse res, @FormParam("username") String username, @FormParam("password") String password) {
+	public Response loginUser(@Context HttpServletRequest req, @FormParam("username") String username, @FormParam("password") String password) {
 		HttpSession session = req.getSession(true);
 		User user = DBManager.getInstance().login(username, password);
-		session.setAttribute("user", user);
-		try {
-			res.sendRedirect("/WebShop/index.jsp");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if(user != null) {
+			session.setAttribute("user", user);
+			return Response.ok().build();
+		} else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
 	@Path("/logout")
 	@POST()
-	public void logoutUser(@Context HttpServletRequest req, @Context HttpServletResponse res) {
+	public Response logoutUser(@Context HttpServletRequest req) {
 		HttpSession session = req.getSession(true);
 		User user = DBManager.getInstance().logout();
-		session.setAttribute("user", user);
-		try {
-			res.sendRedirect("/WebShop/index.jsp");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if(user != null) {
+			session.setAttribute("user", user);
+			return Response.ok().build();
+		} else return Response.status(Status.UNAUTHORIZED).build();
 	}
 }
