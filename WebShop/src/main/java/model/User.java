@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -28,6 +29,7 @@ public class User implements Serializable {
 	@Column(name = "username")
 	private String username;
 	
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 	
