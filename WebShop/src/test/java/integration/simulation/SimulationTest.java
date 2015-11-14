@@ -3,6 +3,7 @@ package integration.simulation;
 import static org.junit.Assert.*;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -14,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SimulationTest {
 	
-	private WebDriver driver;
+	private static WebDriver driver;
 	
 	@Before
 	public void setUp() {
@@ -25,6 +26,32 @@ public class SimulationTest {
 	
 	@After
 	public void closeDown() {
+		driver.close();
+	}
+	
+	@AfterClass
+	public static void clean() {
+		driver = new FirefoxDriver();
+		driver.get("http://localhost:8081/WebShop");
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.id("password")).sendKeys("secret");
+		driver.findElement(By.id("signIn")).click();
+		
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestNeu")));
+		driver.findElement(By.id("categoryTestNeu")).click();
+		driver.findElement(By.id("deleteCategory")).click();
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
+		driver.findElement(By.id("deleteCategorySubmit")).click();
+		
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestEditNeu")));
+		driver.findElement(By.id("categoryTestEditNeu")).click();
+		driver.findElement(By.id("deleteCategory")).click();
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
+		driver.findElement(By.id("deleteCategorySubmit")).click();
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		
 		driver.close();
 	}
 	
@@ -99,6 +126,5 @@ public class SimulationTest {
 		driver.findElement(By.id("deleteCategorySubmit")).click();
 		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
 		driver.findElement(By.id("categoryTestDelete"));
-		assertEquals(true, true);
 	}
 }
