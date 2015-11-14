@@ -9,16 +9,16 @@
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="name" class="control-label">Name:</label>
-	            <input type="text" class="form-control" name="name" id="name" autofocus required />
+	            <input id="categoryName" type="text" class="form-control" name="name" id="name" autofocus required />
 	          </div>
 	          <div class="form-group">
 	            <label for="description" class="control-label">Description:</label>
-	            <textarea class="form-control" name="description" id="description"></textarea>
+	            <textarea id="categoryDescription" class="form-control" name="description" id="description"></textarea>
 	          </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="submit" class="btn btn-primary">Save</button>
+	        <button id="saveCategory" type="submit" class="btn btn-primary">Save</button>
 	      </div>
       </form>
     </div>

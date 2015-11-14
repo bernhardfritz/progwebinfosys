@@ -1,9 +1,26 @@
+Abgrenzung:
+	Wir haben alle GET-Methoden unserer REST-API mit Unit Tests abgedeckt.
+	Bei den POST-/PUT-/DELETE-Methoden haben wir leider nicht gewusst, wie wir diese testen hätten können.
+	Die Test-Abdeckung haben wir mit Cobertura gemacht.
+	Ebenso haben wir einen Integrationstest mit Hilfe einer Browser-Simulation umgesetzt.
+	
+	Getestet werden müsste noch der DBManager sowie die oben genannten Methoden.
+	Wir haben leider nicht gewusst, wie wir diese Tests umsetzen, deswegen fehlen sie.
+	
+Reports:
+	Tests: build/reports/tests
+	Abdeckung: build/reports/cobertura
+
+
 Technologien:
 	Server: Jetty
 	Build: Gradle
 	REST: Jersey
 	DB: MySQL
 	DB-Anbindung: JPA
+	Testing: JUnit
+	Test-Abdeckung: Cobertura
+	Browser-Simulation: Selenium
 
 
 Default-User:

@@ -16,7 +16,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-	        <button type="submit" class="btn btn-primary">Yes</button>
+	        <button id="deleteCategorySubmit" type="submit" class="btn btn-primary">Yes</button>
 	      </div>
       </form>
     </div>

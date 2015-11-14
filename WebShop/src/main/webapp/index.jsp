@@ -27,12 +27,12 @@
 								categoryId = category.getId();
 							}
 							String suffix = category.getId() == categoryId ? "active" : "";
-							out.println("<a href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item " + suffix + "'>" + category.getName() + "</a>");
+							out.println("<a id='category" + category.getName() + "' href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item " + suffix + "'>" + category.getName() + "</a>");
 						}
 						
 						User currentUser = (User)session.getAttribute("user");
                     	if (currentUser != null && currentUser.isCategoryWrite()) {
-                    		out.println("<a href='#' class='list-group-item' data-toggle='modal' data-target='#categoryModal'>Create new category...</a>");
+                    		out.println("<a id='createNewCategory' href='#' class='list-group-item' data-toggle='modal' data-target='#categoryModal'>Create new category...</a>");
                     	}
 					%>
                 </ul>
@@ -80,10 +80,10 @@
 	                    		out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#itemModal'>Create new item</button>");
 	                    	}
                     		if(categoryId > 0 && currentUser != null && currentUser.isCategoryWrite()) {
-                    			out.println("<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#editCategoryModal'>Edit category</button>");
+                    			out.println("<button id='editCategory' type='button' class='btn btn-warning' data-toggle='modal' data-target='#editCategoryModal'>Edit category</button>");
                     		}
                     		if(categoryId > 0 && currentUser != null && currentUser.isCategoryDelete()) {
-                    			out.println("<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategoryModal'>Delete category</button>");
+                    			out.println("<button id='deleteCategory' type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteCategoryModal'>Delete category</button>");
                     		}
                     	%>
                     	</div>
