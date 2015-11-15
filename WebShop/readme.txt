@@ -1,3 +1,6 @@
+Vorbereitung: 
+	Ausführen des SQL-Scripts /sql/init.sql ausführen, um DB aufzusetzen.
+
 Abgrenzung:
 	Wir haben alle GET-/POST-/PUT-/DELETE- Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.
 	Die Test-Abdeckung haben wir mit Cobertura gemacht.
