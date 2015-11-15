@@ -20,7 +20,7 @@ public class SimulationTest {
 	@Before
 	public void setUp() {
 		driver = new FirefoxDriver();
-		driver.get("http://localhost:8081/WebShop");
+		driver.get("http://localhost:8080/WebShop");
 		driver.manage().window().maximize();
 	}
 	
@@ -32,25 +32,35 @@ public class SimulationTest {
 	@AfterClass
 	public static void clean() {
 		driver = new FirefoxDriver();
-		driver.get("http://localhost:8081/WebShop");
+		driver.get("http://localhost:8080/WebShop");
 		driver.manage().window().maximize();
 		
 		driver.findElement(By.id("username")).sendKeys("admin");
 		driver.findElement(By.id("password")).sendKeys("secret");
 		driver.findElement(By.id("signIn")).click();
 		
-		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestNeu")));
-		driver.findElement(By.id("categoryTestNeu")).click();
-		driver.findElement(By.id("deleteCategory")).click();
-		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
-		driver.findElement(By.id("deleteCategorySubmit")).click();
+		try {
+			new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestNeu")));
+			driver.findElement(By.id("categoryTestNeu")).click();
+			driver.findElement(By.id("deleteCategory")).click();
+			new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
+			driver.findElement(By.id("deleteCategorySubmit")).click();
+		}
+		catch(NoSuchElementException e) {
+			System.err.println("Cannot delete category TestNeu.");
+		}
 		
-		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestEditNeu")));
-		driver.findElement(By.id("categoryTestEditNeu")).click();
-		driver.findElement(By.id("deleteCategory")).click();
-		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
-		driver.findElement(By.id("deleteCategorySubmit")).click();
-		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		try {
+			new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("categoryTestEditNeu")));
+			driver.findElement(By.id("categoryTestEditNeu")).click();
+			driver.findElement(By.id("deleteCategory")).click();
+			new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteCategoryModal")));
+			driver.findElement(By.id("deleteCategorySubmit")).click();
+			new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		}
+		catch(NoSuchElementException e) {
+			System.err.println("Cannot delete category TestEditNeu.");
+		}
 		
 		driver.close();
 	}

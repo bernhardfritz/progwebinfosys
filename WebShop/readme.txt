@@ -12,7 +12,7 @@ Reports:
 		Task: test
 		Report: /reports/unit-tests
 	Integration-Tests:
-		Task: integrationTest
+		Task: integrationTest (Achtung: Hierfür müssen der Server mit HTTP-Port 8080 sowie die Datenbank laufen!)
 		Report: /reports/integration-tests
 	Abdeckung:
 		Task: cobertura (Tests ausführen + Report erstellen)

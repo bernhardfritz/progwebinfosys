@@ -36,18 +36,6 @@ test {
 task integrationTest(type: Test) {
 	description "Runs the integration tests."
     include "**/integration/**"
-    doFirst {
-    	jettyRun.httpPort = 8081
-    	jettyRun.stopPort = 8091
-    	jettyRun.stopKey = "stopKey"
-    	jettyRun.daemon = true
-        jettyRun.execute()
-    }
-    doLast {
-    	jettyStop.stopPort = 8091
-    	jettyStop.stopKey = "stopKey"
-        jettyStop.execute()
-    }
 }
 
 httpPort = 8080
