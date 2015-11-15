@@ -1,6 +1,5 @@
 package control;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +65,7 @@ public class UserApi {
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response loginUser(@Context HttpServletRequest req, @FormParam("username") String username, @FormParam("password") String password) {
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession();
 		User user = DBManager.getInstance().login(username, password);
 		if(user != null) {
 			session.setAttribute("user", user);
@@ -77,7 +76,7 @@ public class UserApi {
 	@Path("/logout")
 	@POST()
 	public Response logoutUser(@Context HttpServletRequest req) {
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession();
 		User user = DBManager.getInstance().logout();
 		if(user != null) {
 			session.setAttribute("user", user);

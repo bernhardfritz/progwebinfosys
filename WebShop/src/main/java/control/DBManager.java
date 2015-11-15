@@ -424,7 +424,6 @@ public class DBManager implements IDBManager {
 		
 		User user = getUserById(userId);
 		if (user != null) {
-			
 			entityManager.remove(user);
 		}
 		

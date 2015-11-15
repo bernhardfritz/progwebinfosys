@@ -1,6 +1,5 @@
 package control;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;

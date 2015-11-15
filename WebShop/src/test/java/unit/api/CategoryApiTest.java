@@ -1,14 +1,16 @@
 package unit.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,7 @@ import control.DBManager;
 import control.IDBManager;
 import model.Category;
 import model.Item;
+import model.User;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore("javax.net.ssl.*")
@@ -30,13 +33,21 @@ import model.Item;
 public class CategoryApiTest {
 	
 	private IDBManager dbManager;
+	
+	private HttpServletRequest req;
+	
+	private HttpSession session;
 
 	@Before
 	public void setUp() {
 		dbManager = PowerMockito.mock(DBManager.class);
+		req = PowerMockito.mock(HttpServletRequest.class);
+		session = PowerMockito.mock(HttpSession.class);
 		
 		PowerMockito.mockStatic(DBManager.class);
 		PowerMockito.when(DBManager.getInstance()).thenReturn(dbManager);
+		
+		PowerMockito.when(req.getSession()).thenReturn(session);
 		
 		Category cat1 = new Category("Kategorie1", "", null, null);
 		cat1.setId(1L);
@@ -63,7 +74,7 @@ public class CategoryApiTest {
 		Response response = categoryApi.getCategories();
 		List<Category> result = (List<Category>)response.getEntity();
 		
-		assertEquals(200, response.getStatus());
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
 		assertEquals(3, result.size());
 		assertEquals(new Long(1), result.get(0).getId());
 		assertEquals("Kategorie1", result.get(0).getName());
@@ -80,7 +91,7 @@ public class CategoryApiTest {
 		Response response = categoryApi.getCategory(1L);
 		Category result = (Category)response.getEntity();
 		
-		assertEquals(200, response.getStatus());
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
 		assertEquals(new Long(1), result.getId());
 		assertEquals("Kategorie1", result.getName());
 		assertEquals("", result.getDescription());
@@ -97,7 +108,7 @@ public class CategoryApiTest {
 		Response response = categoryApi.getItems(1L);
 		List<Item> result = (List<Item>)response.getEntity();
 		
-		assertEquals(200, response.getStatus());
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
 		assertEquals(3, result.size());
 		assertEquals(new Long(1), result.get(0).getCategory().getId());
 		assertEquals("Item1", result.get(0).getTitle());
@@ -106,5 +117,112 @@ public class CategoryApiTest {
 		assertNotNull(result.get(1).getCreateTimestamp());
 		assertNull(result.get(1).getUpdateUser());
 		assertNotNull(result.get(1).getUpdateTimestamp());
+	}
+	
+	@Test
+	public void testAuthorizedPostCategory() {
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
+		
+		Category category = new Category("category", "desc", adminUser, adminUser);
+		PowerMockito.when(dbManager.createCategory(category.getName(), category.getDescription(), category.getCreateUser())).thenReturn(category);
+		
+		CategoryApi categoryApi = new CategoryApi();
+		Response response = null;
+		try {
+			response = categoryApi.postCategory(req, category.getName(), category.getDescription());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		Category result = (Category)response.getEntity();
+		
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
+		assertNull(result.getId());
+		assertEquals(category.getName(), result.getName());
+		assertEquals(category.getDescription(), result.getDescription());
+		assertEquals(category.getCreateUser(), result.getCreateUser());
+		assertNotNull(result.getCreateTimestamp());
+		assertEquals(category.getUpdateUser(), result.getUpdateUser());
+		assertNotNull(result.getUpdateTimestamp());
+	}
+	
+	@Test
+	public void testUnauthorizedPostCategory() {
+		User unauthorizedUser = new User("unauthorized", "", true, false, true, true, true, true, true, true, true);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
+		
+		CategoryApi categoryApi = new CategoryApi();
+		Response response = null;
+		try {
+			response = categoryApi.postCategory(req, "category", "desc");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		Category result = (Category)response.getEntity();
+		
+		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
+		assertNull(result);
+	}
+	
+	@Test
+	public void testAuthorizedPutCategory() {
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
+		
+		Category category = new Category("category", "desc", adminUser, adminUser);
+		category.setId(1L);
+		Category categoryEdit = new Category("categoryEdit", "descEdit", category.getCreateUser(), adminUser);
+		categoryEdit.setId(category.getId());
+		PowerMockito.when(dbManager.editCategory(category.getId(), categoryEdit.getName(), categoryEdit.getDescription(), adminUser)).thenReturn(categoryEdit);
+		
+		CategoryApi categoryApi = new CategoryApi();
+		Response response = categoryApi.putCategory(req, category.getId(), categoryEdit.getName(), categoryEdit.getDescription());
+		Category result = (Category)response.getEntity();
+		
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
+		assertEquals(categoryEdit.getId(), result.getId());
+		assertEquals(categoryEdit.getName(), result.getName());
+		assertEquals(categoryEdit.getDescription(), result.getDescription());
+		assertEquals(categoryEdit.getCreateUser(), result.getCreateUser());
+		assertNotNull(result.getCreateTimestamp());
+		assertEquals(categoryEdit.getUpdateUser(), result.getUpdateUser());
+		assertNotNull(result.getUpdateTimestamp());
+	}
+	
+	@Test
+	public void testUnauthorizedPutCategory() {
+		User unauthorizedUser = new User("unauthorized", "", true, false, true, true, true, true, true, true, true);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
+		
+		CategoryApi categoryApi = new CategoryApi();
+		Response response = categoryApi.putCategory(req, 1L, "category", "desc");
+		Category result = (Category)response.getEntity();
+		
+		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
+		assertNull(result);
+	}
+	
+	@Test
+	public void testAuthorizedDeleteCategory() {
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
+		
+		PowerMockito.when(dbManager.deleteCategory(1l)).thenReturn(true);
+		
+		CategoryApi categoryApi = new CategoryApi();
+		Response response = categoryApi.deleteCategory(1l);
+		
+		assertEquals(Status.NO_CONTENT.getStatusCode(), response.getStatus());
+	}
+	
+	@Test
+	public void testUnauthorizedDeleteCategory() {
+		User unauthorizedUser = new User("unauthorized", "", true, true, false, true, true, true, true, true, true);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
+		
+		CategoryApi categoryApi = new CategoryApi();
+		Response response = categoryApi.deleteCategory(1L);
+		
+		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
 	}
 }
