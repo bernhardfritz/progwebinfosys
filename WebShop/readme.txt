@@ -1,25 +1,23 @@
 Abgrenzung:
-	Wir haben alle GET-Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.
-	Bei den POST-/PUT-/DELETE-Methoden haben wir leider nicht gewusst, wie wir diese testen hätten können.
+	Wir haben alle GET-/POST-/PUT-/DELETE- Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.
 	Die Test-Abdeckung haben wir mit Cobertura gemacht.
-	Ebenso haben wir einen Integrationstest mit Hilfe einer Browser-Simulation umgesetzt.
+	Ebenso haben wir Integrationstests mit Hilfe einer Browser-Simulation umgesetzt.
 	
-	Getestet werden müsste noch der DBManager sowie die oben genannten Methoden.
-	Wir haben leider nicht gewusst, wie wir diese Tests umsetzen, deswegen fehlen sie.
+	Getestet werden müsste noch der DBManager gegen eine Test-Datenbank, das haben wir leider nicht mehr geschafft.
 	
 Reports:
 	Unit-Tests:
 		Task: test
-		Report: /reports/unit-tests
+		Report: /reports/unit-tests/index.html
 	Integration-Tests:
 		Task: integrationTest (Achtung: Hierfür müssen der Server mit HTTP-Port 8080 sowie die Datenbank laufen!)
-		Report: /reports/integration-tests
+		Report: /reports/integration-tests/index.html
 	Abdeckung:
 		Task: cobertura (Tests ausführen + Report erstellen)
-		Report: /reports/cobertura
+		Report: /reports/cobertura/index.html
 
 
-Technologien:
+Verwendete Technologien:
 	Server: Jetty
 	Build: Gradle
 	REST: Jersey
@@ -28,6 +26,7 @@ Technologien:
 	Testing: JUnit
 	Test-Abdeckung: Cobertura
 	Browser-Simulation: Selenium
+	Mocking: PowerMockito
 
 
 Default-User:
