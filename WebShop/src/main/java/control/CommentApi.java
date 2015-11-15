@@ -1,5 +1,8 @@
 package control;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,7 +35,12 @@ public class CommentApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response putComment(@Context HttpServletRequest req, @PathParam("commentId") Long itemCommentId, @FormParam("text") String text, @FormParam("rating") Integer rating) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		ItemComment itemComment = DBManager.getInstance().editItemComment(itemCommentId, text, rating, currentUser);
+		ItemComment itemComment = null;
+		try {
+			itemComment = DBManager.getInstance().editItemComment(itemCommentId, URLDecoder.decode(text, "UTF-8"), rating, currentUser);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		if(itemComment != null) return Response.ok(itemComment).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}

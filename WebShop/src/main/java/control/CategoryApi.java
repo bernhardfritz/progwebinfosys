@@ -1,6 +1,8 @@
 package control;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -33,7 +35,12 @@ public class CategoryApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postCategory(@Context HttpServletRequest req, @FormParam("name") String name, @FormParam("description") String description) throws URISyntaxException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		Category category = DBManager.getInstance().createCategory(name, description, currentUser);
+		Category category = null;
+		try {
+			category = DBManager.getInstance().createCategory(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(description, "UTF-8"), currentUser);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		if(category != null) return Response.ok(category).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
@@ -44,7 +51,12 @@ public class CategoryApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response putCategory(@Context HttpServletRequest req, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		Category category = DBManager.getInstance().editCategory(categoryId, name, description, currentUser);
+		Category category = null;
+		try {
+			category = DBManager.getInstance().editCategory(categoryId, URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(description, "UTF-8"), currentUser);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		if(category != null) return Response.ok(category).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}

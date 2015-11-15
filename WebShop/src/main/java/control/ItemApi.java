@@ -1,7 +1,9 @@
 package control;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -35,7 +37,12 @@ public class ItemApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postItem(@Context HttpServletRequest req, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId) throws URISyntaxException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		Item item = DBManager.getInstance().createItem(title, description, price, categoryId, currentUser);
+		Item item = null;
+		try {
+			item = DBManager.getInstance().createItem(URLDecoder.decode(title, "UTF-8"), URLDecoder.decode(description, "UTF-8"), price, categoryId, currentUser);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		if(item != null) return Response.ok(item).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
@@ -53,7 +60,12 @@ public class ItemApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response putItem(@Context HttpServletRequest req, @PathParam("itemId") Long itemId, @FormParam("title") String title, @FormParam("description") String description, @FormParam("price") BigDecimal price, @FormParam("categoryId") Long categoryId) {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		Item item = DBManager.getInstance().editItem(itemId, title, description, price, categoryId, currentUser);
+		Item item = null;
+		try {
+			item = DBManager.getInstance().editItem(itemId, URLDecoder.decode(title, "UTF-8"), URLDecoder.decode(description, "UTF-8"), price, categoryId, currentUser);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		if(item != null) return Response.ok(item).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
@@ -78,7 +90,12 @@ public class ItemApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postItemComment(@Context HttpServletRequest req, @FormParam("text") String text, @PathParam("itemId") Long itemId, @FormParam("rating") Integer rating) throws URISyntaxException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		ItemComment itemComment = DBManager.getInstance().createItemComment(text, itemId, rating, currentUser);
+		ItemComment itemComment = null;
+		try {
+			itemComment = DBManager.getInstance().createItemComment(URLDecoder.decode(text, "UTF-8"), itemId, rating, currentUser);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		if(itemComment != null) return Response.ok(itemComment).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
