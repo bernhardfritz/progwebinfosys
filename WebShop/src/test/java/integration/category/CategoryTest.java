@@ -1,4 +1,4 @@
-package integration.simulation;
+package integration.category;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SimulationTest {
+public class CategoryTest {
 	
 	private static WebDriver driver;
 	
@@ -69,26 +69,6 @@ public class SimulationTest {
 		driver.findElement(By.id("username")).sendKeys("admin");
 		driver.findElement(By.id("password")).sendKeys("secret");
 		driver.findElement(By.id("signIn")).click();
-	}
-	
-	public void logout() {
-		driver.findElement(By.id("logout")).click();
-	}
-
-	@Test
-	public void testLogin() {
-		loginAsAdmin();
-		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
-		
-		assertEquals("Hello, admin!", driver.findElement(By.id("helloText")).getText());
-	}
-	
-	@Test
-	public void testLogout() {
-		loginAsAdmin();
-		logout();
-		
-		assertTrue(driver.findElement(By.id("username")).isDisplayed());
 	}
 	
 	public void createTestCategory(String name) {

@@ -1,7 +1,7 @@
 Abgrenzung:
 	Wir haben alle GET-/POST-/PUT-/DELETE- Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.
 	Die Test-Abdeckung haben wir mit Cobertura gemacht.
-	Ebenso haben wir Integrationstests mit Hilfe einer Browser-Simulation umgesetzt.
+	Ebenso haben wir Integrationstests für Benutzerauthentifizierung und Kategorie-Funktionen mit Hilfe einer Browser-Simulation umgesetzt.
 	
 	Getestet werden müsste noch der DBManager gegen eine Test-Datenbank, das haben wir leider nicht mehr geschafft.
 	
