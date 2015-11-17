@@ -1,9 +1,12 @@
 package unit.api;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,7 +134,8 @@ public class CategoryApiTest {
 		Response response = null;
 		try {
 			response = categoryApi.postCategory(req, category.getName(), category.getDescription());
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
+			fail("Category Post Error:");
 			e.printStackTrace();
 		}
 		Category result = (Category)response.getEntity();
@@ -155,7 +159,8 @@ public class CategoryApiTest {
 		Response response = null;
 		try {
 			response = categoryApi.postCategory(req, "category", "desc");
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
+			fail("Category Post Error:");
 			e.printStackTrace();
 		}
 		Category result = (Category)response.getEntity();
@@ -176,7 +181,13 @@ public class CategoryApiTest {
 		PowerMockito.when(dbManager.editCategory(category.getId(), categoryEdit.getName(), categoryEdit.getDescription(), adminUser)).thenReturn(categoryEdit);
 		
 		CategoryApi categoryApi = new CategoryApi();
-		Response response = categoryApi.putCategory(req, category.getId(), categoryEdit.getName(), categoryEdit.getDescription());
+		Response response = null;
+		try {
+			response = categoryApi.putCategory(req, category.getId(), categoryEdit.getName(), categoryEdit.getDescription());
+		} catch (UnsupportedEncodingException e) {
+			fail("Category Put Error:");
+			e.printStackTrace();
+		}
 		Category result = (Category)response.getEntity();
 		
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
@@ -195,7 +206,13 @@ public class CategoryApiTest {
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		CategoryApi categoryApi = new CategoryApi();
-		Response response = categoryApi.putCategory(req, 1L, "category", "desc");
+		Response response = null;
+		try {
+			response = categoryApi.putCategory(req, 1L, "category", "desc");
+		} catch (UnsupportedEncodingException e) {
+			fail("Category Put Error:");
+			e.printStackTrace();
+		}
 		Category result = (Category)response.getEntity();
 		
 		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());

@@ -33,14 +33,9 @@ public class CommentApi {
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response putComment(@Context HttpServletRequest req, @PathParam("commentId") Long itemCommentId, @FormParam("text") String text, @FormParam("rating") Integer rating) {
+	public Response putComment(@Context HttpServletRequest req, @PathParam("commentId") Long itemCommentId, @FormParam("text") String text, @FormParam("rating") Integer rating) throws UnsupportedEncodingException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		ItemComment itemComment = null;
-		try {
-			itemComment = DBManager.getInstance().editItemComment(itemCommentId, URLDecoder.decode(text, "UTF-8"), rating, currentUser);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		ItemComment itemComment = DBManager.getInstance().editItemComment(itemCommentId, URLDecoder.decode(text, "UTF-8"), rating, currentUser);
 		if(itemComment != null) return Response.ok(itemComment).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}

@@ -1,9 +1,8 @@
 package unit.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -92,7 +91,13 @@ public class CommentApiTest {
 		PowerMockito.when(dbManager.editItemComment(itemComment.getId(), itemCommentEdit.getText(), itemCommentEdit.getRating(), adminUser)).thenReturn(itemCommentEdit);
 		
 		CommentApi commentApi = new CommentApi();
-		Response response = commentApi.putComment(req, itemComment.getId(), itemCommentEdit.getText(), itemCommentEdit.getRating());
+		Response response = null;
+		try {
+			response = commentApi.putComment(req, itemComment.getId(), itemCommentEdit.getText(), itemCommentEdit.getRating());
+		} catch (UnsupportedEncodingException e) {
+			fail("ItemComment Put Error:");
+			e.printStackTrace();
+		}
 		ItemComment result = (ItemComment)response.getEntity();
 		
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
@@ -112,7 +117,13 @@ public class CommentApiTest {
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		CommentApi commentApi = new CommentApi();
-		Response response = commentApi.putComment(req, 1L, "itemComment", 1);
+		Response response = null;
+		try {
+			response = commentApi.putComment(req, 1L, "itemComment", 1);
+		} catch (UnsupportedEncodingException e) {
+			fail("ItemComment Put Error:");
+			e.printStackTrace();
+		}
 		ItemComment result = (ItemComment)response.getEntity();
 		
 		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());

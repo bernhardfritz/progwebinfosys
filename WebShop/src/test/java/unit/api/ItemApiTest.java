@@ -3,9 +3,10 @@ package unit.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,7 +141,8 @@ public class ItemApiTest {
 		Response response = null;
 		try {
 			response = itemApi.postItem(req, item.getTitle(), item.getDescription(), item.getPrice(), item.getCategory().getId());
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
+			fail("Item Post Error:");
 			e.printStackTrace();
 		}
 		Item result = (Item)response.getEntity();
@@ -166,7 +168,8 @@ public class ItemApiTest {
 		Response response = null;
 		try {
 			response = itemApi.postItem(req, "item", "desc", new BigDecimal(11.11), 1L);
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
+			fail("Item Post Error:");
 			e.printStackTrace();
 		}
 		Item result = (Item)response.getEntity();
@@ -189,7 +192,13 @@ public class ItemApiTest {
 		PowerMockito.when(dbManager.editItem(item.getId(), itemEdit.getTitle(), itemEdit.getDescription(), itemEdit.getPrice(), itemEdit.getCategory().getId(), adminUser)).thenReturn(itemEdit);
 		
 		ItemApi itemApi = new ItemApi();
-		Response response = itemApi.putItem(req, itemEdit.getId(), itemEdit.getTitle(), itemEdit.getDescription(), itemEdit.getPrice(), itemEdit.getCategory().getId());
+		Response response = null;
+		try {
+			response = itemApi.putItem(req, itemEdit.getId(), itemEdit.getTitle(), itemEdit.getDescription(), itemEdit.getPrice(), itemEdit.getCategory().getId());
+		} catch (UnsupportedEncodingException e) {
+			fail("Item Put Error:");
+			e.printStackTrace();
+		}
 		Item result = (Item)response.getEntity();
 		
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
@@ -210,7 +219,13 @@ public class ItemApiTest {
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		ItemApi itemApi = new ItemApi();
-		Response response = itemApi.putItem(req, 1L, "item", "desc", new BigDecimal(11.11), 1L);
+		Response response = null;
+		try {
+			response = itemApi.putItem(req, 1L, "item", "desc", new BigDecimal(11.11), 1L);
+		} catch (UnsupportedEncodingException e) {
+			fail("Item Put Error:");
+			e.printStackTrace();
+		}
 		Item result = (Item)response.getEntity();
 		
 		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
@@ -260,7 +275,8 @@ public class ItemApiTest {
 		Response response = null;
 		try {
 			response = itemApi.postItemComment(req, itemComment.getText(), itemComment.getItem().getId(), itemComment.getRating());
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
+			fail("ItemComment Post Error:");
 			e.printStackTrace();
 		}
 		ItemComment result = (ItemComment)response.getEntity();
@@ -285,7 +301,8 @@ public class ItemApiTest {
 		Response response = null;
 		try {
 			response = itemApi.postItemComment(req, "itemComment", 1L, 1);
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
+			fail("ItemComment Post Error:");
 			e.printStackTrace();
 		}
 		ItemComment result = (ItemComment)response.getEntity();
