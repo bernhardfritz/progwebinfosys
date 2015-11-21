@@ -10,20 +10,20 @@
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="title" class="control-label">Title:</label>
-	            <input type="text" class="form-control" name="title" id="title" autofocus required />
+	            <input type="text" class="form-control" name="title" id="itemTitle" autofocus required />
 	          </div>
 	          <div class="form-group">
 	          	<label for="price" class="control-label">Price:</label>
-	            <input type='text' class="form-control" name='price' pattern="^\d+(\.\d{1,2})?$" required />
+	            <input id="itemPrice" type='text' class="form-control" name='price' pattern="^\d+(\.\d{1,2})?$" required />
 	            <span class="help-block with-errors">e.g. 1.99</span>
 	          </div>
 	          <div class="form-group">
 	            <label for="description" class="control-label">Description:</label>
-	            <textarea class="form-control" name="description" id="description"></textarea>
+	            <textarea class="form-control" name="description" id="itemDescription"></textarea>
 	          </div>
 	          <div class="form-group">
 	          	<label for="categoryId" class="control-lagel">Category</label>
-	          	<select name="categoryId">
+	          	<select id="itemCategory" name="categoryId">
 					<option value="0">Choose category...</option>
 						<%
 							for (Category c : DBManager.getInstance().getCategories()) {
@@ -35,7 +35,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="submit" class="btn btn-primary">Save</button>
+	        <button id="saveItem" type="submit" class="btn btn-primary">Save</button>
 	      </div>
       </form>
     </div>

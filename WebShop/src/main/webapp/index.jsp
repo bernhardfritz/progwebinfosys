@@ -77,7 +77,7 @@
                     	<div class="btn-group-vertical" role="group">
                     	<%
 	                    	if(categoryId > 0 && currentUser != null && currentUser.isItemWrite()) {
-	                    		out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#createItemModal'>Create new item</button>");
+	                    		out.println("<button id='createNewItem' type='button' class='btn btn-primary' data-toggle='modal' data-target='#createItemModal'>Create new item</button>");
 	                    	}
                     		if(categoryId > 0 && currentUser != null && currentUser.isCategoryWrite()) {
                     			out.println("<button id='editCategory' type='button' class='btn btn-warning' data-toggle='modal' data-target='#editCategoryModal'>Edit category</button>");

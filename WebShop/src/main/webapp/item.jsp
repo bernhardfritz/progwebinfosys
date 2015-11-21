@@ -77,7 +77,7 @@
 		           <div class="text-right">
 			           <%
 			           		if(currentUser != null && currentUser.isItemCommentWrite()) {
-			           			out.println("<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#createCommentModal'>Leave a review</button>");
+			           			out.println("<button id='createComment' type='button' class='btn btn-primary' data-toggle='modal' data-target='#createCommentModal'>Leave a review</button>");
 			           		}
 			           		if(currentUser != null && currentUser.isItemWrite()) {
 			           			out.println("<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#editItemModal'>Edit item</button>");
@@ -102,7 +102,7 @@
 		           		if(currentUser != null && ((currentUser.isItemCommentWrite() && currentUser.equals(comment.getCreateUser()) || currentUser.isItemCommentDelete()))) out.println("<button class='btn btn-sm btn-warning' onclick='editComment(" + comment.getId() + ", \"" + comment.getText() + "\", " + comment.getRating() + ")'><span class='glyphicon glyphicon-edit'></span></button>");
 		           		if(currentUser != null && currentUser.isItemCommentDelete()) out.println("<button class='btn btn-sm btn-danger' onclick='deleteComment(" + comment.getId() + ")'><span class='glyphicon glyphicon-trash'></span></button>");
 		           		out.println("<span class='pull-right'>" + new SimpleDateFormat("dd.MM.yyyy kk:mm").format(comment.getCreateTimestamp()) + "</span>");
-		           		out.println("<p>" + comment.getText() + "</p>");
+		           		out.println("<p id='comment" + comment.getText() + "'>" + comment.getText() + "</p>");
 		           		out.println("</div>");
 		           		out.println("</div>");
 		           	}
