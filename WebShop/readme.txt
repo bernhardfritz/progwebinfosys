@@ -33,6 +33,9 @@ Verwendete Technologien:
 
 
 Default-User:
+  Username: superadmin
+  Password: supersecret
+
   Username: admin
   Password: secret
 

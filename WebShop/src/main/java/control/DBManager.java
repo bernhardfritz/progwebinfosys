@@ -407,6 +407,40 @@ public class DBManager implements IDBManager {
 			user.setItemCommentRead(privileges.isItemCommentRead());
 			user.setItemCommentWrite(privileges.isItemCommentWrite());
 			user.setItemCommentDelete(privileges.isItemCommentDelete());
+			user.setUserPromote(privileges.isUserPromote());
+			user.setUserDemote(privileges.isUserDemote());
+			user.setUserDelete(privileges.isUserDelete());
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
+	
+	public User editUserPrivileges(Long userId, long bitmap) {
+		Privileges privileges = new Privileges(bitmap);		
+		EntityTransaction transaction = startSaveTransaction();
+		
+		User user = getUserById(userId);
+		if (user != null) {
+			user.setCategoryRead(privileges.isCategoryRead());
+			user.setCategoryWrite(privileges.isCategoryWrite());
+			user.setCategoryDelete(privileges.isCategoryDelete());
+			user.setItemRead(privileges.isItemRead());
+			user.setItemWrite(privileges.isItemWrite());
+			user.setItemDelete(privileges.isItemDelete());
+			user.setItemCommentRead(privileges.isItemCommentRead());
+			user.setItemCommentWrite(privileges.isItemCommentWrite());
+			user.setItemCommentDelete(privileges.isItemCommentDelete());
+			user.setUserPromote(privileges.isUserPromote());
+			user.setUserDemote(privileges.isUserDemote());
+			user.setUserDelete(privileges.isUserDelete());
 		}
 		
 		try {

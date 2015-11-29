@@ -49,7 +49,14 @@ public class UserApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Long bitmap) {
-		User user = DBManager.getInstance().editUser(userId, password, bitmap);
+		User user = null;
+		if (password != null) {
+			user = DBManager.getInstance().editUser(userId, password, bitmap);
+		}
+		else {
+			user = DBManager.getInstance().editUserPrivileges(userId, bitmap);
+		}
+		
 		if(user != null) return Response.ok(user).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}

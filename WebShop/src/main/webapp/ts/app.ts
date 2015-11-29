@@ -14,7 +14,7 @@ import {Http, Headers, HTTP_BINDINGS} from 'angular2/http';
       </tr>
     </thead>
     <tbody>
-			<tr *ng-for="#user of users">
+			<tr *ng-for="#user of users" style="{{user.style}}">
 				<td>{{user.id}}</td>
         <td>{{user.username}}</td>
         <td>
@@ -40,19 +40,35 @@ export class AppComponent {
         this.users = res.json();
         this.users.forEach(function(user) {
           user.privilege = 'User';
+          user.style = '';
+
           if(user.categoryRead && user.categoryWrite && user.categoryDelete &&
             user.itemRead && user.itemWrite && user.itemDelete &&
-            user.itemCommentRead && user.itemCommentWrite && user.itemCommentDelete) {
+            user.itemCommentRead && user.itemCommentWrite && user.itemCommentDelete &&
+            !user.userPromote && !user.userDemote && user.userDelete) {
               user.privilege = 'Admin';
+          }
+
+          if(user.categoryRead && user.categoryWrite && user.categoryDelete &&
+            user.itemRead && user.itemWrite && user.itemDelete &&
+            user.itemCommentRead && user.itemCommentWrite && user.itemCommentDelete &&
+            user.userPromote && user.userDemote && user.userDelete) {
+              user.style = 'display: none';
+          }
+          else if(user.categoryRead && !user.categoryWrite && !user.categoryDelete &&
+            user.itemRead && !user.itemWrite && !user.itemDelete &&
+            user.itemCommentRead && !user.itemCommentWrite && !user.itemCommentDelete &&
+            !user.userPromote && !user.userDemote && !user.userDelete) {
+              user.style = 'display: none';
           }
         })
       });
   }
 
   update(user, value) {
-    var bitmap = 100100110;
+    var bitmap = 100100110000;
     if(value === 'Admin') {
-      bitmap = 111111111;
+      bitmap = 111111111001;
     }
     var parameters = "userId=" + user.id + "&privileges=" + bitmap;
     alert(parameters);

@@ -29,6 +29,7 @@ public interface IDBManager {
 	public User getUserById(Long userId);
 	public User createUser(String username, String password, long bitmap);
 	public User editUser(Long userId, String password, long bitmap);
+	public User editUserPrivileges(Long userId, long bitmap);
 	public boolean deleteUser(Long userId);
 	public User login(String username, String password);
 	public User logout();
