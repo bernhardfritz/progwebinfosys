@@ -23,7 +23,7 @@ public class UserTest {
 	
 	@Test
 	public void testConstructorWithFields() {
-		User user = new User("user", "pwd", true, false, true, false, true, false, true, false, true);
+		User user = new User("user", "pwd", true, false, true, false, true, false, true, false, true, false, true, false);
 		
 		assertNull(user.getId());
 		assertEquals("user", user.getUsername());
@@ -37,6 +37,9 @@ public class UserTest {
 		assertTrue(user.isItemCommentRead());
 		assertFalse(user.isItemCommentWrite());
 		assertTrue(user.isItemCommentDelete());
+		assertFalse(user.isUserPromote());
+		assertTrue(user.isUserDemote());
+		assertFalse(user.isUserDelete());
 		assertNotNull(user.getCreateTimestamp());
 	}
 	
@@ -57,6 +60,9 @@ public class UserTest {
 		user.setItemCommentRead(true);
 		user.setItemCommentWrite(false);
 		user.setItemCommentDelete(true);
+		user.setUserPromote(false);
+		user.setUserDemote(true);
+		user.setUserDelete(false);
 		user.setCreateTimestamp(timestamp);
 		
 		assertEquals(new Long(1), user.getId());
@@ -71,6 +77,9 @@ public class UserTest {
 		assertTrue(user.isItemCommentRead());
 		assertFalse(user.isItemCommentWrite());
 		assertTrue(user.isItemCommentDelete());
+		assertFalse(user.isUserPromote());
+		assertTrue(user.isUserDemote());
+		assertFalse(user.isUserDelete());
 		assertEquals(timestamp, user.getCreateTimestamp());
 	}
 }

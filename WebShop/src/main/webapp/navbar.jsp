@@ -23,7 +23,7 @@
             out.println("<input id='password' type='password' name='password' placeholder='Password' class='form-control'>");
             out.println("</div>");
             out.println("<button id='signIn' type='submit' class='btn btn-success'>Sign in</button>");
-            out.println("<a class='btn btn-primary' href='#' data-toggle='modal' data-target='#signUpModal'>Sign up</a>");
+            out.println("<a id='signUp' class='btn btn-primary' href='#' data-toggle='modal' data-target='#signUpModal'>Sign up</a>");
           	out.println("</form>");
       	} else {
       		out.println("<form action='/WebShop/api/user/logout' method='post' id='logoutForm' class='navbar-form navbar-right'>");

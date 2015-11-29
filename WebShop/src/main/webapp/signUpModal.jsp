@@ -9,7 +9,7 @@
 	      <div class="modal-body">
 	          <div class="form-group">
 	            <label for="username" class="control-label">Username:</label>
-	            <input type="text" class="form-control" name="username" id="username" autofocus required />
+	            <input type="text" class="form-control" name="username" id="usernameSignup" autofocus required />
 	          </div>
 	          <div class="form-group">
 	            <label for="password" class="control-label">Password:</label>

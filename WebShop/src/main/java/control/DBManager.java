@@ -361,18 +361,19 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public User createUser(String username, String password, int bitmap) {
+	public User createUser(String username, String password, long bitmap) {
 		if (username.isEmpty() || password.isEmpty()) {
 			return null;
 		}
 		
-		Privileges privileges = new Privileges(bitmap);		
+		Privileges privileges = new Privileges(bitmap);
 		EntityTransaction transaction = startSaveTransaction();
 		
     	User user = new User(username, password, privileges.isCategoryRead(), privileges.isCategoryWrite(), 
     			privileges.isCategoryDelete(), privileges.isItemRead(), privileges.isItemWrite(), 
     			privileges.isItemDelete(), privileges.isItemCommentRead(), privileges.isItemCommentWrite(), 
-    			privileges.isItemCommentDelete());
+    			privileges.isItemCommentDelete(), privileges.isUserPromote(), privileges.isUserDemote(), 
+    			privileges.isUserDelete());
     	
     	try {
     		entityManager.persist(user);
@@ -386,7 +387,7 @@ public class DBManager implements IDBManager {
     	return null;
 	}
 
-	public User editUser(Long userId, String password, int bitmap) {
+	public User editUser(Long userId, String password, long bitmap) {
 		if (password.isEmpty()) {
 			return null;
 		}

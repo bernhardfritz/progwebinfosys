@@ -15,6 +15,9 @@ CREATE TABLE `WebShop`.`User` (
   `itemCommentRead` BIT NOT NULL,
   `itemCommentWrite` BIT NOT NULL,
   `itemCommentDelete` BIT NOT NULL,
+  `userPromote` BIT NOT NULL,
+  `userDemote` BIT NOT NULL,
+  `userDelete` BIT NOT NULL,
   `createTimestamp` DATETIME NOT NULL,
   PRIMARY KEY (`idUser`));
   
@@ -98,6 +101,7 @@ GRANT USAGE ON *.* TO 'webshopUser'@'localhost' IDENTIFIED BY 'webshop';
 GRANT ALL PRIVILEGES ON WebShop.* TO 'webshopUser'@'localhost';
 FLUSH PRIVILEGES;
 
-INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `createTimestamp`) VALUES ('admin', 'secret', 1, 1, 1, 1, 1, 1, 1, 1, 1, NOW());
-INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `createTimestamp`) VALUES ('user', 'password', 1, 0, 0, 1, 0, 0, 1, 1, 0, NOW());
-INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `createTimestamp`) VALUES ('guest', 'password', 1, 0, 0, 1, 0, 0, 1, 0, 0, NOW());
+INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('superadmin', 'supersecret', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NOW());
+INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('admin', 'secret', 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, NOW());
+INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('user', 'password', 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, NOW());
+INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('guest', 'password', 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, NOW());

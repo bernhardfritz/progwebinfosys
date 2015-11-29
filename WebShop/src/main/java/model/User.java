@@ -60,6 +60,15 @@ public class User implements Serializable {
 	@Column(name = "itemCommentDelete")
 	private boolean itemCommentDelete;
 	
+	@Column(name = "userPromote")
+	private boolean userPromote;
+	
+	@Column(name = "userDemote")
+	private boolean userDemote;
+	
+	@Column(name = "userDelete")
+	private boolean userDelete;
+	
 	@Column(name = "createTimestamp")
 	Timestamp createTimestamp;
 	
@@ -67,7 +76,7 @@ public class User implements Serializable {
 
 	public User(String username, String password, boolean categoryRead, boolean categoryWrite, boolean categoryDelete,
 			boolean itemRead, boolean itemWrite, boolean itemDelete, boolean itemCommentRead, boolean itemCommentWrite,
-			boolean itemCommentDelete) {
+			boolean itemCommentDelete, boolean userPromote, boolean userDemote, boolean userDelete) {
 		this.username = username;
 		this.password = password;
 		this.categoryRead = categoryRead;
@@ -79,7 +88,29 @@ public class User implements Serializable {
 		this.itemCommentRead = itemCommentRead;
 		this.itemCommentWrite = itemCommentWrite;
 		this.itemCommentDelete = itemCommentDelete;
+		this.userPromote = userPromote;
+		this.userDemote = userDemote;
+		this.userDelete = userDelete;
 		this.createTimestamp = new Timestamp(new Date().getTime());
+	}
+	
+	public boolean isSuperAdmin() {
+		return isAdmin() && 
+				userPromote && userDemote;
+	}
+	
+	public boolean isAdmin() {
+		 return isUser() && 
+				 categoryWrite && categoryDelete && 
+				 itemWrite && itemDelete && 
+				 itemCommentDelete && 
+				 userDelete;
+	}
+	
+	public boolean isUser() {
+		return (categoryRead && 
+				itemRead && 
+				itemCommentRead && itemCommentWrite);
 	}
 
 	public Long getId() {
@@ -184,5 +215,29 @@ public class User implements Serializable {
 
 	public void setCreateTimestamp(Timestamp createTimestamp) {
 		this.createTimestamp = createTimestamp;
+	}
+
+	public boolean isUserPromote() {
+		return userPromote;
+	}
+
+	public void setUserPromote(boolean userPromote) {
+		this.userPromote = userPromote;
+	}
+
+	public boolean isUserDemote() {
+		return userDemote;
+	}
+
+	public void setUserDemote(boolean userDemote) {
+		this.userDemote = userDemote;
+	}
+
+	public boolean isUserDelete() {
+		return userDelete;
+	}
+
+	public void setUserDelete(boolean userDelete) {
+		this.userDelete = userDelete;
 	}
 }

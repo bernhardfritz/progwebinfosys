@@ -32,7 +32,7 @@ public class UserApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postUser(@FormParam("username") String username, @FormParam("password") String password) throws URISyntaxException {
-		User user = DBManager.getInstance().createUser(username, password, 100100110);
+		User user = DBManager.getInstance().createUser(username, password, 100100110000L);
 		if(user != null) return Response.ok(user).build();
 		else return Response.serverError().build();
 	}
@@ -48,7 +48,7 @@ public class UserApi {
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Integer bitmap) {
+	public Response putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Long bitmap) {
 		User user = DBManager.getInstance().editUser(userId, password, bitmap);
 		if(user != null) return Response.ok(user).build();
 		else return Response.status(Status.UNAUTHORIZED).build();

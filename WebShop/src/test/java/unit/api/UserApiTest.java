@@ -46,13 +46,13 @@ public class UserApiTest {
 		
 		PowerMockito.when(req.getSession()).thenReturn(session);
 		
-		User user1 = new User("admin", "adminpwd", true, true, true, true, true, true, true, true, true);
+		User user1 = new User("admin", "adminpwd", true, true, true, true, true, true, true, true, true, false, false, true);
 		user1.setId(1L);
 		
 		List<User> userList = new ArrayList<User>();
 		userList.add(user1);
-		userList.add(new User("user", "userpwd", true, false, false, true, false, false, true, true, false));
-		userList.add(new User("guest", "guestpwd", true, false, false, true, false, false, true, false, false));
+		userList.add(new User("user", "userpwd", true, false, false, true, false, false, true, true, false, false, false, false));
+		userList.add(new User("guest", "guestpwd", true, false, false, true, false, false, true, false, false, false, false, false));
 		
 		PowerMockito.when(dbManager.getUsers()).thenReturn(userList);
 		PowerMockito.when(dbManager.getUserById(1L)).thenReturn(user1);
@@ -88,8 +88,8 @@ public class UserApiTest {
 	
 	@Test
 	public void testSuccessfulPostUser() {
-		User user = new User("user", "pwd", true, false, false, true, false, false, true, true, false);
-		PowerMockito.when(dbManager.createUser(user.getUsername(), user.getPassword(), 100100110)).thenReturn(user);
+		User user = new User("user", "pwd", true, false, false, true, false, false, true, true, false, false, false, false);
+		PowerMockito.when(dbManager.createUser(user.getUsername(), user.getPassword(), 100100110000L)).thenReturn(user);
 		
 		UserApi userApi = new UserApi();
 		Response response = null;
@@ -131,14 +131,14 @@ public class UserApiTest {
 	
 	@Test
 	public void testAuthorizedPutUser() {
-		User user = new User("user", "pwd", true, false, false, true, false, false, true, true, false);
+		User user = new User("user", "pwd", true, false, false, true, false, false, true, true, false, false, false, false);
 		user.setId(1L);
-		User userEdit = new User(user.getUsername(), "pwdEdit", false, true, true, false, true, true, false, false, true);
+		User userEdit = new User(user.getUsername(), "pwdEdit", false, true, true, false, true, true, false, false, true, false, false, false);
 		userEdit.setId(user.getId());
-		PowerMockito.when(dbManager.editUser(user.getId(), userEdit.getPassword(), 11011001)).thenReturn(userEdit);
+		PowerMockito.when(dbManager.editUser(user.getId(), userEdit.getPassword(), 11011001000L)).thenReturn(userEdit);
 		
 		UserApi userApi = new UserApi();
-		Response response = userApi.putUser(user.getId(), userEdit.getPassword(), 11011001);
+		Response response = userApi.putUser(user.getId(), userEdit.getPassword(), 11011001000L);
 		User result = (User)response.getEntity();
 		
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
@@ -160,7 +160,7 @@ public class UserApiTest {
 	@Test
 	public void testUnauthorizedPutUser() {
 		UserApi userApi = new UserApi();
-		Response response = userApi.putUser(1L, "", 0);
+		Response response = userApi.putUser(1L, "", 0L);
 		User result = (User)response.getEntity();
 		
 		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
@@ -189,7 +189,7 @@ public class UserApiTest {
 	
 	@Test
 	public void testSuccessfulLogin() {
-		User user = new User("user", "pwd", true, false, false, true, false, false, true, true, false);
+		User user = new User("user", "pwd", true, false, false, true, false, false, true, true, false, false, false, false);
 		PowerMockito.when(dbManager.login(user.getUsername(), user.getPassword())).thenReturn(user);
 		
 		UserApi userApi = new UserApi();
@@ -210,7 +210,7 @@ public class UserApiTest {
 	
 	@Test
 	public void testSuccessfulLogout() {
-		User guestUser = new User("guest", "pwd", true, false, false, true, false, false, true, false, false);
+		User guestUser = new User("guest", "pwd", true, false, false, true, false, false, true, false, false, false, false, false);
 		PowerMockito.when(dbManager.logout()).thenReturn(guestUser);
 		
 		UserApi userApi = new UserApi();

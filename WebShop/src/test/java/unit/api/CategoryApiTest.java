@@ -124,7 +124,7 @@ public class CategoryApiTest {
 	
 	@Test
 	public void testAuthorizedPostCategory() {
-		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, false);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
 		
 		Category category = new Category("category", "desc", adminUser, adminUser);
@@ -152,7 +152,7 @@ public class CategoryApiTest {
 	
 	@Test
 	public void testUnauthorizedPostCategory() {
-		User unauthorizedUser = new User("unauthorized", "", true, false, true, true, true, true, true, true, true);
+		User unauthorizedUser = new User("unauthorized", "", true, false, true, true, true, true, true, true, true, false, false, false);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		CategoryApi categoryApi = new CategoryApi();
@@ -171,7 +171,7 @@ public class CategoryApiTest {
 	
 	@Test
 	public void testAuthorizedPutCategory() {
-		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, true);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
 		
 		Category category = new Category("category", "desc", adminUser, adminUser);
@@ -202,7 +202,7 @@ public class CategoryApiTest {
 	
 	@Test
 	public void testUnauthorizedPutCategory() {
-		User unauthorizedUser = new User("unauthorized", "", true, false, true, true, true, true, true, true, true);
+		User unauthorizedUser = new User("unauthorized", "", true, false, true, true, true, true, true, true, true, false, false, false);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		CategoryApi categoryApi = new CategoryApi();
@@ -221,7 +221,7 @@ public class CategoryApiTest {
 	
 	@Test
 	public void testAuthorizedDeleteCategory() {
-		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, true);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
 		
 		PowerMockito.when(dbManager.deleteCategory(1l)).thenReturn(true);
@@ -234,7 +234,7 @@ public class CategoryApiTest {
 	
 	@Test
 	public void testUnauthorizedDeleteCategory() {
-		User unauthorizedUser = new User("unauthorized", "", true, true, false, true, true, true, true, true, true);
+		User unauthorizedUser = new User("unauthorized", "", true, true, false, true, true, true, true, true, true, false, false, false);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		CategoryApi categoryApi = new CategoryApi();

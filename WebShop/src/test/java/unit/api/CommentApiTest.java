@@ -79,7 +79,7 @@ public class CommentApiTest {
 	
 	@Test
 	public void testAuthorizedPutComment() {
-		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, true);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
 		
 		Item item = new Item();
@@ -113,7 +113,7 @@ public class CommentApiTest {
 	
 	@Test
 	public void testUnauthorizedPutComment() {
-		User unauthorizedUser = new User("unauthorized", "", true, true, true, true, true, true, true, false, true);
+		User unauthorizedUser = new User("unauthorized", "", true, true, true, true, true, true, true, false, true, false, false, false);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		CommentApi commentApi = new CommentApi();
@@ -132,7 +132,7 @@ public class CommentApiTest {
 	
 	@Test
 	public void testAuthorizedDeleteComment() {
-		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true);
+		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, true);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
 		
 		PowerMockito.when(dbManager.deleteItemComment(1L)).thenReturn(true);
@@ -145,7 +145,7 @@ public class CommentApiTest {
 	
 	@Test
 	public void testUnauthorizedDeleteComment() {
-		User unauthorizedUser = new User("unauthorized", "", true, true, true, true, true, true, true, true, false);
+		User unauthorizedUser = new User("unauthorized", "", true, true, true, true, true, true, true, true, false, false, false, false);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
 		
 		CommentApi commentApi = new CommentApi();

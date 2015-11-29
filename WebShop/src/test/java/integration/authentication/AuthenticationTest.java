@@ -63,4 +63,25 @@ public class AuthenticationTest {
 		
 		assertTrue(driver.findElement(By.id("username")).isDisplayed());
 	}
+	
+	@Test
+	public void testRegister() {
+		String username = "newTestUser";
+		String password = "testPassword";
+		
+		driver.findElement(By.id("signUp")).click();
+		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("signUpModal")));
+		driver.findElement(By.id("usernameSignup")).sendKeys(username);
+		driver.findElement(By.id("passwordSignup")).sendKeys(password);
+		driver.findElement(By.id("confirmpassword")).sendKeys(password);
+		driver.findElement(By.id("confirmpassword")).submit();
+		
+		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+		driver.findElement(By.id("username")).sendKeys(username);
+		driver.findElement(By.id("password")).sendKeys(password);
+		driver.findElement(By.id("signIn")).click();
+		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		
+		assertEquals("Hello, " + username + "!", driver.findElement(By.id("helloText")).getText());
+	}
 }
