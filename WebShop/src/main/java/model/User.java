@@ -95,22 +95,24 @@ public class User implements Serializable {
 	}
 	
 	public boolean isSuperAdmin() {
-		return isAdmin() && 
-				userPromote && userDemote;
+		return (isAdmin() && 
+				userPromote && userDemote);
 	}
 	
 	public boolean isAdmin() {
-		 return isUser() && 
+		 return (isUser() && 
 				 categoryWrite && categoryDelete && 
 				 itemWrite && itemDelete && 
 				 itemCommentDelete && 
-				 userDelete;
+				 userDelete);
 	}
 	
 	public boolean isUser() {
-		return (categoryRead && 
-				itemRead && 
-				itemCommentRead && itemCommentWrite);
+		return (isGuest() && itemCommentWrite);
+	}
+	
+	public boolean isGuest() {
+		return (categoryRead && itemRead && itemCommentRead);
 	}
 
 	public Long getId() {

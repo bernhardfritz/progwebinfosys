@@ -483,10 +483,10 @@ public class DBManager implements IDBManager {
 			return userList.get(0);
 		}
 		
-		return getUserById(3L);
+		return getUserById(4L);
 	}
 	
 	public User logout() {
-		return getUserById(3L);
+		return getUserById(4L);
 	}
 }
