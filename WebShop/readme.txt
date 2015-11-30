@@ -30,6 +30,7 @@ Verwendete Technologien:
 	Test-Abdeckung: Cobertura
 	Browser-Simulation: Selenium
 	Mocking: PowerMockito
+	Frontend: AngularJS2 (für die Benutzerverwaltung) + JSP (für den Rest)
 
 
 Default-User:

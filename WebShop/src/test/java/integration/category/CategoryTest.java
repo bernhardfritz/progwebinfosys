@@ -1,6 +1,6 @@
 package integration.category;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,7 +18,7 @@ public class CategoryTest {
 	private static WebDriver driver;
 	
 	@Before
-	public void setUp() {
+	public void setUp() {		
 		driver = new FirefoxDriver();
 		driver.get("http://localhost:8080/WebShop");
 		driver.manage().window().maximize();

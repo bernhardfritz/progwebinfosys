@@ -80,7 +80,7 @@ public class AuthenticationTest {
 		driver.findElement(By.id("username")).sendKeys(username);
 		driver.findElement(By.id("password")).sendKeys(password);
 		driver.findElement(By.id("signIn")).click();
-		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
 		
 		assertEquals("Hello, " + username + "!", driver.findElement(By.id("helloText")).getText());
 	}

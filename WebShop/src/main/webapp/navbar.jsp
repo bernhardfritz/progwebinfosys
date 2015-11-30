@@ -32,9 +32,6 @@
       		out.println("<button id='logout' type='submit' class='btn btn-danger'>Logout</button>");
       		out.println("</form>");
       	}
-      	
-      	ShoppingCart shoppingCart = (ShoppingCart)session.getAttribute("shoppingCart");
-      	if (shoppingCart == null) shoppingCart = new ShoppingCart();
       %>
     </div>
   </div>

@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import model.ShoppingCart;
 import model.User;
 
 @Path("/user")
@@ -76,6 +77,9 @@ public class UserApi {
 		User user = DBManager.getInstance().login(username, password);
 		if(user != null) {
 			session.setAttribute("user", user);
+			if (session.getAttribute("shoppingCart") == null) {
+				session.setAttribute("shoppingCart", new ShoppingCart());
+			}
 			return Response.ok().build();
 		} else return Response.status(Status.UNAUTHORIZED).build();
 	}
@@ -84,6 +88,7 @@ public class UserApi {
 	@POST()
 	public Response logoutUser(@Context HttpServletRequest req) {
 		HttpSession session = req.getSession();
+		session.setAttribute("shoppingCart", null);
 		User user = DBManager.getInstance().logout();
 		if(user != null) {
 			session.setAttribute("user", user);
