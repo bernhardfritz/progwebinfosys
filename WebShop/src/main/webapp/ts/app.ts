@@ -14,7 +14,7 @@ import {Http, Headers, HTTP_BINDINGS} from 'angular2/http';
       </tr>
     </thead>
     <tbody>
-			<tr *ng-for="#user of users" style="{{user.style}}">
+			<tr *ng-for="#user of users">
 				<td>{{user.id}}</td>
         <td>{{user.username}}</td>
         <td>
@@ -31,7 +31,7 @@ import {Http, Headers, HTTP_BINDINGS} from 'angular2/http';
 
 export class AppComponent {
   users;
-  privileges = ['Admin', 'User'];
+  privileges = ['guest', 'user', 'admin', 'superadmin'];
   selectControl: Control = new Control('');
 
   constructor(public http: Http) {
@@ -39,45 +39,48 @@ export class AppComponent {
       .subscribe(res => {
         this.users = res.json();
         this.users.forEach(function(user) {
-          user.privilege = 'User';
-          user.style = '';
+          user.privilege = 'guest';
+
+          if(user.categoryRead && user.itemRead && user.itemCommentRead && user.itemCommentWrite) {
+              user.privilege = 'user';
+          }
 
           if(user.categoryRead && user.categoryWrite && user.categoryDelete &&
             user.itemRead && user.itemWrite && user.itemDelete &&
             user.itemCommentRead && user.itemCommentWrite && user.itemCommentDelete &&
-            !user.userPromote && !user.userDemote && user.userDelete) {
-              user.privilege = 'Admin';
+            user.userDelete) {
+              user.privilege = 'admin';
           }
 
           if(user.categoryRead && user.categoryWrite && user.categoryDelete &&
             user.itemRead && user.itemWrite && user.itemDelete &&
             user.itemCommentRead && user.itemCommentWrite && user.itemCommentDelete &&
             user.userPromote && user.userDemote && user.userDelete) {
-              user.style = 'display: none';
-          }
-          else if(user.categoryRead && !user.categoryWrite && !user.categoryDelete &&
-            user.itemRead && !user.itemWrite && !user.itemDelete &&
-            user.itemCommentRead && !user.itemCommentWrite && !user.itemCommentDelete &&
-            !user.userPromote && !user.userDemote && !user.userDelete) {
-              user.style = 'display: none';
+              user.privilege = 'superadmin';
           }
         })
       });
   }
 
   update(user, value) {
-    var bitmap = 100100110000;
-    if(value === 'Admin') {
+    var bitmap = 100100100000;
+
+    if(value === 'User') {
+      bitmap = 100100110000;
+    } else if(value === 'Admin') {
       bitmap = 111111111001;
+    } else if(value === 'Superadmin') {
+      bitmap = 111111111111;
     }
-    var parameters = "userId=" + user.id + "&privileges=" + bitmap;
+
+    var parameters = "privileges=" + bitmap;
     alert(parameters);
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-    this.http.put('/WebShop/api/user', parameters, {
-      headers: headers
-    });
+    this.http.put('/WebShop/api/user/' + user.id, parameters, {
+      headers: headers,
+    }).subscribe(res => console.log(res));
   }
 
   get diagnostic() { return JSON.stringify(this.users); }

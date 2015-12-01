@@ -13,47 +13,49 @@ var AppComponent = (function () {
     function AppComponent(http) {
         var _this = this;
         this.http = http;
-        this.privileges = ['Admin', 'User'];
+        this.privileges = ['guest', 'user', 'admin', 'superadmin'];
         this.selectControl = new angular2_1.Control('');
         http.get('/WebShop/api/user')
             .subscribe(function (res) {
             _this.users = res.json();
             _this.users.forEach(function (user) {
-                user.privilege = 'User';
-                user.style = '';
+                user.privilege = 'guest';
+                if (user.categoryRead && user.itemRead && user.itemCommentRead && user.itemCommentWrite) {
+                    user.privilege = 'user';
+                }
                 if (user.categoryRead && user.categoryWrite && user.categoryDelete &&
                     user.itemRead && user.itemWrite && user.itemDelete &&
                     user.itemCommentRead && user.itemCommentWrite && user.itemCommentDelete &&
-                    !user.userPromote && !user.userDemote && user.userDelete) {
-                    user.privilege = 'Admin';
+                    user.userDelete) {
+                    user.privilege = 'admin';
                 }
                 if (user.categoryRead && user.categoryWrite && user.categoryDelete &&
                     user.itemRead && user.itemWrite && user.itemDelete &&
                     user.itemCommentRead && user.itemCommentWrite && user.itemCommentDelete &&
                     user.userPromote && user.userDemote && user.userDelete) {
-                    user.style = 'display: none';
-                }
-                else if (user.categoryRead && !user.categoryWrite && !user.categoryDelete &&
-                    user.itemRead && !user.itemWrite && !user.itemDelete &&
-                    user.itemCommentRead && !user.itemCommentWrite && !user.itemCommentDelete &&
-                    !user.userPromote && !user.userDemote && !user.userDelete) {
-                    user.style = 'display: none';
+                    user.privilege = 'superadmin';
                 }
             });
         });
     }
     AppComponent.prototype.update = function (user, value) {
-        var bitmap = 100100110000;
-        if (value === 'Admin') {
+        var bitmap = 100100100000;
+        if (value === 'User') {
+            bitmap = 100100110000;
+        }
+        else if (value === 'Admin') {
             bitmap = 111111111001;
         }
-        var parameters = "userId=" + user.id + "&privileges=" + bitmap;
+        else if (value === 'Superadmin') {
+            bitmap = 111111111111;
+        }
+        var parameters = "privileges=" + bitmap;
         alert(parameters);
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        this.http.put('/WebShop/api/user', parameters, {
-            headers: headers
-        });
+        this.http.put('/WebShop/api/user/' + user.id, parameters, {
+            headers: headers,
+        }).subscribe(function (res) { return console.log(res); });
     };
     Object.defineProperty(AppComponent.prototype, "diagnostic", {
         get: function () { return JSON.stringify(this.users); },
@@ -63,7 +65,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         angular2_1.Component({
             selector: 'app',
-            template: "\n  {{diagnostic}}\n  <table class=\"table table-hover\">\n    <thead>\n      <tr>\n        <th>#</th>\n        <th>Username</th>\n        <th>Privileges</th>\n      </tr>\n    </thead>\n    <tbody>\n\t\t\t<tr *ng-for=\"#user of users\" style=\"{{user.style}}\">\n\t\t\t\t<td>{{user.id}}</td>\n        <td>{{user.username}}</td>\n        <td>\n          <select [(ng-model)]=\"user.privilege\" [ng-form-control]=\"selectControl\" (change)=\"update(user, selectControl.value)\">\n            <option *ng-for=\"#p of privileges\" [value]=\"p\">{{p}}</option>\n          </select>\n        </td>\n\t\t\t</tr>\n    </tbody>\n  </table>\n  ",
+            template: "\n  {{diagnostic}}\n  <table class=\"table table-hover\">\n    <thead>\n      <tr>\n        <th>#</th>\n        <th>Username</th>\n        <th>Privileges</th>\n      </tr>\n    </thead>\n    <tbody>\n\t\t\t<tr *ng-for=\"#user of users\">\n\t\t\t\t<td>{{user.id}}</td>\n        <td>{{user.username}}</td>\n        <td>\n          <select [(ng-model)]=\"user.privilege\" [ng-form-control]=\"selectControl\" (change)=\"update(user, selectControl.value)\">\n            <option *ng-for=\"#p of privileges\" [value]=\"p\">{{p}}</option>\n          </select>\n        </td>\n\t\t\t</tr>\n    </tbody>\n  </table>\n  ",
             directives: [angular2_1.CORE_DIRECTIVES, angular2_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [http_1.Http])
