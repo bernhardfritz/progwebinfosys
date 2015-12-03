@@ -29,6 +29,10 @@
       		out.println("<form action='/WebShop/api/user/logout' method='post' id='logoutForm' class='navbar-form navbar-right'>");
       		out.println("<text id='helloText' class='text-muted'>Hello, " + user.getUsername() + "!</text>");
       		out.println("&nbsp;");
+      		out.println("<a class='btn btn-primary' href='userManagement.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span></a>");
+      		out.println("&nbsp;");
+      		out.println("<a class='btn btn-primary' href='shoppingCart.jsp'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></a>");
+      		out.println("&nbsp;");
       		out.println("<button id='logout' type='submit' class='btn btn-danger'>Logout</button>");
       		out.println("</form>");
       	}

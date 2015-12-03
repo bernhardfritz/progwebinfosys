@@ -16,6 +16,7 @@
 
 <body>
   <jsp:include page="navbar.jsp" />
+  <h1 class="text-center">User management</h1>
   <app></app>
   <jsp:include page="footer.jsp" />
 </body>
