@@ -29,6 +29,14 @@ public class UserApi {
 		return Response.ok(DBManager.getInstance().getUsers()).build();
 	}
 	
+	@Path("/current")
+	@GET()
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCurrentUser(@Context HttpServletRequest req) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		return Response.ok(currentUser).build();
+	}
+	
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -51,6 +59,7 @@ public class UserApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Long bitmap) {
 		User user = null;
+		System.out.println("hallo");
 		if (password != null) {
 			user = DBManager.getInstance().editUser(userId, password, bitmap);
 		}
@@ -64,8 +73,9 @@ public class UserApi {
 	
 	@Path("/{userId}")
 	@DELETE()
-	public Response deleteUser(@PathParam("userId") Long userId) {
-		if(DBManager.getInstance().deleteUser(userId)) return Response.noContent().build();
+	public Response deleteUser(@Context HttpServletRequest req, @PathParam("userId") Long userId) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		if(DBManager.getInstance().deleteUser(userId, currentUser)) return Response.noContent().build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	

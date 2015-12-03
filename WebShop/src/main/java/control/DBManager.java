@@ -454,7 +454,7 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 
-	public boolean deleteUser(Long userId) {
+	public boolean deleteUser(Long userId, User currentUser) {
 		EntityTransaction transaction = startSaveTransaction();
 		
 		User user = getUserById(userId);

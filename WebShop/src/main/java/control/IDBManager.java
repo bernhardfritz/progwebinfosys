@@ -30,7 +30,7 @@ public interface IDBManager {
 	public User createUser(String username, String password, long bitmap);
 	public User editUser(Long userId, String password, long bitmap);
 	public User editUserPrivileges(Long userId, long bitmap);
-	public boolean deleteUser(Long userId);
+	public boolean deleteUser(Long userId, User currentUser);
 	public User login(String username, String password);
 	public User logout();
 }
