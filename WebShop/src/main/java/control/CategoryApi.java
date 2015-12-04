@@ -36,7 +36,6 @@ public class CategoryApi {
 	public Response postCategory(@Context HttpServletRequest req, @FormParam("name") String name, @FormParam("description") String description) throws URISyntaxException, UnsupportedEncodingException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
 		Category category = DBManager.getInstance().createCategory(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(description, "UTF-8"), currentUser);
-
 		if(category != null) return Response.ok(category).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}

@@ -52,6 +52,7 @@
 		               		&euro;
 		               </h4>
 		               <h1><a href="#"><%= item.getTitle() %></a></h1>
+		               <button class='btn btn-sm btn-success pull-right' onclick='addItemToShoppingCart(<%= item.getId() %>)'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></button>
 		               <p><%= item.getDescription() %></p>
 		           </div>
 		           <div class="ratings">

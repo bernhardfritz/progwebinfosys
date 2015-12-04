@@ -155,8 +155,36 @@ function editComment(commentId, commentText, rating) {
 }
 
 function deleteComment(commentId) {
-	if (confirm('Are you sure you want to delete this comment?')) {
+	if(confirm('Are you sure you want to delete this comment?')) {
 		$.delete('/WebShop/api/comment/'+commentId, {}, function(result) {
+			location.reload(true);
+		});
+	}
+}
+
+function addItemToShoppingCart(itemId) {
+	$.post('/WebShop/api/shoppingcart/'+itemId, {}, function(result) {
+		$.notify({
+			// options
+			message: 'Item has successfully been added to your shopping cart!', 
+		},{
+			// settings
+			type: 'success',
+			offset: {
+				x: 20,
+				y: 70
+			}
+		});
+	});
+}
+
+function editItemFromShoppingCart(itemId, amount) {
+	$.put('/WebShop/api/shoppingcart/'+itemId+'/'+amount);
+}
+
+function deleteItemFromShoppingCart(itemId) {
+	if(confirm('Are you sure you want to discard this item?')) {
+		$.delete('/WebShop/api/shoppingcart/'+itemId, {}, function(result) {
 			location.reload(true);
 		});
 	}

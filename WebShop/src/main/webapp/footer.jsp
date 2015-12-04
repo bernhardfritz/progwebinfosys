@@ -13,4 +13,5 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/validator.min.js"></script>
 <script src="js/holder.min.js"></script>
+<script src="js/bootstrap-notify.min.js"></script>
 <script src="js/custom.js"></script>

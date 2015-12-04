@@ -31,7 +31,7 @@
       		out.println("&nbsp;");
       		out.println("<a class='btn btn-primary' href='userManagement.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span></a>");
       		out.println("&nbsp;");
-      		out.println("<a class='btn btn-primary' href='shoppingCart.jsp'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></a>");
+      		out.println("<a class='btn btn-success' href='shoppingCart.jsp'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></a>");
       		out.println("&nbsp;");
       		out.println("<button id='logout' type='submit' class='btn btn-danger'>Logout</button>");
       		out.println("</form>");

@@ -27,6 +27,9 @@ public class ShoppingCart {
 		int i = indexOf(item);
 		if(i > -1) { // ShoppingCart contains item
 			content.get(i).setAmount(amount);
+		} else {
+			addItem(item);
+			setAmount(item, amount);
 		}
 	}
 	
