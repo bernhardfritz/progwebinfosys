@@ -49,7 +49,9 @@
                             out.println("<div class='caption'>");
 							out.println("<h4 class='pull-right'>" + decimalFormatter.format(item.getPrice()) + "&euro;</h4>");
                             out.println("<h4><a href='item.jsp?itemId=" + item.getId() + "'>" + item.getTitle() + "</a></h4>");
-                            out.println("<button class='btn btn-sm btn-success pull-right' onclick='addItemToShoppingCart("+item.getId()+")'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></button>");
+                            if(currentUser != null && currentUser.isUser()) {
+                            	out.println("<button class='btn btn-sm btn-success pull-right' onclick='addItemToShoppingCart("+item.getId()+")'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></button>");
+                            }
                             out.println("<p>" + item.getDescription() + "</p>");
                             out.println("</div>");
                             out.println("<div class='ratings'>");
