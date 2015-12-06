@@ -60,11 +60,11 @@ public class PayPalApi {
 			BasicAmountType amt = new BasicAmountType();
 			amt.setCurrencyID(CurrencyCodeType.fromValue("EUR"));
 			amt.setValue(sci.getItem().getPrice().toString());
-			item.setQuantity(sci.getAmount());
+			item.setQuantity(sci.getQuantity());
 			item.setName(sci.getItem().getTitle());
 			item.setAmount(amt);
 			item.setDescription(sci.getItem().getDescription());
-			total += (sci.getItem().getPrice().doubleValue() * sci.getAmount());
+			total += (sci.getItem().getPrice().doubleValue() * sci.getQuantity());
 			
 			lineItems.add(item);
 		}
