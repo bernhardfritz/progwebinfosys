@@ -1,4 +1,3 @@
-/* ==================== Main Database ==================== */
 DROP DATABASE IF EXISTS WebShop;
 
 CREATE DATABASE IF NOT EXISTS WebShop CHARACTER SET utf8 DEFAULT COLLATE utf8_bin;
@@ -106,25 +105,3 @@ INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryW
 INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('admin', 'secret', 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, NOW());
 INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('user', 'password', 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, NOW());
 INSERT INTO `WebShop`.`User` (`username`, `password`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('guest', 'password', 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, NOW());
-
-
-/* ==================== Test Database ==================== */
-DROP DATABASE IF EXISTS WebShopTest;
-
-CREATE DATABASE IF NOT EXISTS WebShopTest CHARACTER SET utf8 DEFAULT COLLATE utf8_bin;
-
-CREATE TABLE `WebShopTest`.`User` LIKE `WebShop`.`User`;
-
-CREATE TABLE `WebShopTest`.`Category` LIKE `WebShop`.`Category`;
-
-CREATE TABLE `WebShopTest`.`Item` LIKE `WebShop`.`Item`;
-
-CREATE TABLE `WebShopTest`.`ItemComment` LIKE `WebShop`.`ItemComment`;
-
-CREATE USER 'webshopTestUser'@'localhost' IDENTIFIED BY 'webshopTest';
-GRANT USAGE ON *.* TO 'webshopTestUser'@'localhost' IDENTIFIED BY 'webshopTest';
-
-GRANT ALL PRIVILEGES ON WebShopTest.* TO 'webshopTestUser'@'localhost';
-FLUSH PRIVILEGES;
-
-INSERT INTO `WebShopTest`.`User` SELECT * FROM `WebShop`.`User`;
