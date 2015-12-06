@@ -169,20 +169,26 @@ public class UserApiTest {
 	
 	@Test
 	public void testAuthorizedDeleteUser() {
-		PowerMockito.when(dbManager.deleteUser(1L)).thenReturn(true);
+		User adminUser = new User("admin", "pwd", true, true, true, true, true, true, true, true, true, false, false, true);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
+		
+		PowerMockito.when(dbManager.deleteUser(1L, adminUser)).thenReturn(true);
 		
 		UserApi userApi = new UserApi();
-		Response response = userApi.deleteUser(1L);
+		Response response = userApi.deleteUser(req, 1L);
 		
 		assertEquals(Status.NO_CONTENT.getStatusCode(), response.getStatus());
 	}
 	
 	@Test
 	public void testUnauthorizedDeleteUser() {
-		PowerMockito.when(dbManager.deleteUser(1L)).thenReturn(false);
+		User unauthorizedUser = new User("unauthorized", "", true, true, true, true, true, true, true, true, true, false, false, false);
+		PowerMockito.when(session.getAttribute("user")).thenReturn(unauthorizedUser);
+		
+		PowerMockito.when(dbManager.deleteUser(1L, unauthorizedUser)).thenReturn(false);
 		
 		UserApi userApi = new UserApi();
-		Response response = userApi.deleteUser(1L);
+		Response response = userApi.deleteUser(req, 1L);
 		
 		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
 	}

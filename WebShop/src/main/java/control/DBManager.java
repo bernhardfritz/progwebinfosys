@@ -455,6 +455,10 @@ public class DBManager implements IDBManager {
 	}
 
 	public boolean deleteUser(Long userId, User currentUser) {
+		if (currentUser == null || !currentUser.isUserDelete()) {
+			return false;
+		}
+		
 		EntityTransaction transaction = startSaveTransaction();
 		
 		User user = getUserById(userId);
