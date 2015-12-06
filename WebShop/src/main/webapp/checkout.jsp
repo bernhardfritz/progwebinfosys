@@ -36,7 +36,8 @@
     		</tr>
     	</tbody>
     </table>
-    <a href="#" class="btn btn-primary pull-right">Pay with PayPal</a>
+    
+    <a href="api/paypal/startTransaction" class="btn btn-primary pull-right">Pay with PayPal</a>
     </div>
     <jsp:include page="footer.jsp" />
 </body>

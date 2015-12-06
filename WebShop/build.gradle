@@ -27,6 +27,8 @@ dependencies {
     compile 'org.hibernate:hibernate-entitymanager:4.1.7.Final'
     compile 'org.slf4j:slf4j-simple:1.6.1'
     compile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'com.paypal.sdk:paypal-core:1.4.3'
+    compile 'com.paypal.sdk:merchantsdk:2.14.117'
 }
 
 test {
