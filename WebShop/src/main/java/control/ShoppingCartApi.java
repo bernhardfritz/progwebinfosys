@@ -44,7 +44,7 @@ public class ShoppingCartApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response putShoppingCart(@Context HttpServletRequest req, @PathParam("itemId") Long itemId, @PathParam("amount") int amount) {
 		ShoppingCart shoppingCart = initShoppingCart(req.getSession());
-		shoppingCart.setAmount(DBManager.getInstance().getItem(itemId), amount); // ShoppingCartItem is created if it doesn't exist
+		shoppingCart.setQuantity(DBManager.getInstance().getItem(itemId), amount); // ShoppingCartItem is created if it doesn't exist
 		return Response.ok(shoppingCart).build();
 	}
 	

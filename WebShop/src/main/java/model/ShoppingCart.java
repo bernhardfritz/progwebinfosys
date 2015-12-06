@@ -19,17 +19,17 @@ public class ShoppingCart {
 		int i = indexOf(item);
 		if(i > -1) { // ShoppingCart contains item
 			ShoppingCartItem sci = content.get(i);
-			sci.setAmount(sci.getAmount() + 1);
+			sci.setQuantity(sci.getQuantity() + 1);
 		} else content.add(new ShoppingCartItem(item));
 	}
 	
-	public void setAmount(Item item, Integer amount) {
+	public void setQuantity(Item item, Integer quantity) {
 		int i = indexOf(item);
 		if(i > -1) { // ShoppingCart contains item
-			content.get(i).setAmount(amount);
+			content.get(i).setQuantity(quantity);
 		} else {
 			addItem(item);
-			setAmount(item, amount);
+			setQuantity(item, quantity);
 		}
 	}
 	

@@ -2,11 +2,11 @@ package model;
 
 public class ShoppingCartItem {
 	private Item item;
-	private int amount;
+	private int quantity;
 	
 	public ShoppingCartItem(Item item) {
 		this.item = item;
-		amount = 1;
+		quantity = 1;
 	}
 	
 	public Item getItem() {
@@ -17,11 +17,11 @@ public class ShoppingCartItem {
 		this.item = item;
 	}
 	
-	public int getAmount() {
-		return amount;
+	public int getQuantity() {
+		return quantity;
 	}
 	
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setQuantity(int amount) {
+		this.quantity = amount;
 	}
 }

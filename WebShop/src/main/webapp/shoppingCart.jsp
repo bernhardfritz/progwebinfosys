@@ -13,7 +13,7 @@
     <table class="table table-hover">
     	<thead>
     		<th>title</th>
-    		<th>amount</th>
+    		<th>quantity</th>
     		<th>discard</th>
     	</thead>
     	<tbody>
@@ -21,7 +21,7 @@
     	ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
     	if(shoppingCart != null) {
     		for(ShoppingCartItem sci : shoppingCart.getContent()) {
-	    		out.println(String.format("<tr><td>%s</td><td><input type='number' value='%d' onchange='editItemFromShoppingCart("+sci.getItem().getId()+",this.value)'></input></td><td><button class='btn btn-sm btn-danger' onclick='deleteItemFromShoppingCart("+sci.getItem().getId()+")'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button></td></tr>", sci.getItem().getTitle(), sci.getAmount()));
+	    		out.println(String.format("<tr><td>%s</td><td><input type='number' value='%d' onchange='editItemFromShoppingCart("+sci.getItem().getId()+",this.value)'></input></td><td><button class='btn btn-sm btn-danger' onclick='deleteItemFromShoppingCart("+sci.getItem().getId()+")'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button></td></tr>", sci.getItem().getTitle(), sci.getQuantity()));
 	    	}
     	}
     %>

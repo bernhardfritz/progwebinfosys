@@ -13,7 +13,7 @@
     <table class="table">
     	<thead>
     		<th>title</th>
-    		<th>amount</th>
+    		<th>quantity</th>
     		<th>price per item</th>
     		<th>total</th>
     	</thead>
@@ -23,8 +23,8 @@
     	float total = 0.0f;
     	if(shoppingCart != null) {
     		for(ShoppingCartItem sci : shoppingCart.getContent()) {
-	    		out.println(String.format("<tr><td>%s</td><td>%d</td><td>%.2f&euro;</td><td>%.2f&euro;</td></tr>", sci.getItem().getTitle(), sci.getAmount(), sci.getItem().getPrice(), sci.getAmount() * sci.getItem().getPrice().floatValue()));
-	    		total += sci.getAmount() * sci.getItem().getPrice().floatValue();
+	    		out.println(String.format("<tr><td>%s</td><td>%d</td><td>%.2f&euro;</td><td>%.2f&euro;</td></tr>", sci.getItem().getTitle(), sci.getQuantity(), sci.getItem().getPrice(), sci.getQuantity() * sci.getItem().getPrice().floatValue()));
+	    		total += sci.getQuantity() * sci.getItem().getPrice().floatValue();
 	    	}
     	}
     %>
