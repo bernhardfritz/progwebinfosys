@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - Class integration.authentication.AuthenticationTest</title>
+<title>Test results - Class integration.shoppingCart.ShoppingCartTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>Class integration.authentication.AuthenticationTest</h1>
+<h1>Class integration.shoppingCart.ShoppingCartTest</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/integration.authentication.html">integration.authentication</a> &gt; AuthenticationTest</div>
+<a href="../packages/integration.shoppingCart.html">integration.shoppingCart</a> &gt; ShoppingCartTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">5</div>
+<div class="counter">2</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">18.200s</div>
+<div class="counter">52.823s</div>
 <p>duration</p>
 </div>
 </td>
@@ -78,28 +78,13 @@
 </tr>
 </thead>
 <tr>
-<td class="success">testFailLogin</td>
-<td>3.967s</td>
+<td class="success">testCancelOrder</td>
+<td>19.596s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testFailRegister</td>
-<td>3.634s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testLogout</td>
-<td>3.330s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testSuccessfulRegister</td>
-<td>4.342s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testSuccessfullLogin</td>
-<td>2.927s</td>
+<td class="success">testSuccessfulOrder</td>
+<td>33.227s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -107,29 +92,29 @@
 <div id="tab1" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>Dez 12, 2015 3:28:38 PM org.hibernate.annotations.common.Version &lt;clinit&gt;
+<pre>Dez 12, 2015 3:22:44 PM org.hibernate.annotations.common.Version &lt;clinit&gt;
 INFO: HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
-Dez 12, 2015 3:28:38 PM org.hibernate.Version logVersion
+Dez 12, 2015 3:22:44 PM org.hibernate.Version logVersion
 INFO: HHH000412: Hibernate Core {4.1.7.Final}
-Dez 12, 2015 3:28:38 PM org.hibernate.cfg.Environment &lt;clinit&gt;
+Dez 12, 2015 3:22:44 PM org.hibernate.cfg.Environment &lt;clinit&gt;
 INFO: HHH000206: hibernate.properties not found
-Dez 12, 2015 3:28:38 PM org.hibernate.cfg.Environment buildBytecodeProvider
+Dez 12, 2015 3:22:44 PM org.hibernate.cfg.Environment buildBytecodeProvider
 INFO: HHH000021: Bytecode provider name : javassist
-Dez 12, 2015 3:28:39 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Dez 12, 2015 3:22:45 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000402: Using Hibernate built-in connection pool (not for production use!)
-Dez 12, 2015 3:28:39 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Dez 12, 2015 3:22:45 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000115: Hibernate connection pool size: 20
-Dez 12, 2015 3:28:39 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Dez 12, 2015 3:22:45 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000006: Autocommit mode: true
-Dez 12, 2015 3:28:39 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Dez 12, 2015 3:22:45 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/WebShop?useUnicode=true&amp;characterEncoding=UTF-8]
-Dez 12, 2015 3:28:39 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Dez 12, 2015 3:22:45 PM org.hibernate.service.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000046: Connection properties: {user=webshopUser, password=****, autocommit=true, release_mode=auto}
-Dez 12, 2015 3:28:39 PM org.hibernate.dialect.Dialect &lt;init&gt;
+Dez 12, 2015 3:22:45 PM org.hibernate.dialect.Dialect &lt;init&gt;
 INFO: HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-Dez 12, 2015 3:28:39 PM org.hibernate.engine.transaction.internal.TransactionFactoryInitiator initiateService
+Dez 12, 2015 3:22:45 PM org.hibernate.engine.transaction.internal.TransactionFactoryInitiator initiateService
 INFO: HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
-Dez 12, 2015 3:28:39 PM org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+Dez 12, 2015 3:22:45 PM org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
 INFO: HHH000397: Using ASTQueryTranslatorFactory
 </pre>
 </span>
@@ -137,7 +122,7 @@ INFO: HHH000397: Using ASTQueryTranslatorFactory
 </div>
 <div id="footer">
 <p>Generated by 
-<a href="http://www.gradle.org">Gradle 2.2.1</a> at 12.12.2015 15:29:54</p>
+<a href="http://www.gradle.org">Gradle 2.2.1</a> at 12.12.2015 15:22:46</p>
 </div>
 </div>
 </body>
