@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -12,6 +13,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import control.DBManager;
+import model.User;
 
 public class AuthenticationTest {
 	
@@ -27,6 +31,16 @@ public class AuthenticationTest {
 	@After
 	public void closeDown() {
 		driver.close();
+	}
+	
+	@AfterClass
+	public static void clean() {		
+		User admin = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, true);
+		for (User user : DBManager.getInstance().getUsers()) {
+			if (user.getUsername().equals("newTestUser")) {
+				DBManager.getInstance().deleteUser(user.getId(), admin);
+			}
+		}
 	}
 	
 	public void loginAsAdmin() {
@@ -65,7 +79,7 @@ public class AuthenticationTest {
 	}
 	
 	@Test
-	public void testRegister() {
+	public void testSuccessfulRegister() {
 		String username = "newTestUser";
 		String password = "testPassword";
 		
@@ -80,8 +94,22 @@ public class AuthenticationTest {
 		driver.findElement(By.id("username")).sendKeys(username);
 		driver.findElement(By.id("password")).sendKeys(password);
 		driver.findElement(By.id("signIn")).click();
-		new WebDriverWait(driver, 2).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
+		new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(By.id("helloText")));
 		
 		assertEquals("Hello, " + username + "!", driver.findElement(By.id("helloText")).getText());
+	}
+	
+	@Test
+	public void testFailRegister() {
+		String username = "newTestUserFail";
+		String password = "testPassword";
+		
+		driver.findElement(By.id("signUp")).click();
+		new WebDriverWait(driver, 1).until(ExpectedConditions.visibilityOfElementLocated(By.id("signUpModal")));
+		driver.findElement(By.id("usernameSignup")).sendKeys(username);
+		driver.findElement(By.id("passwordSignup")).sendKeys(password);
+		driver.findElement(By.id("confirmpassword")).sendKeys(password.substring(0, 11));
+				
+		assertEquals("Register", driver.findElement(By.className("disabled")).getText());
 	}
 }

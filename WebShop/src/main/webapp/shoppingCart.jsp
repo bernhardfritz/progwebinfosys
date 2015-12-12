@@ -21,13 +21,13 @@
     	ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
     	if(shoppingCart != null) {
     		for(ShoppingCartItem sci : shoppingCart.getContent()) {
-	    		out.println(String.format("<tr><td>%s</td><td><input type='number' value='%d' onchange='editItemFromShoppingCart("+sci.getItem().getId()+",this.value)'></input></td><td><button class='btn btn-sm btn-danger' onclick='deleteItemFromShoppingCart("+sci.getItem().getId()+")'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button></td></tr>", sci.getItem().getTitle(), sci.getQuantity()));
+	    		out.println(String.format("<tr><td>%s</td><td><input id='" + sci.getItem().getTitle() + "Quantity' type='number' value='%d' onchange='editItemFromShoppingCart("+sci.getItem().getId()+",this.value)'></input></td><td><button class='btn btn-sm btn-danger' onclick='deleteItemFromShoppingCart("+sci.getItem().getId()+")'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button></td></tr>", sci.getItem().getTitle(), sci.getQuantity()));
 	    	}
     	}
     %>
     	</tbody>
     </table>
-    <a href="checkout.jsp" class="btn btn-primary pull-right">Checkout</a>
+    <a href="checkout.jsp" id="checkout" class="btn btn-primary pull-right">Checkout</a>
     </div>
     <jsp:include page="footer.jsp" />
 </body>

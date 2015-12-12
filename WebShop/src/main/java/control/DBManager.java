@@ -424,11 +424,17 @@ public class DBManager implements IDBManager {
 	}
 	
 	public User editUserPrivileges(Long userId, long bitmap) {
-		Privileges privileges = new Privileges(bitmap);		
-		EntityTransaction transaction = startSaveTransaction();
-		
 		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
 		if (user != null) {
+			if (!user.isUserPromote() && !user.isUserDemote()) {
+				return null;
+			}
+			
+			Privileges privileges = new Privileges(bitmap);		
+			transaction = startSaveTransaction();
+			
 			user.setCategoryRead(privileges.isCategoryRead());
 			user.setCategoryWrite(privileges.isCategoryWrite());
 			user.setCategoryDelete(privileges.isCategoryDelete());

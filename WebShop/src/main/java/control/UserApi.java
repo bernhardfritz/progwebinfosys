@@ -59,7 +59,6 @@ public class UserApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Long bitmap) {
 		User user = null;
-		System.out.println("hallo");
 		if (password != null) {
 			user = DBManager.getInstance().editUser(userId, password, bitmap);
 		}

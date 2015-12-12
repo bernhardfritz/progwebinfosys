@@ -4,7 +4,7 @@ Vorbereitung:
 Abgrenzung:
 	Wir haben alle GET-/POST-/PUT-/DELETE- Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.
 	Die Test-Abdeckung haben wir mit Cobertura gemacht.
-	Ebenso haben wir Integrationstests für Benutzerauthentifizierung, Kategorie-Funktionen und Erstellung von Kategorie - Item - Kommentar mit Hilfe von Browser-Simulationen umgesetzt.
+	Ebenso haben wir Integrationstests für verschiedene Funktionen mit Hilfe von Browser-Simulationen umgesetzt.
 	
 	Getestet werden müsste noch der DBManager gegen eine Test-Datenbank, das haben wir leider nicht mehr geschafft.
 	
@@ -44,6 +44,18 @@ Default-User:
   Password: password
 
   Username: guest
+  Password: password
+  
+  Username: bernhard
+  Password: secret
+  
+  Username: mario
+  Password: secret
+  
+  Username: john
+  Password: password
+  
+  Username: fridolin
   Password: password
 
 

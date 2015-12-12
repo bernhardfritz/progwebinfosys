@@ -54,7 +54,7 @@
 		               <h1><a href="#"><%= item.getTitle() %></a></h1>
 		               <%
 		               		if(currentUser != null && currentUser.isUser()) {
-		               			out.println("<button class='btn btn-sm btn-success pull-right' onclick='addItemToShoppingCart(" + item.getId() + ")'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></button>");		
+		               			out.println("<button id='" + item.getTitle() + "ToShoppingCart' class='btn btn-sm btn-success pull-right' onclick='addItemToShoppingCart(" + item.getId() + ")'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></button>");		
 		               		}
 		               %>
 		               <p><%= item.getDescription() %></p>

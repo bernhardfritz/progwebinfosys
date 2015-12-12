@@ -234,4 +234,60 @@ public class UserApiTest {
 		
 		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
 	}
+	
+	@Test
+	public void testUserPromote() {
+		User user = new User("user", "pwd", true, false, false, true, false, false, true, true, false, false, false, false);
+		user.setId(1L);
+		User admin = new User(user.getUsername(), user.getPassword(), true, true, true, true, true, true, true, true, true, false, false, true);
+		admin.setId(user.getId());
+		PowerMockito.when(dbManager.editUserPrivileges(user.getId(), 111111111001L)).thenReturn(admin);
+		
+		UserApi userApi = new UserApi();
+		Response response = userApi.putUser(user.getId(), null, 111111111001L);
+		User result = (User)response.getEntity();
+		
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
+		assertEquals(user.getId(), result.getId());
+		assertEquals(admin.getUsername(), result.getUsername());
+		assertEquals(admin.getPassword(), result.getPassword());
+		assertEquals(admin.isCategoryRead(), result.isCategoryRead());
+		assertEquals(admin.isCategoryWrite(), result.isCategoryWrite());
+		assertEquals(admin.isCategoryDelete(), result.isCategoryDelete());
+		assertEquals(admin.isItemRead(), result.isItemRead());
+		assertEquals(admin.isItemWrite(), result.isItemWrite());
+		assertEquals(admin.isItemDelete(), result.isItemDelete());
+		assertEquals(admin.isItemCommentRead(), result.isItemCommentRead());
+		assertEquals(admin.isItemCommentWrite(), result.isItemCommentWrite());
+		assertEquals(admin.isItemCommentDelete(), result.isItemCommentDelete());
+		assertNotNull(result.getCreateTimestamp());
+	}
+	
+	@Test
+	public void testUserDemote() {
+		User admin = new User("admin", "pwd", true, true, true, true, true, true, true, true, true, false, false, true);
+		admin.setId(1L);
+		User user = new User(admin.getUsername(), admin.getPassword(), true, false, false, true, false, false, true, true, false, false, false, false);
+		user.setId(admin.getId());
+		PowerMockito.when(dbManager.editUserPrivileges(user.getId(), 100100110000L)).thenReturn(user);
+		
+		UserApi userApi = new UserApi();
+		Response response = userApi.putUser(user.getId(), null, 100100110000L);
+		User result = (User)response.getEntity();
+		
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
+		assertEquals(user.getId(), result.getId());
+		assertEquals(user.getUsername(), result.getUsername());
+		assertEquals(user.getPassword(), result.getPassword());
+		assertEquals(user.isCategoryRead(), result.isCategoryRead());
+		assertEquals(user.isCategoryWrite(), result.isCategoryWrite());
+		assertEquals(user.isCategoryDelete(), result.isCategoryDelete());
+		assertEquals(user.isItemRead(), result.isItemRead());
+		assertEquals(user.isItemWrite(), result.isItemWrite());
+		assertEquals(user.isItemDelete(), result.isItemDelete());
+		assertEquals(user.isItemCommentRead(), result.isItemCommentRead());
+		assertEquals(user.isItemCommentWrite(), result.isItemCommentWrite());
+		assertEquals(user.isItemCommentDelete(), result.isItemCommentDelete());
+		assertNotNull(result.getCreateTimestamp());
+	}
 }

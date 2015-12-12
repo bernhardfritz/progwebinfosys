@@ -1,6 +1,7 @@
 package control;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +80,7 @@ public class PayPalApi {
 		
 		SetExpressCheckoutRequestDetailsType setExpressCheckoutRequestDetails = new SetExpressCheckoutRequestDetailsType();
 		setExpressCheckoutRequestDetails.setReturnURL("http://localhost:8080/WebShop/api/paypal/commitTransaction/?total=" + total);
-		setExpressCheckoutRequestDetails.setCancelURL("http://www.google.at");
+		setExpressCheckoutRequestDetails.setCancelURL("http://localhost:8080/WebShop/paymentstatus.jsp?status=failure");
 		
 		setExpressCheckoutRequestDetails.setPaymentDetails(paymentDetailsList);
 		
@@ -107,12 +108,19 @@ public class PayPalApi {
 			e.printStackTrace();
 		}
 
-		return null;
+		URI ret = null;
+		try {
+			ret = new URI("http://localhost:8080/WebShop/paymentstatus.jsp?status=failure");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return Response.seeOther(ret).build();
 	}
 	
 	@Path("/commitTransaction")
 	@GET()
 	public Response commitTransaction(@Context HttpServletRequest req) {
+		HttpSession session = req.getSession();
 		Double total = Double.parseDouble(req.getParameter("total"));
 		String token = req.getParameter("token");
 		String payerId = req.getParameter("PayerID");
@@ -164,12 +172,18 @@ public class PayPalApi {
 			for (ErrorType error : doExpressCheckoutPaymentResponse.getErrors()) {
 				System.err.println("commitTransaction: " + error.getLongMessage());
 			}
-			System.out.println("Transaktion erfolgreich!");
-			return Response.seeOther(new URI("http://localhost:8080/WebShop/")).build();
+			session.setAttribute("shoppingCart", null);
+			return Response.seeOther(new URI("http://localhost:8080/WebShop/paymentstatus.jsp?status=success")).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		URI ret = null;
+		try {
+			ret = new URI("http://localhost:8080/WebShop/paymentstatus.jsp?status=failure");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return Response.seeOther(ret).build();
 	}
 }

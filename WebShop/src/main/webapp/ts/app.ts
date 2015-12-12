@@ -5,7 +5,7 @@ import {Http, Headers, HTTP_BINDINGS} from 'angular2/http';
   selector: 'app',
   template: `
   <!--{{diagnostic}}-->
-  <table class="table table-hover">
+  <table id="userTable" class="table table-hover">
     <thead>
       <tr>
         <th>#</th>
