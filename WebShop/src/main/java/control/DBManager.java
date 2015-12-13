@@ -423,12 +423,12 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 	
-	public User editUserPrivileges(Long userId, long bitmap) {
+	public User editUserPrivileges(Long userId, long bitmap, User currentUser) {
 		User user = getUserById(userId);
 		EntityTransaction transaction = null;
 		
-		if (user != null) {
-			if (!user.isUserPromote() && !user.isUserDemote()) {
+		if (user != null && currentUser != null) {
+			if (!currentUser.isUserPromote() && !currentUser.isUserDemote()) {
 				return null;
 			}
 			

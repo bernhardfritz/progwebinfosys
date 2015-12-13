@@ -57,13 +57,14 @@ public class UserApi {
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response putUser(@PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Long bitmap) {
+	public Response putUser(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("password") String password, @FormParam("privileges") Long bitmap) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
 		User user = null;
 		if (password != null) {
 			user = DBManager.getInstance().editUser(userId, password, bitmap);
 		}
 		else {
-			user = DBManager.getInstance().editUserPrivileges(userId, bitmap);
+			user = DBManager.getInstance().editUserPrivileges(userId, bitmap, currentUser);
 		}
 		
 		if(user != null) return Response.ok(user).build();

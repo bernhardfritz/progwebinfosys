@@ -1,5 +1,5 @@
 Vorbereitung: 
-	Ausführen des SQL-Scripts /sql/init.sql ausführen, um DB aufzusetzen.
+	Ausführen des SQL-Scripts /sql/init.sql, um DB aufzusetzen.
 
 Abgrenzung:
 	Wir haben alle GET-/POST-/PUT-/DELETE- Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.

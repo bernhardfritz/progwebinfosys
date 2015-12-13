@@ -138,7 +138,7 @@ public class UserApiTest {
 		PowerMockito.when(dbManager.editUser(user.getId(), userEdit.getPassword(), 11011001000L)).thenReturn(userEdit);
 		
 		UserApi userApi = new UserApi();
-		Response response = userApi.putUser(user.getId(), userEdit.getPassword(), 11011001000L);
+		Response response = userApi.putUser(req, user.getId(), userEdit.getPassword(), 11011001000L);
 		User result = (User)response.getEntity();
 		
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
@@ -160,7 +160,7 @@ public class UserApiTest {
 	@Test
 	public void testUnauthorizedPutUser() {
 		UserApi userApi = new UserApi();
-		Response response = userApi.putUser(1L, "", 0L);
+		Response response = userApi.putUser(req, 1L, "", 0L);
 		User result = (User)response.getEntity();
 		
 		assertEquals(Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
@@ -241,10 +241,10 @@ public class UserApiTest {
 		user.setId(1L);
 		User admin = new User(user.getUsername(), user.getPassword(), true, true, true, true, true, true, true, true, true, false, false, true);
 		admin.setId(user.getId());
-		PowerMockito.when(dbManager.editUserPrivileges(user.getId(), 111111111001L)).thenReturn(admin);
+		PowerMockito.when(dbManager.editUserPrivileges(user.getId(), 111111111001L, null)).thenReturn(admin);
 		
 		UserApi userApi = new UserApi();
-		Response response = userApi.putUser(user.getId(), null, 111111111001L);
+		Response response = userApi.putUser(req, user.getId(), null, 111111111001L);
 		User result = (User)response.getEntity();
 		
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
@@ -269,10 +269,10 @@ public class UserApiTest {
 		admin.setId(1L);
 		User user = new User(admin.getUsername(), admin.getPassword(), true, false, false, true, false, false, true, true, false, false, false, false);
 		user.setId(admin.getId());
-		PowerMockito.when(dbManager.editUserPrivileges(user.getId(), 100100110000L)).thenReturn(user);
+		PowerMockito.when(dbManager.editUserPrivileges(user.getId(), 100100110000L, null)).thenReturn(user);
 		
 		UserApi userApi = new UserApi();
-		Response response = userApi.putUser(user.getId(), null, 100100110000L);
+		Response response = userApi.putUser(req, user.getId(), null, 100100110000L);
 		User result = (User)response.getEntity();
 		
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
