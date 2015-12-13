@@ -1,5 +1,6 @@
 Vorbereitung: 
 	Ausführen des SQL-Scripts /sql/init.sql, um DB aufzusetzen.
+	Ausführen des Befehls "npm install" im Verzeichnis /src/main/webapp um AngularJS2 usw. zu installieren.
 
 Abgrenzung:
 	Wir haben alle GET-/POST-/PUT-/DELETE- Methoden unserer REST-API sowie alle Model-Klassen mit Unit Tests abgedeckt.
