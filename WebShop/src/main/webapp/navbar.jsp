@@ -16,6 +16,7 @@
       	if(user == null) user = DBManager.getInstance().logout();
       	if(!user.isUser()) {
       		out.println("<form action='/WebShop/api/user/login' method='post' id='loginForm' class='navbar-form navbar-right'>");
+      		out.println("<fb:login-button scope='public_profile,email' onlogin='checkLoginState();'></fb:login-button>");
             out.println("<div class='form-group'>");
             out.println("<input id='username' type='text' name='username' placeholder='Username' class='form-control'>");
             out.println("</div>");

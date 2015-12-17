@@ -84,7 +84,13 @@ public class UserApi {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response loginUser(@Context HttpServletRequest req, @FormParam("username") String username, @FormParam("password") String password) {
 		HttpSession session = req.getSession();
-		User user = DBManager.getInstance().login(username, password);
+		User user = null;
+		if(password == null) {
+			if(username.startsWith("facebookuser")) {
+				//;
+			}
+		}
+		user = DBManager.getInstance().login(username, password);
 		if(user != null) {
 			session.setAttribute("user", user);
 			if (session.getAttribute("shoppingCart") == null) {
