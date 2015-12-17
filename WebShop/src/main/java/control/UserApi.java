@@ -87,10 +87,12 @@ public class UserApi {
 		User user = null;
 		if(password == null) {
 			if(username.startsWith("facebookuser")) {
-				//;
+				user = DBManager.getInstance().getUserByUsername(username);
+				if(user == null) user = DBManager.getInstance().createUser(username, "2^}dnQN.Q#C%,F=Q", 100100110000L);
 			}
+		} else {
+			user = DBManager.getInstance().login(username, password);
 		}
-		user = DBManager.getInstance().login(username, password);
 		if(user != null) {
 			session.setAttribute("user", user);
 			if (session.getAttribute("shoppingCart") == null) {

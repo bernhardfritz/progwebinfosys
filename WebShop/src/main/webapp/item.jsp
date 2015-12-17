@@ -8,10 +8,6 @@
 
 <head>
 	<jsp:include page="header.jsp" />
-</head>
-
-<body>
-	<jsp:include page="navbar.jsp" />
 	<%
 		long itemId = 1L;
 		if(request.getParameter("itemId") != null) {
@@ -19,7 +15,17 @@
 		}
 		Item item = DBManager.getInstance().getItem(itemId);
 		List<ItemComment> comments = DBManager.getInstance().getItemComments(itemId);
+		
+		out.println("<meta property='og:url' content='http://localhost:8080/WebShop/item/" + item.getId() + "' />");
+		out.println("<meta property='og:type' content='website' />");
+		out.println("<meta property='og:title' content='" + item.getTitle() + "' />");
+		out.println("<meta property='og:description'   content='" + item.getDescription() + "' />");
+		out.println("<meta property='og:image' content='http://placehold.it/320x150' />");
 	%>
+</head>
+
+<body>
+	<jsp:include page="navbar.jsp" />
     <div class="container">
     	<div class="row">
     		<div class="col-md-3">
@@ -80,6 +86,7 @@
 		       </div>
 		       <div class="well">
 		           <div class="text-right">
+		           	<div class="fb-share-button" data-href="http://localhost:8080/WebShop/item/<%= item.getId() %>" data-layout="button"></div>
 			           <%
 			           		if(currentUser != null && currentUser.isItemCommentWrite()) {
 			           			out.println("<button id='createComment' type='button' class='btn btn-primary' data-toggle='modal' data-target='#createCommentModal'>Leave a review</button>");

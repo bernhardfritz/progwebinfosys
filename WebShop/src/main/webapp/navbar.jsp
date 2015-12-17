@@ -16,7 +16,7 @@
       	if(user == null) user = DBManager.getInstance().logout();
       	if(!user.isUser()) {
       		out.println("<form action='/WebShop/api/user/login' method='post' id='loginForm' class='navbar-form navbar-right'>");
-      		out.println("<fb:login-button scope='public_profile,email' onlogin='checkLoginState();'></fb:login-button>");
+      		out.println("<fb:login-button scope='public_profile,email' onlogin='login();'></fb:login-button>");
             out.println("<div class='form-group'>");
             out.println("<input id='username' type='text' name='username' placeholder='Username' class='form-control'>");
             out.println("</div>");
@@ -43,4 +43,12 @@
     </div>
   </div>
 </nav>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.5&appId=796292657163912";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <jsp:include page="signUpModal.jsp"></jsp:include>
