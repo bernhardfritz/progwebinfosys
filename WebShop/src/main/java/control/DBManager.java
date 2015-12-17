@@ -360,6 +360,19 @@ public class DBManager implements IDBManager {
 		
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public User getUserByUsername(String username) {
+		Query query = entityManager.createQuery("SELECT u FROM " + User.class.getSimpleName() + " u WHERE u.username = ?1");
+		query.setParameter(1, username);
+		
+		List<User> userList = (List<User>)query.getResultList();
+		if (!userList.isEmpty()) {
+			return userList.get(0);
+		}
+		
+		return null;
+	}
 
 	public User createUser(String username, String password, long bitmap) {
 		if (username.isEmpty() || password.isEmpty()) {
