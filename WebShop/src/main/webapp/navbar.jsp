@@ -33,6 +33,9 @@
       		if (user.isUserPromote() || user.isUserDemote() || user.isUserDelete()) {
 	      		out.println("<a id='userManagementButton' class='btn btn-primary' href='userManagement.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span></a>");
 	      		out.println("&nbsp;");
+      		} else if(!user.isAdmin()) {
+      			out.println("<a id='userManagementButton' class='btn btn-primary' href='profile.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span></a>");
+	      		out.println("&nbsp;");
       		}
       		out.println("<a id='shoppingCartButton' class='btn btn-success' href='shoppingCart.jsp'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></a>");
       		out.println("&nbsp;");

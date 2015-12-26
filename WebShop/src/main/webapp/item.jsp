@@ -63,7 +63,7 @@
 		               			out.println("<button id='" + item.getTitle() + "ToShoppingCart' class='btn btn-sm btn-success pull-right' onclick='addItemToShoppingCart(" + item.getId() + ")'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></button>");		
 		               		}
 		               %>
-		               <p><%= item.getDescription() %></p>
+		               <p><%= item.getDescription() %>&nbsp;</p>
 		           </div>
 		           <div class="ratings">
 		               <p class="pull-right"><%= comments.size() %> reviews</p>
