@@ -14,19 +14,37 @@
 	    		User user = (User)session.getAttribute("user");
 		    	out.println("<h1 class='text-center'><span class='glyphicon glyphicon-user animated bounceIn' aria-hidden='true'></span></h1>");
 		    	out.println("<h1 class='text-center'>" + user.getUsername() + "</h1>");
-		    	out.println("<table>");
+		    	out.println("<div class='table-responsive'>");
+		    	out.println("<table class='table table-striped table-condensed'>");
+		    	out.println("<tbody>");
 		    	out.println("<tr>");
-		    	out.println("<td><h4>Adress:</h4></td>");
-		    	out.println("<td><h4>foo</h4></td>");
+		    	out.println("<td><h4>Country:</h4></td>");
+		    	out.println("<td><h4 id='country'>Österreich</h4></td>");
 		    	out.println("</tr>");
 		    	out.println("<tr>");
-		    	out.println("<td><h4>Other information:</h4></td>");
-		    	out.println("<td><h4>bar</h4></td>");
+		    	out.println("<td><h4>State:</h4></td>");
+		    	out.println("<td><h4 id='state'>Tirol</h4></td>");
 		    	out.println("</tr>");
+		    	out.println("<tr>");
+		    	out.println("<td><h4>County:</h4></td>");
+		    	out.println("<td><h4 id='county'>Schwaz</h4></td>");
+		    	out.println("</tr>");
+		    	out.println("<tr>");
+		    	out.println("<td><h4>City:</h4></td>");
+		    	out.println("<td><h4 id='postcode'>6130</h4> <h4 id='city'>Schwaz</h4></td>");
+		    	out.println("</tr>");
+		    	out.println("<tr>");
+		    	out.println("<td><h4>Street:</h4></td>");
+		    	out.println("<td><h4 id='streetname'>Swarovskistraße</h4> <h4 id='housenumber'>18</h4></td>");
+		    	out.println("</tr>");
+		    	out.println("</tbody>");
 		    	out.println("</table>");
+		    	out.println("</div>");
 		    %>
+		    <div id="map"></div>
 	    </div>
 	    <p class='text-center'><a href='index.jsp' class='btn btn-lg btn-primary'>Go back to main page</a></p>
     </div>
     <jsp:include page="footer.jsp" />
+    <script src="js/profile.js"></script>
 </body>

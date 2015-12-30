@@ -16,3 +16,4 @@
 <script src="js/bootstrap-notify.min.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/facebook.js"></script>
+<script src="leaflet/leaflet.js"></script>

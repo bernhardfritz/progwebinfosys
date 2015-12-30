@@ -8,6 +8,7 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet">
+<link href="leaflet/leaflet.css" rel="stylesheet"/>
 <link href="css/shop-homepage.css" rel="stylesheet">
 <link href="css/shop-item.css" rel="stylesheet">
 
