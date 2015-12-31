@@ -54,6 +54,12 @@ public class User implements Serializable {
 	@Column(name = "housenumber")
 	private String housenumber;
 	
+	@Column(name = "latitude")
+	private Double latitude;
+	
+	@Column(name = "longitude")
+	private Double longitude;
+	
 	@Column(name = "categoryRead")
 	private boolean categoryRead;
 	
@@ -214,6 +220,22 @@ public class User implements Serializable {
 
 	public void setHousenumber(String housenumber) {
 		this.housenumber = housenumber;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	public boolean isCategoryRead() {

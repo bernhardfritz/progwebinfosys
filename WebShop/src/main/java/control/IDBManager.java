@@ -31,6 +31,7 @@ public interface IDBManager {
 	public User createUser(String username, String password, long bitmap);
 	public User editUser(Long userId, String password, long bitmap);
 	public User editUserPrivileges(Long userId, long bitmap, User currentUser);
+	public User editUserCoordinates(Long userId, Double lat, Double lon);
 	public boolean deleteUser(Long userId, User currentUser);
 	public User login(String username, String password);
 	public User logout();

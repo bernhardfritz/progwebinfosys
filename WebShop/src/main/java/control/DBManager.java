@@ -472,6 +472,28 @@ public class DBManager implements IDBManager {
 		
 		return null;
 	}
+	
+	public User editUserCoordinates(Long userId, Double lat, Double lon) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && lat != null && lon != null) {
+			transaction = startSaveTransaction();
+			
+			user.setLatitude(lat);
+			user.setLongitude(lon);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
 
 	public boolean deleteUser(Long userId, User currentUser) {
 		if (currentUser == null || !currentUser.isUserDelete()) {

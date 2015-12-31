@@ -71,6 +71,18 @@ public class UserApi {
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
+	@Path("/coordinates/{userId}")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putCoordinates(@PathParam("userId") Long userId, @FormParam("lat") Double lat, @FormParam("lon") Double lon) {
+		User user = null;
+		user = DBManager.getInstance().editUserCoordinates(userId, lat, lon);
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
 	@Path("/{userId}")
 	@DELETE()
 	public Response deleteUser(@Context HttpServletRequest req, @PathParam("userId") Long userId) {
