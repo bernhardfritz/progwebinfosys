@@ -33,6 +33,27 @@ public class User implements Serializable {
 	@Column(name = "password")
 	private String password;
 	
+	@Column(name = "country")
+	private String country;
+	
+	@Column(name = "state")
+	private String state;
+	
+	@Column(name = "county")
+	private String county;
+	
+	@Column(name = "postcode")
+	private String postcode;
+	
+	@Column(name = "city")
+	private String city;
+	
+	@Column(name = "streetname")
+	private String streetname;
+	
+	@Column(name = "housenumber")
+	private String housenumber;
+	
 	@Column(name = "categoryRead")
 	private boolean categoryRead;
 	
@@ -137,6 +158,62 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getStreetname() {
+		return streetname;
+	}
+
+	public void setStreetname(String streetname) {
+		this.streetname = streetname;
+	}
+
+	public String getHousenumber() {
+		return housenumber;
+	}
+
+	public void setHousenumber(String housenumber) {
+		this.housenumber = housenumber;
 	}
 
 	public boolean isCategoryRead() {

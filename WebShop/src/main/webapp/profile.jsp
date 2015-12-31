@@ -19,23 +19,25 @@
 		    	out.println("<tbody>");
 		    	out.println("<tr>");
 		    	out.println("<td><h4>Country:</h4></td>");
-		    	out.println("<td><h4 id='country'>Österreich</h4></td>");
+		    	out.println("<td><h4 id='country'>" + user.getCountry() + "</h4></td>");
 		    	out.println("</tr>");
 		    	out.println("<tr>");
 		    	out.println("<td><h4>State:</h4></td>");
-		    	out.println("<td><h4 id='state'>Tirol</h4></td>");
+		    	out.println("<td><h4 id='state'>" + user.getState() + "</h4></td>");
 		    	out.println("</tr>");
-		    	out.println("<tr>");
-		    	out.println("<td><h4>County:</h4></td>");
-		    	out.println("<td><h4 id='county'>Schwaz</h4></td>");
-		    	out.println("</tr>");
+		    	if (user.getCounty() != null) {
+			    	out.println("<tr>");
+			    	out.println("<td><h4>County:</h4></td>");
+			    	out.println("<td><h4 id='county'>" + user.getCounty() + "</h4></td>");
+			    	out.println("</tr>");
+		    	}
 		    	out.println("<tr>");
 		    	out.println("<td><h4>City:</h4></td>");
-		    	out.println("<td><h4 id='postcode'>6130</h4> <h4 id='city'>Schwaz</h4></td>");
+		    	out.println("<td><h4 id='postcode'>" + user.getPostcode() + "</h4> <h4 id='city'>" + user.getCity() + "</h4></td>");
 		    	out.println("</tr>");
 		    	out.println("<tr>");
 		    	out.println("<td><h4>Street:</h4></td>");
-		    	out.println("<td><h4 id='streetname'>Swarovskistraße</h4> <h4 id='housenumber'>18</h4></td>");
+		    	out.println("<td><h4 id='streetname'>" + user.getStreetname() + "</h4> <h4 id='housenumber'>" + user.getHousenumber() + "</h4></td>");
 		    	out.println("</tr>");
 		    	out.println("</tbody>");
 		    	out.println("</table>");

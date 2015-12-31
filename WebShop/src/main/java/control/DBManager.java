@@ -510,6 +510,6 @@ public class DBManager implements IDBManager {
 	}
 	
 	public User logout() {
-		return getUserById(4L);
+		return getUserByUsername("guest");
 	}
 }
