@@ -18,26 +18,31 @@
 		    	out.println("<table class='table table-striped table-condensed'>");
 		    	out.println("<tbody>");
 		    	out.println("<tr>");
-		    	out.println("<td><h4>Country:</h4></td>");
+		    	out.println("<td><h4>Country<sup>*</sup>:</h4></td>");
 		    	out.println("<td><h4 id='country'>" + user.getCountry() + "</h4></td>");
+		    	out.println("<td><h4><a href='#' id='editCountryButton' onClick='editAndConfirm(" + user.getId() + ", \"country\")'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a><h4></td>");
 		    	out.println("</tr>");
 		    	out.println("<tr>");
-		    	out.println("<td><h4>State:</h4></td>");
+		    	out.println("<td><h4>State<sup>*</sup>:</h4></td>");
 		    	out.println("<td><h4 id='state'>" + user.getState() + "</h4></td>");
+		    	out.println("<td><h4><a href='#' id='editStateButton' onClick='editAndConfirm(" + user.getId() + ", \"state\")'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></h4></td>");
 		    	out.println("</tr>");
 		    	if (user.getCounty() != null) {
 			    	out.println("<tr>");
 			    	out.println("<td><h4>County:</h4></td>");
 			    	out.println("<td><h4 id='county'>" + user.getCounty() + "</h4></td>");
+			    	out.println("<td><h4><a href='#' id='editCountyButton' onClick='editAndConfirm(" + user.getId() + ", \"county\")'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></h4></td>");
 			    	out.println("</tr>");
 		    	}
 		    	out.println("<tr>");
-		    	out.println("<td><h4>City:</h4></td>");
+		    	out.println("<td><h4>City<sup>*</sup>:</h4></td>");
 		    	out.println("<td><h4 id='postcode'>" + user.getPostcode() + "</h4> <h4 id='city'>" + user.getCity() + "</h4></td>");
+		    	out.println("<td><h4><a href='#' id='editPostcodeAndCityButton' onClick='editAndConfirm2(" + user.getId() + ", \"postcode\", \"city\")'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></h4></td>");
 		    	out.println("</tr>");
 		    	out.println("<tr>");
-		    	out.println("<td><h4>Street:</h4></td>");
+		    	out.println("<td><h4>Street<sup>*</sup>:</h4></td>");
 		    	out.println("<td><h4 id='streetname'>" + user.getStreetname() + "</h4> <h4 id='housenumber'>" + user.getHousenumber() + "</h4></td>");
+		    	out.println("<td><h4><a href='#' id='editStreetnameAndHousenumberButton' onClick='editAndConfirm2(" + user.getId() + ", \"streetname\", \"housenumber\")'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></h4></td>");
 		    	out.println("</tr>");
 		    	out.println("</tbody>");
 		    	out.println("</table>");

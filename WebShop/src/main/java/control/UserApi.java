@@ -71,6 +71,111 @@ public class UserApi {
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
+	@Path("/{userId}/country")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putCountry(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("country") String country) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		User user = null;
+		if(currentUser.getId() == userId && country != null) {
+			user = DBManager.getInstance().editCountry(userId, country);
+		}
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@Path("/{userId}/state")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putState(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("state") String state) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		User user = null;
+		if(currentUser.getId() == userId && state != null) {
+			user = DBManager.getInstance().editState(userId, state);
+		}
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@Path("/{userId}/county")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putCounty(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("county") String county) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		User user = null;
+		if(currentUser.getId() == userId && county != null) {
+			user = DBManager.getInstance().editCounty(userId, county);
+		}
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@Path("/{userId}/postcode")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putPostcode(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("postcode") String postcode) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		User user = null;
+		if(currentUser.getId() == userId && postcode != null) {
+			user = DBManager.getInstance().editPostcode(userId, postcode);
+		}
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@Path("/{userId}/city")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putCity(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("city") String city) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		User user = null;
+		if(currentUser.getId() == userId && city != null) {
+			user = DBManager.getInstance().editCity(userId, city);
+		}
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@Path("/{userId}/streetname")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putStreetname(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("streetname") String streetname) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		User user = null;
+		if(currentUser.getId() == userId && streetname != null) {
+			user = DBManager.getInstance().editStreetname(userId, streetname);
+		}
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@Path("/{userId}/housenumber")
+	@PUT()
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response putHousenumber(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("housenumber") String housenumber) {
+		User currentUser = ((User)req.getSession().getAttribute("user"));
+		User user = null;
+		if(currentUser.getId() == userId && housenumber != null) {
+			user = DBManager.getInstance().editHousenumber(userId, housenumber);
+		}
+		
+		if(user != null) return Response.ok(user).build();
+		else return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
 	@Path("/coordinates/{userId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

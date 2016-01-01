@@ -35,4 +35,12 @@ public interface IDBManager {
 	public boolean deleteUser(Long userId, User currentUser);
 	public User login(String username, String password);
 	public User logout();
+	
+	public User editCountry(Long userId, String country);
+	public User editState(Long userId, String state);
+	public User editCounty(Long userId, String county);
+	public User editPostcode(Long userId, String postcode);
+	public User editCity(Long userId, String value);
+	public User editStreetname(Long userId, String streetname);
+	public User editHousenumber(Long userId, String housenumber);
 }

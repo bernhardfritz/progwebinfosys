@@ -87,6 +87,9 @@
 		       <div class="well">
 		           <div class="text-right">
 		           	<div class="fb-share-button" data-href="http://localhost:8080/WebShop/item/<%= item.getId() %>" data-layout="button"></div>
+		           	<!--<a href="javascript:window.location=%22http://www.facebook.com/sharer.php?u=%22+encodeURIComponent(document.location)+%22&#38;t=%22+encodeURIComponent(document.title)" title="Share on Facebook">
+		           		<img src="" alt="Share on Facebook">
+		           	</a>-->
 			           <%
 			           		if(currentUser != null && currentUser.isItemCommentWrite()) {
 			           			out.println("<button id='createComment' type='button' class='btn btn-primary' data-toggle='modal' data-target='#createCommentModal'>Leave a review</button>");

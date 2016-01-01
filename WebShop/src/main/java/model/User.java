@@ -106,6 +106,13 @@ public class User implements Serializable {
 			boolean itemCommentDelete, boolean userPromote, boolean userDemote, boolean userDelete) {
 		this.username = username;
 		this.password = password;
+		this.country = "unknown";
+		this.state = "unknown";
+		this.county = "unknown";
+		this.postcode = "unknown";
+		this.city = "unknown";
+		this.streetname = "unknown";
+		this.housenumber = "unknown";
 		this.categoryRead = categoryRead;
 		this.categoryWrite = categoryWrite;
 		this.categoryDelete = categoryDelete;

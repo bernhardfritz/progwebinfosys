@@ -19,6 +19,7 @@
     	</thead>
     	<tbody>
     <%
+    	User user = (User)session.getAttribute("user");
     	ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
     	float total = 0.0f;
     	if(shoppingCart != null) {
@@ -37,7 +38,19 @@
     	</tbody>
     </table>
     
-    <a href="api/paypal/startTransaction" id="payWithPaypal" class="btn btn-primary pull-right">Pay with PayPal</a>
+    <a href="#" id="payWithPaypal" class="btn btn-primary pull-right" onclick="checkAddress(<%= user.getId() %>)">Pay with PayPal</a>
+    <script>
+    	function checkAddress(userId) {
+    		$.get("/WebShop/api/user/" + userId, function(user) {
+    			if(user.country === 'unknown' || user.state === 'unknown' || user.city === 'unknown' || user.streetname === 'unknown' || user.housenumber === 'unknown') {
+    				alert("Update your profile information!");
+    				window.location.href = "/WebShop/profile.jsp";	
+    			} else {
+    				window.location.href = "/WebShop/api/paypal/startTransaction";
+    			}
+    		});
+    	}
+    </script>
     </div>
     <jsp:include page="footer.jsp" />
 </body>

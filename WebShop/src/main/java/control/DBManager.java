@@ -534,4 +534,158 @@ public class DBManager implements IDBManager {
 	public User logout() {
 		return getUserByUsername("guest");
 	}
+
+	@Override
+	public User editCountry(Long userId, String country) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && country != null) {
+			transaction = startSaveTransaction();
+			
+			user.setCountry(country);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public User editState(Long userId, String state) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && state != null) {
+			transaction = startSaveTransaction();
+			
+			user.setState(state);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public User editCounty(Long userId, String county) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && county != null) {
+			transaction = startSaveTransaction();
+			
+			user.setCounty(county);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public User editPostcode(Long userId, String postcode) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && postcode != null) {
+			transaction = startSaveTransaction();
+			
+			user.setPostcode(postcode);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public User editCity(Long userId, String city) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && city != null) {
+			transaction = startSaveTransaction();
+			
+			user.setCity(city);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public User editStreetname(Long userId, String streetname) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && streetname != null) {
+			transaction = startSaveTransaction();
+			
+			user.setStreetname(streetname);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public User editHousenumber(Long userId, String housenumber) {
+		User user = getUserById(userId);
+		EntityTransaction transaction = null;
+		
+		if (user != null && housenumber != null) {
+			transaction = startSaveTransaction();
+			
+			user.setHousenumber(housenumber);
+		}
+		
+		try {
+			entityManager.persist(user);
+			transaction.commit();
+			return user;
+		} catch(Exception e) {
+			transaction.rollback();
+		}
+		
+		return null;
+	}
 }
