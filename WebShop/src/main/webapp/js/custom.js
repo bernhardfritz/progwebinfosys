@@ -72,15 +72,15 @@ function serializedStringToJSON(qs) {
 $("#createCategoryForm").on("submit", function(event) {
 	event.preventDefault();
 	var form = serializedStringToJSON($(this).serialize());
-	$.post($(this).attr('action'), {name: form.name, description: form.description}, function(result) {
-		window.location.href = "/WebShop/index.jsp?categoryId=" + result.id;
+	$.post($(this).attr('action'), {name: form.name, description: form.description, overpassKeyValue: form.overpassKeyValue}, function(result) {
+		window.location.href = "/WebShop/index.jsp?categoryId=" + result.id + "&keyValue=" + result.overpassKeyValue;
 	});
 });
 
 $("#editCategoryForm").on("submit", function(event) {
 	event.preventDefault();
 	var form = serializedStringToJSON($(this).serialize());
-	$.put($(this).attr('action'), {name: form.name, description: form.description}, function(result) {
+	$.put($(this).attr('action'), {name: form.name, description: form.description, overpassKeyValue: form.overpassKeyValue}, function(result) {
 		location.reload(true);
 	});
 });

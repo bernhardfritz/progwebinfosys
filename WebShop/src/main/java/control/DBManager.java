@@ -263,14 +263,14 @@ public class DBManager implements IDBManager {
 		return null;
 	}
 	
-	public Category createCategory(String name, String description, User createUser) {
+	public Category createCategory(String name, String description, String overpassKeyValue, User createUser) {
 		if (createUser == null || !createUser.isCategoryWrite() || name.isEmpty()) {
 			return null;
 		}
 		
 		EntityTransaction transaction = startSaveTransaction();
 		
-    	Category category = new Category(name, description, createUser, createUser);
+    	Category category = new Category(name, description, overpassKeyValue, createUser, createUser);
     	
     	try {
     		entityManager.persist(category);
@@ -284,7 +284,7 @@ public class DBManager implements IDBManager {
         return null;
 	}
 
-	public Category editCategory(Long categoryId, String name, String description, User updateUser) {
+	public Category editCategory(Long categoryId, String name, String description, String overpassKeyValue, User updateUser) {
 		if (updateUser == null || !updateUser.isCategoryWrite() || name.isEmpty()) {
 			return null;
 		}
@@ -295,6 +295,7 @@ public class DBManager implements IDBManager {
 		if (category != null) {
 			category.setName(name);
 			category.setDescription(description);
+			category.setOverpassKeyValue(overpassKeyValue);
 			category.setUpdateUser(updateUser);
 			category.setUpdateTimestamp(new Timestamp(new Date().getTime()));
 		}

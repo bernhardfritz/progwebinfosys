@@ -34,6 +34,7 @@ CREATE TABLE `WebShop`.`Category` (
   `idCategory` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(60) NOT NULL UNIQUE,
   `description` VARCHAR(150) NULL,
+  `overpassKeyValue` VARCHAR(30) NULL,
   `createUser` INT NOT NULL,
   `createTimestamp` DATETIME NOT NULL,
   `updateUser` INT NOT NULL,
@@ -118,3 +119,14 @@ INSERT INTO `WebShop`.`User` (`username`, `password`, `country`, `state`, `count
 INSERT INTO `WebShop`.`User` (`username`, `password`, `country`, `state`, `county`, `postcode`, `city`, `streetname`, `housenumber`, `latitude`, `longitude`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('mario', 'secret', 'Österreich', 'Tirol', 'Innsbruck-Stadt', '6020', 'Innsbruck', 'Technikerstraße', '15', 47.26428145, 11.3442061494943, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, NOW());
 INSERT INTO `WebShop`.`User` (`username`, `password`, `country`, `state`, `county`, `postcode`, `city`, `streetname`, `housenumber`, `latitude`, `longitude`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('john', 'password', 'Österreich', 'Tirol', 'Innsbruck-Stadt', '6020', 'Innsbruck', 'Technikerstraße', '15', 47.26428145, 11.3442061494943, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, NOW());
 INSERT INTO `WebShop`.`User` (`username`, `password`, `country`, `state`, `county`, `postcode`, `city`, `streetname`, `housenumber`, `latitude`, `longitude`, `categoryRead`, `categoryWrite`, `categoryDelete`, `itemRead`, `itemWrite`, `itemDelete`, `itemCommentRead`, `itemCommentWrite`, `itemCommentDelete`, `userPromote`, `userDemote`, `userDelete`, `createTimestamp`) VALUES ('fridolin', 'password', 'Österreich', 'Tirol', 'Innsbruck-Stadt', '6020', 'Innsbruck', 'Technikerstraße', '15', 47.26428145, 11.3442061494943, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, NOW());
+
+INSERT INTO `WebShop`.`Category` (`name`, `description`, `overpassKeyValue`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES ('Lebensmittel', '', 'supermarket', 2, NOW(), 2, NOW());
+INSERT INTO `WebShop`.`Category` (`name`, `description`, `overpassKeyValue`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES ('Backwaren', 'Mmmmmh', 'bakery', 2, NOW(), 2, NOW());
+INSERT INTO `WebShop`.`Category` (`name`, `description`, `overpassKeyValue`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES ('Computer', '', 'computer', 2, NOW(), 2, NOW());
+
+INSERT INTO `WebShop`.`Item` (`idCategory`, `title`, `description`, `price`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 'Milch', 'Beste Milch von glücklichen Tiroler Kühen', 1.85, 2, NOW(), 2, NOW());
+INSERT INTO `WebShop`.`Item` (`idCategory`, `title`, `description`, `price`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 'Apfel', 'Hochwertiger Steirischer Apfel', 0.90, 2, NOW(), 2, NOW());
+INSERT INTO `WebShop`.`Item` (`idCategory`, `title`, `description`, `price`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (2, 'Nussschnecke', 'Lecker Schnecke', 2.70, 2, NOW(), 2, NOW());
+INSERT INTO `WebShop`.`Item` (`idCategory`, `title`, `description`, `price`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (3, 'Bildschirm', 'Samsung B2410, 24 Zoll', 199.99, 2, NOW(), 2, NOW());
+INSERT INTO `WebShop`.`Item` (`idCategory`, `title`, `description`, `price`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (3, 'Tastatur', 'Logitech TS 3412', 74.55, 2, NOW(), 2, NOW());
+INSERT INTO `WebShop`.`Item` (`idCategory`, `title`, `description`, `price`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (3, 'Maus', 'Noname 9000', 4.77, 2, NOW(), 2, NOW());

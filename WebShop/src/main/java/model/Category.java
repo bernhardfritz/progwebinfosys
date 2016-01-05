@@ -34,6 +34,9 @@ public class Category implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "overpassKeyValue")
+	private String overpassKeyValue;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "createUser")
 	private User createUser;
@@ -50,9 +53,10 @@ public class Category implements Serializable {
 	
 	public Category() {}
 
-	public Category(String name, String description, User createUser, User updateUser) {
+	public Category(String name, String description, String overpassKeyValue, User createUser, User updateUser) {
 		this.name = name;
 		this.description = description;
+		this.overpassKeyValue = overpassKeyValue;
 		this.createUser = createUser;
 		this.createTimestamp = new Timestamp(new Date().getTime());
 		this.updateUser = updateUser;
@@ -81,6 +85,14 @@ public class Category implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getOverpassKeyValue() {
+		return overpassKeyValue;
+	}
+
+	public void setOverpassKeyValue(String overpassKeyValue) {
+		this.overpassKeyValue = overpassKeyValue;
 	}
 
 	public User getCreateUser() {

@@ -33,9 +33,9 @@ public class CategoryApi {
 	@POST()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response postCategory(@Context HttpServletRequest req, @FormParam("name") String name, @FormParam("description") String description) throws URISyntaxException, UnsupportedEncodingException {
+	public Response postCategory(@Context HttpServletRequest req, @FormParam("name") String name, @FormParam("description") String description, @FormParam("overpassKeyValue") String overpassKeyValue) throws URISyntaxException, UnsupportedEncodingException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		Category category = DBManager.getInstance().createCategory(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(description, "UTF-8"), currentUser);
+		Category category = DBManager.getInstance().createCategory(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(description, "UTF-8"), URLDecoder.decode(overpassKeyValue, "UTF-8"), currentUser);
 		if(category != null) return Response.ok(category).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
@@ -44,9 +44,9 @@ public class CategoryApi {
 	@PUT()
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response putCategory(@Context HttpServletRequest req, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description) throws UnsupportedEncodingException {
+	public Response putCategory(@Context HttpServletRequest req, @PathParam("categoryId") Long categoryId, @FormParam("name") String name, @FormParam("description") String description, @FormParam("overpassKeyValue") String overpassKeyValue) throws UnsupportedEncodingException {
 		User currentUser = ((User)req.getSession().getAttribute("user"));
-		Category category = DBManager.getInstance().editCategory(categoryId, URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(description, "UTF-8"), currentUser);
+		Category category = DBManager.getInstance().editCategory(categoryId, URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(description, "UTF-8"), URLDecoder.decode(overpassKeyValue, "UTF-8"), currentUser);
 		if(category != null) return Response.ok(category).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}

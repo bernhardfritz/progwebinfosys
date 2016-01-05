@@ -15,6 +15,10 @@
 	            <label for="description" class="control-label">Description:</label>
 	            <textarea id="categoryDescription" class="form-control" name="description" id="description"></textarea>
 	          </div>
+	          <div class="form-group">
+	            <label for="overpassKeyValue" class="control-label">Overpass Key Value:</label>
+	            <input id="categoryOverpassKeyValue" type="text" class="form-control" name="overpassKeyValue" id="overpassKeyValue" />
+	          </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

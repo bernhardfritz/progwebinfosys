@@ -26,7 +26,7 @@
 								categoryId = category.getId();
 							}
 							String suffix = category.getId() == categoryId ? "active" : "";
-							out.println("<a id='category" + category.getName() + "' href='index.jsp?categoryId=" + category.getId() + "' class='list-group-item " + suffix + "'>" + category.getName() + "</a>");
+							out.println("<a id='category" + category.getName() + "' href='index.jsp?categoryId=" + category.getId() + "&keyValue=" + category.getOverpassKeyValue() + "' class='list-group-item " + suffix + "'>" + category.getName() + "</a>");
 						}
 						
 						User currentUser = (User)session.getAttribute("user");
@@ -91,6 +91,14 @@
                     	</div>
                     </div>
                 </div>
+                <br />
+                <div class="row">
+                	<%
+                		if (!categories.isEmpty()) {
+                			out.println("<div id='map'></div>");
+                		}
+                	%>
+                </div>
             </div>
         </div>
     </div>
@@ -103,6 +111,7 @@
 	</jsp:include>
 	<jsp:include page="createItemModal.jsp" />
     <jsp:include page="footer.jsp" />
+    <script src="js/category.js"></script>
 </body>
 
 </html>

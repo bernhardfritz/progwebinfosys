@@ -20,8 +20,8 @@ public interface IDBManager {
 	
 	public List<Category> getCategories();
 	public Category getCategoryById(Long categoryId);
-	public Category createCategory(String name, String description, User createUser);
-	public Category editCategory(Long categoryId, String name, String description, User updateUser);
+	public Category createCategory(String name, String description, String overpassKeyValue, User createUser);
+	public Category editCategory(Long categoryId, String name, String description, String overpassKeyValue, User updateUser);
 	public boolean deleteCategory(Long categoryId);
 	public List<Item> getItems(Long categoryId);
 	
