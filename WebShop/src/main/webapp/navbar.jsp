@@ -28,7 +28,7 @@
           	out.println("</form>");
       	} else {
       		out.println("<form action='/WebShop/api/user/logout' method='post' id='logoutForm' class='navbar-form navbar-right'>");
-      		out.println("<text id='helloText' class='text-muted'>Hello, " + user.getUsername() + "!</text>");
+      		out.println("<text id='helloText' class='text-muted'>Hello, <a href='profile.jsp'>" + user.getUsername() + "</a>!</text>");
       		out.println("&nbsp;");
       		if (user.isUserPromote() || user.isUserDemote() || user.isUserDelete()) {
 	      		out.println("<a id='userManagementButton' class='btn btn-primary' href='userManagement.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span></a>");
