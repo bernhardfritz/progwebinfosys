@@ -48,7 +48,7 @@ public class CommentApiTest {
 		
 		PowerMockito.when(req.getSession()).thenReturn(session);
 		
-		Category cat1 = new Category("Category1", "", null, null);
+		Category cat1 = new Category("Category1", "", "cat1", null, null);
 		cat1.setId(1L);
 		
 		Item item1 = new Item(cat1, "Item1", "", new BigDecimal(11.11), null, null);

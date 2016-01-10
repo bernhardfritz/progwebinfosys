@@ -52,13 +52,13 @@ public class CategoryApiTest {
 		
 		PowerMockito.when(req.getSession()).thenReturn(session);
 		
-		Category cat1 = new Category("Kategorie1", "", null, null);
+		Category cat1 = new Category("Kategorie1", "", "kat", null, null);
 		cat1.setId(1L);
 		
 		List<Category> categoryList = new ArrayList<Category>();
 		categoryList.add(cat1);
-		categoryList.add(new Category("Kategorie2", "desc", null, null));
-		categoryList.add(new Category("Kategorie3", "", null, null));
+		categoryList.add(new Category("Kategorie2", "desc", "kat", null, null));
+		categoryList.add(new Category("Kategorie3", "", "kat", null, null));
 		
 		List<Item> itemList = new ArrayList<Item>();
 		itemList.add(new Item(cat1, "Item1", "", new BigDecimal(11.11), null, null));
@@ -127,13 +127,13 @@ public class CategoryApiTest {
 		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, false);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
 		
-		Category category = new Category("category", "desc", adminUser, adminUser);
-		PowerMockito.when(dbManager.createCategory(category.getName(), category.getDescription(), category.getCreateUser())).thenReturn(category);
+		Category category = new Category("category", "desc", "cat", adminUser, adminUser);
+		PowerMockito.when(dbManager.createCategory(category.getName(), category.getDescription(), category.getOverpassKeyValue(), category.getCreateUser())).thenReturn(category);
 		
 		CategoryApi categoryApi = new CategoryApi();
 		Response response = null;
 		try {
-			response = categoryApi.postCategory(req, category.getName(), category.getDescription());
+			response = categoryApi.postCategory(req, category.getName(), category.getDescription(), category.getOverpassKeyValue());
 		} catch (Exception e) {
 			fail("Category Post Error:");
 			e.printStackTrace();
@@ -158,7 +158,7 @@ public class CategoryApiTest {
 		CategoryApi categoryApi = new CategoryApi();
 		Response response = null;
 		try {
-			response = categoryApi.postCategory(req, "category", "desc");
+			response = categoryApi.postCategory(req, "category", "desc", "cat");
 		} catch (Exception e) {
 			fail("Category Post Error:");
 			e.printStackTrace();
@@ -174,16 +174,16 @@ public class CategoryApiTest {
 		User adminUser = new User("admin", "", true, true, true, true, true, true, true, true, true, false, false, true);
 		PowerMockito.when(session.getAttribute("user")).thenReturn(adminUser);
 		
-		Category category = new Category("category", "desc", adminUser, adminUser);
+		Category category = new Category("category", "desc", "cat", adminUser, adminUser);
 		category.setId(1L);
-		Category categoryEdit = new Category("categoryEdit", "descEdit", category.getCreateUser(), adminUser);
+		Category categoryEdit = new Category("categoryEdit", "descEdit", "catEdit", category.getCreateUser(), adminUser);
 		categoryEdit.setId(category.getId());
-		PowerMockito.when(dbManager.editCategory(category.getId(), categoryEdit.getName(), categoryEdit.getDescription(), adminUser)).thenReturn(categoryEdit);
+		PowerMockito.when(dbManager.editCategory(category.getId(), categoryEdit.getName(), categoryEdit.getDescription(), categoryEdit.getOverpassKeyValue(), adminUser)).thenReturn(categoryEdit);
 		
 		CategoryApi categoryApi = new CategoryApi();
 		Response response = null;
 		try {
-			response = categoryApi.putCategory(req, category.getId(), categoryEdit.getName(), categoryEdit.getDescription());
+			response = categoryApi.putCategory(req, category.getId(), categoryEdit.getName(), categoryEdit.getDescription(), categoryEdit.getOverpassKeyValue());
 		} catch (UnsupportedEncodingException e) {
 			fail("Category Put Error:");
 			e.printStackTrace();
@@ -208,7 +208,7 @@ public class CategoryApiTest {
 		CategoryApi categoryApi = new CategoryApi();
 		Response response = null;
 		try {
-			response = categoryApi.putCategory(req, 1L, "category", "desc");
+			response = categoryApi.putCategory(req, 1L, "category", "desc", "cat");
 		} catch (UnsupportedEncodingException e) {
 			fail("Category Put Error:");
 			e.printStackTrace();

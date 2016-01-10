@@ -30,7 +30,7 @@ public class CategoryTest {
 	@Test
 	public void testConstructorWithFields() {
 		User user = new User();
-		Category category = new Category("category", "desc", user, user);
+		Category category = new Category("category", "desc", "cat", user, user);
 		
 		assertNull(category.getId());
 		assertEquals("category", category.getName());

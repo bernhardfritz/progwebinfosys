@@ -53,7 +53,7 @@ public class ItemApiTest {
 		
 		PowerMockito.when(req.getSession()).thenReturn(session);
 		
-		Category cat1 = new Category("Kategorie1", "", null, null);
+		Category cat1 = new Category("Kategorie1", "", "kat1", null, null);
 		cat1.setId(1L);
 		
 		Item item1 = new Item(cat1, "Item1", "desc", new BigDecimal(11.11), null, null);
