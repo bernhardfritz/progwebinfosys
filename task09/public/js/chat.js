@@ -15,6 +15,7 @@ $("#chatinput").keyup(function (e) {
 socket.on('chatmessage', function(msg){
   console.log(msg);
   if($('#chattextarea').val()) {
-      $("#chattextarea").append('&#10;' + msg);
+    $('#chattextarea').append('&#10;');
   }
+  $('#chattextarea').append(msg);
 });

@@ -25,16 +25,17 @@ var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 io.on('connection', function(socket){
   console.log('a user connected');
-
+  console.log(socket.handshake.address);
   socket.on('chatmessage', function(msg){
     console.log('message: ' + msg);
-    io.emit('chatmessage', msg);
+    io.emit('chatmessage', socket.handshake.address + ': ' + msg);
   });
+
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
 });
 
-http.listen(8080, function(){
-  console.log('listening on *:8080');
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
