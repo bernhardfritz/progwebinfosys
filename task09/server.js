@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var routes = require('./controllers/routes');
 var session = require('express-session');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -21,5 +23,18 @@ app.use('/', routes);
 var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
-console.log('Server running on ' + ip + ':' + port);
-app.listen(port, ip);
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  socket.on('chatmessage', function(msg){
+    console.log('message: ' + msg);
+    io.emit('chatmessage', msg);
+  });
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
+http.listen(8080, function(){
+  console.log('listening on *:8080');
+});

@@ -1,8 +1,28 @@
-extends layout
+html(lang='en')
+  head
+    block head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible' content='IE=edge')
+      meta(name='viewport' content='width=device-width, initial-scale=1')
+      meta(name='description' content='')
+      meta(name='author' content='')
+      link(rel='icon' href='/images/favicon.ico')
 
-append body
-  .banner.mid
-    h2 Hiking and Transportation in Innsbruck
-    a.btn.btn-default.btn-lg(href='/search')
-      ="let's go! "
-      .glyphicon.glyphicon-circle-arrow-right(aria-hidden='true')
+      title hati
+
+      link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+      link(rel='stylesheet' href='/css/main.css')
+      link(href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css')
+  body
+    .container-fluid
+      .row
+        .col-md-9
+          include map
+        .col-md-3
+          include chat
+    block js
+      script(language='JavaScript' type='text/javascript' src='https://code.jquery.com/jquery-1.11.3.min.js')
+      script(language='JavaScript' type='text/javascript' src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+      script(language='JavaScript' type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.0/holder.min.js')
+      script(language='JavaScript' type='text/javascript' src='https://cdn.socket.io/socket.io-1.4.3.js')
+      script(language='JavaScript' type='text/javascript' src='/js/chat.js')
