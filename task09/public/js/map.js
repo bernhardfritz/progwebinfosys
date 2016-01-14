@@ -10,9 +10,8 @@ $.get('/personswithaddress', function(results) {
   var iconStyle = new ol.style.Style({
     image: new ol.style.Icon({
       anchor: [0.5, 1.0],
-      scale: 0.04,
       opacity: 1,
-      src: '../assets/images/marker.png'
+      src: '/assets/images/marker-icon.png'
     })
   });
 
