@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.internal.QuickAccess">
-		<item value="-1" key="dialogHeight"/>
-		<item value="-1" key="dialogWidth"/>
+		<item value="500" key="dialogHeight"/>
+		<item value="800" key="dialogWidth"/>
 		<list key="textEntries">
 		</list>
 		<list key="orderedElements">
@@ -12,10 +12,36 @@
 		<list key="textArray">
 		</list>
 	</section>
+	<section name="PreferencesImportWizard">
+		<item value="/Users/bernhardfritz/Documents/eclipse.epf" key=""/>
+		<list key="WizardPreferencesExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="/Users/bernhardfritz/Documents/eclipse.epf"/>
+		</list>
+	</section>
 	<section name="NewWizardAction">
 		<item value="org.springsource.ide.eclipse.gradle.wizards.new" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="org.springsource.ide.eclipse.gradle.wizards.new.category"/>
+		</list>
+	</section>
+	<section name="ImportExportAction">
+		<item value="org.eclipse.ui.wizards.export.ZipFile" key="ImportExportPage.STORE_SELECTED_EXPORT_WIZARD_ID"/>
+		<item value="org.eclipse.ui.wizards.import.Preferences" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+		</list>
+		<list key="ImportExportPage.STORE_EXPANDED_EXPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+			<item value="org.eclipse.jdt.ui.Java"/>
+		</list>
+	</section>
+	<section name="ZipFileExportWizard">
+		<item value="true" key="WizardZipFileResourceExportPage1.STORE_COMPRESS_CONTENTS_ID"/>
+		<item value="true" key="WizardZipFileResourceExportPage1.STORE_CREATE_STRUCTURE_ID"/>
+		<list key="WizardZipFileResourceExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="/Users/bernhardfritz/Documents/Uni/Informatik/Semester 5/Programmieren von Web Information Systems/PS/Webshop4.zip"/>
+			<item value="/Users/bernhardfritz/Documents/Uni/Informatik/Semester 5/Programmieren von Web Information Systems/PS/WebShop2.zip"/>
+			<item value="/Users/bernhardfritz/Documents/Uni/Informatik/Semester 5/Programmieren von Web Information Systems/PS/WebShop.zip"/>
 		</list>
 	</section>
 </section>
