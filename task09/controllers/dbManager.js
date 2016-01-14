@@ -86,3 +86,8 @@ function callback(err, results) {
     }
 }
 */
+
+module.exports = {
+  init: init,
+  getAllPersonsWithAddress: getAllPersonsWithAddress
+};

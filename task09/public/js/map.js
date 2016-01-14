@@ -10,3 +10,7 @@ var map = new ol.Map({
     zoom: 13
   })
 });
+
+$.get('/personswithaddress', function(results) {
+  console.log(JSON.parse(results));
+});

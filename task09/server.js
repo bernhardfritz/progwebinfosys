@@ -7,6 +7,7 @@ var session = require('express-session');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var dbman = require('./controllers/dbManager');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -23,19 +24,21 @@ app.use('/', routes);
 var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
+dbman.init();
+
 io.on('connection', function(socket){
-  console.log('a user connected');
-  console.log(socket.handshake.address);
+  console.log(socket.handshake.address + ' connected');
+
   socket.on('chatmessage', function(msg){
-    console.log('message: ' + msg);
+    console.log(socket.handshake.address + ' sent: ' + msg);
     io.emit('chatmessage', socket.handshake.address + ': ' + msg);
   });
 
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log(socket.handshake.address + ' disconnected');
   });
 });
 
 http.listen(port, function(){
-  console.log('listening on *:' + port);
+  console.log('listening on ' + ip + ':' + port);
 });
