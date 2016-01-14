@@ -7,14 +7,4 @@ function getIndex(req, res) {
 }
 router.get('/', getIndex);
 
-function getMap(req, res) {
-  res.render('map', {});
-}
-router.get('/map', getMap);
-
-function getChat(req, res) {
-  res.render('chat', {});
-}
-router.get('/chat', getChat);
-
 module.exports = router;
