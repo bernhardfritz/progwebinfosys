@@ -52,11 +52,16 @@ $.get('/personswithaddress', function(results) {
        });
    if (feature) {
      popup.setPosition(evt.coordinate);
+
      $(element).popover({
-       'placement': 'top',
-       'html': true,
-       'content': 'Firstname:&nbsp;' + feature.get('firstname') + '<br/>Lastname:&nbsp;' + feature.get('lastname') + '<br/>Sex:&nbsp;' + feature.get('sex') + '<br />Age:&nbsp;' + feature.get('age')
+       trigger: 'manual',
+       placement: 'top',
+       html: true,
      });
+
+     // fix to update popup content dynamically
+     $(element).data('bs.popover').options.content = 'Firstname:&nbsp;' + feature.get('firstname') + '<br/>Lastname:&nbsp;' + feature.get('lastname') + '<br/>Sex:&nbsp;' + feature.get('sex') + '<br />Age:&nbsp;' + feature.get('age');
+
      $(element).popover('show');
    } else {
      $(element).popover('destroy');
