@@ -31,7 +31,9 @@ $.get('/personswithaddress', function(results) {
     ],
     view: new ol.View({
       center: ol.proj.fromLonLat([11.383333, 47.266667]),
-      zoom: 14
+      zoom: 14,
+      minZoom:3,
+      maxZoom: 21
     })
   });
 
