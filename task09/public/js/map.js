@@ -54,7 +54,6 @@ $.get('/personswithaddress', function(results) {
      popup.setPosition(evt.coordinate);
 
      $(element).popover({
-       trigger: 'manual',
        placement: 'top',
        html: true,
      });
