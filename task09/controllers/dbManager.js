@@ -108,8 +108,76 @@ function init() {
                   country: 'Österreich',
                 }
               }, function(err, results) {
+                if (err) throw err;
                 count++;
-                console.log(count + ' persons created');
+                db.cypher({
+                  query: queryTemplate,
+                  params: {
+                    firstname: 'Max',
+                    lastname: 'Mustermann',
+                    sex: 'male',
+                    age: 40,
+                    housenumber: 29,
+                    streetname: 'Dorfgasse',
+                    city: 'Innsbruck',
+                    state: 'Tirol',
+                    country: 'Österreich',
+                  }
+                }, function(err, results) {
+                  if (err) throw err;
+                  count++;
+                  db.cypher({
+                    query: queryTemplate,
+                    params: {
+                      firstname: 'Michaela',
+                      lastname: 'Musterfrau',
+                      sex: 'female',
+                      age: 38,
+                      housenumber: 147,
+                      streetname: 'Reichenauerstraße',
+                      city: 'Innsbruck',
+                      state: 'Tirol',
+                      country: 'Österreich',
+                    }
+                  }, function(err, results) {
+                    if (err) throw err;
+                    count++;
+                    db.cypher({
+                      query: queryTemplate,
+                      params: {
+                        firstname: 'Julian',
+                        lastname: 'Weiß',
+                        sex: 'male',
+                        age: 59,
+                        housenumber: 15,
+                        streetname: 'Fritz-Pregl-Straße',
+                        city: 'Innsbruck',
+                        state: 'Tirol',
+                        country: 'Österreich',
+                      }
+                    }, function(err, results) {
+                      if (err) throw err;
+                      count++;
+                      db.cypher({
+                        query: queryTemplate,
+                        params: {
+                          firstname: 'Frieda',
+                          lastname: 'Mentlbaum',
+                          sex: 'female',
+                          age: 68,
+                          housenumber: 10,
+                          streetname: 'Etrichgasse',
+                          city: 'Innsbruck',
+                          state: 'Tirol',
+                          country: 'Österreich',
+                        }
+                      }, function(err, results) {
+                        count++;
+                        console.log(count + ' persons created');
+                      });
+                    });
+                  });
+                });
               });
             });
           });
