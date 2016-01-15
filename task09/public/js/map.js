@@ -1,25 +1,21 @@
+var vectorSource = new ol.source.Vector({});
+
+var iconStyle = new ol.style.Style({
+  image: new ol.style.Icon({
+    anchor: [0.5, 1.0],
+    opacity: 1,
+    src: '/assets/images/marker-icon.png'
+  })
+});
+
 $.get('/personswithaddress', function(results) {
-  console.log(JSON.parse(results));
+  for (i = 0; i < JSON.parse(results).length; i++) {
+    var result = JSON.parse(results)[i];
+    var person = result.person;
+    var address = result.address;
 
-  var iconFeature = new ol.Feature({
-    geometry: new ol.geom.Point(ol.proj.transform([11.383333, 47.266667], 'EPSG:4326', 'EPSG:3857')),
-    firstname: 'Hans',
-    lastname: 'Wurst',
-  });
-
-  var iconStyle = new ol.style.Style({
-    image: new ol.style.Icon({
-      anchor: [0.5, 1.0],
-      opacity: 1,
-      src: '/assets/images/marker-icon.png'
-    })
-  });
-
-  iconFeature.setStyle(iconStyle);
-
-  var vectorSource = new ol.source.Vector({
-    features: [iconFeature]
-  });
+    addMarker(person, address);
+  }
 
   var vectorLayer = new ol.layer.Vector({
     source: vectorSource
@@ -35,7 +31,7 @@ $.get('/personswithaddress', function(results) {
     ],
     view: new ol.View({
       center: ol.proj.fromLonLat([11.383333, 47.266667]),
-      zoom: 13
+      zoom: 14
     })
   });
 
@@ -59,7 +55,7 @@ $.get('/personswithaddress', function(results) {
      $(element).popover({
        'placement': 'top',
        'html': true,
-       'content': feature.get('firstname') + ' ' + feature.get('lastname')
+       'content': 'Firstname:&nbsp;' + feature.get('firstname') + '<br/>Lastname:&nbsp;' + feature.get('lastname') + '<br/>Sex:&nbsp;' + feature.get('sex') + '<br />Age:&nbsp;' + feature.get('age')
      });
      $(element).popover('show');
    } else {
@@ -84,3 +80,28 @@ $.get('/personswithaddress', function(results) {
     }
   });
 });
+
+function addMarker(person, address) {
+  $.get("http://nominatim.openstreetmap.org/search", {
+  format: 'json',
+  country: address.country,
+  state: address.state,
+  city: address.city,
+  street: address.housenumber + ' ' + address.streetname,
+  }, function(data) {
+    var lat = parseFloat(data[0].lat);
+    var lon = parseFloat(data[0].lon);
+
+    var iconFeature = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857')),
+      firstname: person.firstname,
+      lastname: person.lastname,
+      sex: person.sex,
+      age: person.age
+    });
+
+    iconFeature.setStyle(iconStyle);
+
+    vectorSource.addFeature(iconFeature);
+   });
+}

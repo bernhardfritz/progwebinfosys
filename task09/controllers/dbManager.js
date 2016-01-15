@@ -9,6 +9,7 @@ var db = new neo4j.GraphDatabase({
 var queryTemplate = 'CREATE (p:Person { firstname: {firstname}, lastname: {lastname}, sex: {sex}, age: {age} })-[r:LIVES_AT]->(a:Address { housenumber: {housenumber}, streetname: {streetname}, city: {city}, state: {state}, country: {country} })';
 
 function init() {
+  var count = 0;
   db.cypher({
       query:  'MATCH (n) DETACH DELETE n',
   }, function(err, results) {
@@ -28,6 +29,7 @@ function init() {
         }
     }, function(err, results) {
       if (err) throw err;
+      count++;
       db.cypher({
         query: queryTemplate,
         params: {
@@ -43,6 +45,7 @@ function init() {
         }
       }, function(err, results) {
         if (err) throw err;
+        count++;
         db.cypher({
           query: queryTemplate,
           params: {
@@ -57,7 +60,59 @@ function init() {
             country: 'Österreich',
           }
         }, function(err, results) {
-          console.log('All persons created successfully.');
+          if (err) throw err;
+          count++;
+          db.cypher({
+            query: queryTemplate,
+            params: {
+              firstname: 'Hans',
+              lastname: 'Wurst',
+              sex: 'male',
+              age: 54,
+              housenumber: 20,
+              streetname: 'Kaiserjägerstraße',
+              city: 'Innsbruck',
+              state: 'Tirol',
+              country: 'Österreich',
+            }
+          }, function(err, results) {
+            if (err) throw err;
+            count++;
+            db.cypher({
+              query: queryTemplate,
+              params: {
+                firstname: 'Julia',
+                lastname: 'Cooper',
+                sex: 'female',
+                age: 29,
+                housenumber: 7,
+                streetname: 'Adamgasse',
+                city: 'Innsbruck',
+                state: 'Tirol',
+                country: 'Österreich',
+              }
+            }, function(err, results) {
+              if (err) throw err;
+              count++;
+              db.cypher({
+                query: queryTemplate,
+                params: {
+                  firstname: 'Michael',
+                  lastname: 'Sparrow',
+                  sex: 'male',
+                  age: 43,
+                  housenumber: 11,
+                  streetname: 'Gaswerkstraße',
+                  city: 'Innsbruck',
+                  state: 'Tirol',
+                  country: 'Österreich',
+                }
+              }, function(err, results) {
+                count++;
+                console.log(count + ' persons created');
+              });
+            });
+          });
         });
       });
     });
@@ -70,22 +125,6 @@ function getAllPersonsWithAddress(callback) {
       lean: true,
   }, callback);
 }
-
-//init();
-
-/*
-function callback(err, results) {
-    if (err) throw err;
-    var result = results[0];
-    if (!result) {
-        console.log('No result found.');
-    } else {
-      _.forEach(results, function(result) {
-        console.log(result);
-      });
-    }
-}
-*/
 
 module.exports = {
   init: init,
