@@ -1,5 +1,6 @@
 Vorbereitung:
 	Ausführen des Befehls "npm install" im root-Verzeichnis, um die dependencies zu installieren.
+	Eintragen der Neo4j - User-Passwort-Kombination in 'controllers/dbManager.js' in Zeile 6.
   Starten des Servers mit "node server.js" im root-Verzeichnis.
   Server erreichbar unter 'localhost:8080'.
 
