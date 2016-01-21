@@ -26,7 +26,7 @@ public class OperationApi {
 	@Path("/all/{accountNumber}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAccounts(@PathParam("accountNumber") String accountNumber) {
+	public Response getOperationsByAccountNumber(@PathParam("accountNumber") String accountNumber) {
 		return Response.ok(DBManager.getInstance().getOperationsByAccountNumber(accountNumber)).build();
 	}
 	

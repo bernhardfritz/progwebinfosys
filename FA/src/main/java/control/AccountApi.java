@@ -19,7 +19,7 @@ public class AccountApi {
 	@Path("/{accountNumber}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAccount(@PathParam("accountNumber") String accountNumber) {
+	public Response getAccountByAccountNumber(@PathParam("accountNumber") String accountNumber) {
 		return Response.ok(DBManager.getInstance().getAccountByAccountNumber(accountNumber)).build();
 	}
 	
