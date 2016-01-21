@@ -1,5 +1,6 @@
 package control;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import model.Account;
+import model.Operation;
 import model.User;
 
 public class DBManager implements IDBManager {
@@ -41,6 +44,94 @@ public class DBManager implements IDBManager {
 		transaction.begin();
 		
 		return transaction;
+    }
+    
+    
+    /* =========================== Account functions =========================== */
+    
+    
+    @SuppressWarnings("unchecked")
+	public Account getAccountByAccountNumber(String accountNumber) {
+    	Query query = entityManager.createQuery("SELECT a FROM " + Account.class.getSimpleName() + " a WHERE a.accountNumber = ?1");
+		query.setParameter(1, accountNumber);
+		
+		List<Account> accountList = (List<Account>)query.getResultList();
+		if (!accountList.isEmpty()) {
+			return accountList.get(0);
+		}
+		
+		return null;
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<Account> getAccountsByUsername(String username) {
+    	Query query = entityManager.createQuery("SELECT a FROM " + Account.class.getSimpleName() + " a WHERE a.owner.username = ?1");
+		query.setParameter(1, username);
+		
+		return (List<Account>)query.getResultList();
+    }
+    
+    
+    /* =========================== Operation functions =========================== */
+    
+    private Operation createOperation(Account fromAccount, Account toAccount, BigDecimal amount, User currentUser, boolean isDeposit) {
+    	if (fromAccount == null || toAccount == null || amount == null || currentUser == null) {
+    		return null;
+    	}
+    	
+    	if (fromAccount.getAccountNumber().equals(toAccount.getAccountNumber())) {
+    		if (!isDeposit) {
+    			return null;
+    		}
+    		fromAccount.setBalance(fromAccount.getBalance().add(amount));
+    	} else {
+    		if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+    			return null;
+    		}
+    		fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+        	toAccount.setBalance(toAccount.getBalance().add(amount));
+    	}
+    	
+    	EntityTransaction transaction = startSaveTransaction();
+    	Operation operation = new Operation(fromAccount, toAccount, amount, currentUser);
+    	try {
+    		entityManager.persist(fromAccount);
+    		entityManager.persist(toAccount);
+    		entityManager.persist(operation);
+    		transaction.commit();
+    		return operation;
+    	}
+    	catch (Exception e) {
+    		transaction.rollback();
+    	}
+    	
+    	return null;
+    }
+    
+    public Operation createOperation(String fromAccountNumber, String toAccountNumber, BigDecimal amount, User currentUser) {
+    	if (fromAccountNumber == null || toAccountNumber == null || amount == null || currentUser == null) {
+    		return null;
+    	}
+    	
+    	return createOperation(getAccountByAccountNumber(fromAccountNumber), getAccountByAccountNumber(toAccountNumber), amount, currentUser, false);
+    }
+    
+    public Operation createOperation(User fromUser, User toUser, BigDecimal amount, User currentUser) {
+    	if (fromUser == null || toUser == null || amount == null || currentUser == null) {
+    		return null;
+    	}
+    	
+    	for (Account fromAccount : getAccountsByUsername(fromUser.getUsername())) {
+    		if (fromAccount.getAccountType().getLabel().equals("Account")) {
+    			for (Account toAccount : getAccountsByUsername(toUser.getUsername())) {
+    				if (toAccount.getAccountType().getLabel().equals("Account")) {
+    					return createOperation(fromAccount, toAccount, amount, currentUser, true);
+    				}
+    			}
+    		}
+    	}
+    	
+    	return null;
     }
     
     
@@ -155,10 +246,6 @@ public class DBManager implements IDBManager {
 			return userList.get(0);
 		}
 		
-		return logout();
-	}
-	
-	public User logout() {
-		return getUserByUsername("guest");
+		return null;
 	}
 }

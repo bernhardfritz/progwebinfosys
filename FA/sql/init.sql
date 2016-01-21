@@ -19,6 +19,8 @@ CREATE TABLE `FA`.`Account` (
   `idAccount` INT NOT NULL AUTO_INCREMENT,
   `accountType` INT NOT NULL,
   `owner` INT NOT NULL,
+  `accountNumber` VARCHAR(10) NOT NULL UNIQUE,
+  `lowerLimit` DOUBLE NOT NULL,
   `balance` DOUBLE NOT NULL,
   `createUser` INT NOT NULL,
   `createTimestamp` DATETIME NOT NULL,
@@ -71,5 +73,5 @@ INSERT INTO `FA`.`User` (`username`, `password`, `createTimestamp`) VALUES ('gue
 INSERT INTO `FA`.`AccountType` (`label`, `createTimestamp`) VALUES ('Account', NOW());
 INSERT INTO `FA`.`AccountType` (`label`, `createTimestamp`) VALUES ('Bankbook', NOW());
 
-INSERT INTO `FA`.`Account` (`accountType`, `owner`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 1, 0.0, 1, NOW(), 1, NOW());
-INSERT INTO `FA`.`Account` (`accountType`, `owner`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 2, 0.0, 2, NOW(), 2, NOW());
+INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 1, 'A441262943', -10000.0, 0.0, 1, NOW(), 1, NOW());
+INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 2, 'A872540888', -1000.0, 0.0, 2, NOW(), 2, NOW());
