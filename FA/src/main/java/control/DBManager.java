@@ -83,7 +83,7 @@ public class DBManager implements IDBManager {
     
     @SuppressWarnings("unchecked")
 	public List<Operation> getOperationsByAccountNumber(String accountNumber) {
-    	Query query = entityManager.createQuery("SELECT o FROM " + Operation.class.getSimpleName() + " o WHERE o.fromAccount.accountNumber = ?1 OR o.toAccount.accountNumber = ?1");
+    	Query query = entityManager.createQuery("SELECT o FROM " + Operation.class.getSimpleName() + " o WHERE o.fromAccount.accountNumber = ?1 OR o.toAccount.accountNumber = ?1 ORDER BY o.createTimestamp DESC");
 		query.setParameter(1, accountNumber);
 		
 		return (List<Operation>)query.getResultList();
