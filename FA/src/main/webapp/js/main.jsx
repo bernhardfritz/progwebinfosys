@@ -114,8 +114,47 @@ var Navbar = React.createClass({
   }
 });
 
+var Account = React.createClass({
+  render: function() {
+    return(
+      <div className="account">
+        <form>
+          <div className="form-group">
+            <select>
+              <option>asdf</option>
+            </select>
+          </div>
+        </form>
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>AccountId</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+});
+
+var Component = React.createClass({
+  render: function() {
+    return(
+      <div className="component">
+        <Navbar url='/FA/api/user/current' pollInterval={2000} />
+        <Account />
+      </div>
+    );
+  }
+});
+
 ReactDOM.render(
-  <Navbar url='/FA/api/user/current' pollInterval={2000}/>,
+  <Component />,
   document.getElementById('content')
 );
 /* jshint ignore:end */
