@@ -1,12 +1,9 @@
 package control;
 
-import java.net.URISyntaxException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -38,9 +35,9 @@ public class UserApi {
 	}
 	
 	@POST()
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response postUser(@FormParam("username") String username, @FormParam("password") String password) throws URISyntaxException {
+	public Response postUser(String username, String password) {
 		User user = DBManager.getInstance().createUser(username, password);
 		if(user != null) return Response.ok(user).build();
 		else return Response.serverError().build();
@@ -55,9 +52,9 @@ public class UserApi {
 	
 	@Path("/{userId}")
 	@PUT()
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response putUser(@Context HttpServletRequest req, @PathParam("userId") Long userId, @FormParam("password") String password) {
+	public Response putUser(@Context HttpServletRequest req, Long userId, String password) {
 		User user = DBManager.getInstance().editUser(userId, password);
 		if(user != null) return Response.ok(user).build();
 		else return Response.status(Status.UNAUTHORIZED).build();
@@ -73,8 +70,8 @@ public class UserApi {
 	
 	@Path("/login")
 	@POST()
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response loginUser(@Context HttpServletRequest req, @FormParam("username") String username, @FormParam("password") String password) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response loginUser(@Context HttpServletRequest req, String username, String password) {
 		HttpSession session = req.getSession();
 		User user = DBManager.getInstance().login(username, password);
 		if(user != null) {
@@ -87,10 +84,7 @@ public class UserApi {
 	@POST()
 	public Response logoutUser(@Context HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		User user = DBManager.getInstance().logout();
-		if(user != null) {
-			session.setAttribute("user", user);
-			return Response.ok().build();
-		} else return Response.status(Status.UNAUTHORIZED).build();
+		session.setAttribute("user", null);
+		return Response.ok().build();
 	}
 }
