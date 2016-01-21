@@ -1,6 +1,6 @@
 Vorbereitung: 
 	Ausführen des SQL-Scripts /sql/init.sql, um DB aufzusetzen.
-
+	Ausführen des Befehls "npm install" im Verzeichnis /src/main/webapp, um die Module für ReactJS zu installieren.
 
 Verwendete Technologien:
 	Server: Jetty
@@ -8,11 +8,21 @@ Verwendete Technologien:
 	REST: Jersey
 	DB: MySQL
 	DB-Anbindung: JPA
-	Frontend:
+	Frontend: ReactJS + Bootstrap
 	
 
 Default-User:
+  	Username: admin
+  	Password: secret
 
+  	Username: user
+  	Password: password
+  
+  	Username: bernhard
+  	Password: password
+  
+  	Username: mario
+  	Password: password
 
 REST-API:
 
