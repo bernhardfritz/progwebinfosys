@@ -44,7 +44,6 @@ public class DBManager implements IDBManager {
     }
     
     
-    
  	/* =========================== User functions =========================== */
 
 	@SuppressWarnings("unchecked")
