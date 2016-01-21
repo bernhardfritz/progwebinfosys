@@ -74,13 +74,24 @@ public class DBManager implements IDBManager {
     
     /* =========================== Operation functions =========================== */
     
-    private Operation createOperation(Account fromAccount, Account toAccount, BigDecimal amount, User currentUser, boolean isDeposit) {
+    @SuppressWarnings("unchecked")
+	public List<Operation> getOperationsByAccountNumber(String accountNumber) {
+    	Query query = entityManager.createQuery("SELECT o FROM " + Operation.class.getSimpleName() + " o WHERE o.fromAccount.accountNumber = ?1 OR o.toAccount.accountNumber = ?1");
+		query.setParameter(1, accountNumber);
+		
+		return (List<Operation>)query.getResultList();
+    }
+    
+    private Operation createOperation(Account fromAccount, Account toAccount, BigDecimal amount, User currentUser, boolean isDeposition) {
     	if (fromAccount == null || toAccount == null || amount == null || currentUser == null) {
+    		return null;
+    	}
+    	if (fromAccount.getBalance().subtract(amount.abs()).compareTo(fromAccount.getLowerLimit()) < 0) {
     		return null;
     	}
     	
     	if (fromAccount.getAccountNumber().equals(toAccount.getAccountNumber())) {
-    		if (!isDeposit) {
+    		if (!isDeposition) {
     			return null;
     		}
     		fromAccount.setBalance(fromAccount.getBalance().add(amount));

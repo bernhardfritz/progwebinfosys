@@ -68,10 +68,9 @@ FLUSH PRIVILEGES;
 
 INSERT INTO `FA`.`User` (`username`, `password`, `createTimestamp`) VALUES ('admin', 'secret', NOW());
 INSERT INTO `FA`.`User` (`username`, `password`, `createTimestamp`) VALUES ('user', 'password', NOW());
-INSERT INTO `FA`.`User` (`username`, `password`, `createTimestamp`) VALUES ('guest', 'guest', NOW());
 
 INSERT INTO `FA`.`AccountType` (`label`, `createTimestamp`) VALUES ('Account', NOW());
 INSERT INTO `FA`.`AccountType` (`label`, `createTimestamp`) VALUES ('Bankbook', NOW());
 
-INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 1, 'A441262943', -10000.0, 0.0, 1, NOW(), 1, NOW());
-INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 2, 'A872540888', -1000.0, 0.0, 2, NOW(), 2, NOW());
+INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 1, 'A441262943', -10000.0, 1000.0, 1, NOW(), 1, NOW());
+INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 2, 'A872540888', -1000.0, 100.0, 2, NOW(), 2, NOW());
