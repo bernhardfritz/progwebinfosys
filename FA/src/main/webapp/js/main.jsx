@@ -22,7 +22,7 @@ var NavbarFormLoggedOut = React.createClass({
       type: 'POST',
       contentType: "application/json",
       url: '/FA/api/user/login',
-      data: {username: username, password: password},
+      data: JSON.stringify({username: username, password: password}),
       success: function(data) {
         console.log(data);
       },
@@ -66,9 +66,12 @@ var NavbarFormLoggedOut = React.createClass({
 });
 
 var NavbarFormLoggedIn = React.createClass({
+  handleSubmit: function() {
+    $.post('/FA/api/user/logout');
+  },
   render: function() {
     return(
-      <form className='navbar-form navbar-right'>
+      <form className='navbar-form navbar-right' onSubmit={this.handleSubmit}>
         <text id='helloText' className='text-muted'>Hello, {this.props.username}!</text>
         &nbsp;
         <input
@@ -87,10 +90,9 @@ var Navbar = React.createClass({
   },
   getCurrentUser: function() {
     $.get(this.props.url, function(data) {
-      console.log(data);
-      var username='asdf';
+      var username = data.username;
       this.setState({username: username});
-    });
+    }.bind(this));
   },
   componentDidMount: function() {
     this.getCurrentUser();
