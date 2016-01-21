@@ -1,6 +1,9 @@
 package control;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -12,6 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 import model.Operation;
 import model.User;
@@ -30,27 +35,51 @@ public class OperationApi {
 		return Response.ok(DBManager.getInstance().getOperationsByAccountNumber(accountNumber)).build();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Path("/deposit")
 	@POST()
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deposit(@Context HttpServletRequest req, BigDecimal amount) {
+	public Response deposit(@Context HttpServletRequest req, String data) {
 		User currentUser = getCurrentUser(req);
-		
-		Operation operation = DBManager.getInstance().createOperation(currentUser, currentUser, amount, currentUser);
-		if (operation != null) return Response.ok(operation).build();
+		Map<String, String> map = new HashMap<String, String>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			map = objectMapper.readValue(data, HashMap.class);
+			Operation operation = DBManager.getInstance().createOperation(currentUser, currentUser, new BigDecimal(map.get("amount")), currentUser);
+			if (operation != null) return Response.ok(operation).build();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		return Response.serverError().build();
 	}
 	
+	/**
+	 * @param data
+	 * 	{
+	 * 		"fromAccountNumber": "A000000000",
+	 * 		"toAccountNumber": "A999999999",
+	 * 		"amount": "100.0"
+	 * 	}
+	 */
+	@SuppressWarnings("unchecked")
 	@Path("/transfer")
 	@POST()
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response transfer(@Context HttpServletRequest req, String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
+	public Response transfer(@Context HttpServletRequest req, String data) {
 		User currentUser = getCurrentUser(req);
+		Map<String, String> map = new HashMap<String, String>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			map = objectMapper.readValue(data, HashMap.class);
+			Operation operation = DBManager.getInstance().createOperation(map.get("fromAccountNumber"), map.get("toAccountNumber"), new BigDecimal(map.get("amount")), currentUser);
+			if (operation != null) return Response.ok(operation).build();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		Operation operation = DBManager.getInstance().createOperation(fromAccountNumber, toAccountNumber, amount, currentUser);
-		if (operation != null) return Response.ok(operation).build();
 		return Response.serverError().build();
 	}
 }

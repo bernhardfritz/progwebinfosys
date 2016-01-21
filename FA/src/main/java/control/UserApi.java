@@ -1,5 +1,9 @@
 package control;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -14,6 +18,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 import model.User;
 
@@ -34,13 +40,29 @@ public class UserApi {
 		return Response.ok(currentUser).build();
 	}
 	
+	/**
+	 * @param data
+	 * 	{
+	 * 		"username": "user",
+	 * 		"password": "test"
+	 * 	}
+	 */
+	@SuppressWarnings("unchecked")
 	@POST()
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response postUser(String username, String password) {
-		User user = DBManager.getInstance().createUser(username, password);
-		if(user != null) return Response.ok(user).build();
-		else return Response.serverError().build();
+	public Response postUser(String data) {
+		Map<String, String> map = new HashMap<String, String>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			map = objectMapper.readValue(data, HashMap.class);
+			User user = DBManager.getInstance().createUser(map.get("username"), map.get("password"));
+			if(user != null) return Response.ok(user).build();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return Response.serverError().build();
 	}
 	
 	@Path("/{userId}")
@@ -50,34 +72,65 @@ public class UserApi {
 		return Response.ok(DBManager.getInstance().getUserById(userId)).build();
 	}
 	
+	/**
+	 * @param data
+	 * 	{
+	 * 		"password": "test"
+	 * 	}
+	 */
+	@SuppressWarnings("unchecked")
 	@Path("/{userId}")
 	@PUT()
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response putUser(@Context HttpServletRequest req, Long userId, String password) {
-		User user = DBManager.getInstance().editUser(userId, password);
-		if(user != null) return Response.ok(user).build();
-		else return Response.status(Status.UNAUTHORIZED).build();
+	public Response putUser(@Context HttpServletRequest req, @PathParam("userId") Long userId, String data) {
+		Map<String, String> map = new HashMap<String, String>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			map = objectMapper.readValue(data, HashMap.class);
+			User user = DBManager.getInstance().editUser(userId, map.get("password"));
+			if(user != null) return Response.ok(user).build();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return Response.status(Status.UNAUTHORIZED).build();
 	}
 
 	@Path("/{userId}")
 	@DELETE()
 	public Response deleteUser(@Context HttpServletRequest req, @PathParam("userId") Long userId) {
-		User currentUser = ((User)req.getSession().getAttribute("user"));
-		if(DBManager.getInstance().deleteUser(userId, currentUser)) return Response.noContent().build();
+		if(DBManager.getInstance().deleteUser(userId)) return Response.noContent().build();
 		else return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
+	/**
+	 * @param data
+	 * 	{
+	 * 		"username": "user",
+	 * 		"password": "test"
+	 * 	}
+	 */
+	@SuppressWarnings("unchecked")
 	@Path("/login")
 	@POST()
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response loginUser(@Context HttpServletRequest req, String username, String password) {
+	public Response loginUser(@Context HttpServletRequest req, String data) {
 		HttpSession session = req.getSession();
-		User user = DBManager.getInstance().login(username, password);
-		if(user != null) {
-			session.setAttribute("user", user);
-			return Response.ok().build();
-		} else return Response.status(Status.UNAUTHORIZED).build();
+		Map<String, String> map = new HashMap<String, String>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			map = objectMapper.readValue(data, HashMap.class);
+			User user = DBManager.getInstance().login(map.get("username"), map.get("password"));
+			if(user != null) {
+				session.setAttribute("user", user);
+				return Response.ok().build();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
 	@Path("/logout")
