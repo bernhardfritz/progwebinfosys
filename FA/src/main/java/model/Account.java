@@ -15,11 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "Account")
 public class Account implements Serializable {
@@ -27,7 +30,7 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = -2187053659640625361L;
 	
 	@Id
-	@Column(name = "idUser")
+	@Column(name = "idAccount")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	

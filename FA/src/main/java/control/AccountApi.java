@@ -10,6 +10,12 @@ import javax.ws.rs.core.Response;
 @Path("/account")
 public class AccountApi {
 	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAccounts() {
+		return Response.ok(DBManager.getInstance().getAccounts()).build();
+	}
+	
 	@Path("/{accountNumber}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -20,7 +26,7 @@ public class AccountApi {
 	@Path("/all/{username}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAccounts(@PathParam("username") String username) {
+	public Response getAccountsByUsername(@PathParam("username") String username) {
 		return Response.ok(DBManager.getInstance().getAccountsByUsername(username)).build();
 	}
 }

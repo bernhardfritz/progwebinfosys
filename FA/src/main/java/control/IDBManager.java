@@ -8,6 +8,7 @@ import model.Operation;
 import model.User;
 
 public interface IDBManager {
+	public List<Account> getAccounts();
 	public Account getAccountByAccountNumber(String accountNumber);
 	public List<Account> getAccountsByUsername(String username);
 	

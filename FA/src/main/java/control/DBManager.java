@@ -49,6 +49,13 @@ public class DBManager implements IDBManager {
     
     /* =========================== Account functions =========================== */
     
+    @SuppressWarnings("unchecked")
+	public List<Account> getAccounts() {
+    	Query query = entityManager.createQuery("SELECT a FROM " + Account.class.getSimpleName() + " a");
+		
+		return (List<Account>)query.getResultList();
+    }
+    
     
     @SuppressWarnings("unchecked")
 	public Account getAccountByAccountNumber(String accountNumber) {
@@ -76,8 +83,9 @@ public class DBManager implements IDBManager {
     
     @SuppressWarnings("unchecked")
 	public List<Operation> getOperationsByAccountNumber(String accountNumber) {
-    	Query query = entityManager.createQuery("SELECT o FROM " + Operation.class.getSimpleName() + " o WHERE o.fromAccount.accountNumber = ?1 OR o.toAccount.accountNumber = ?1");
+    	Query query = entityManager.createQuery("SELECT o FROM " + Operation.class.getSimpleName() + " o WHERE o.fromAccount.accountNumber = ?1 OR o.toAccount.accountNumber = ?2");
 		query.setParameter(1, accountNumber);
+		query.setParameter(2, accountNumber);
 		
 		return (List<Operation>)query.getResultList();
     }
