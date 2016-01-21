@@ -14,7 +14,6 @@ var NavbarFormLoggedOut = React.createClass({
     e.preventDefault();
     var username = this.state.username.trim();
     var password = this.state.password.trim();
-    console.log(username,password);
     if(!username || !password) {
       return;
     }
@@ -25,7 +24,7 @@ var NavbarFormLoggedOut = React.createClass({
       data: JSON.stringify({username: username, password: password}),
       success: function(data) {
         console.log(data);
-      },
+      }.bind(this),
       dataType: 'json'
     });
     this.setState({username: '', password: ''});
@@ -66,13 +65,16 @@ var NavbarFormLoggedOut = React.createClass({
 });
 
 var NavbarFormLoggedIn = React.createClass({
-  handleSubmit: function() {
-    $.post('/FA/api/user/logout');
+  handleSubmit: function(e) {
+    e.preventDefault();
+    $.post('/FA/api/user/logout', {}, function(data) {
+      this.props.parent.setState({username: '', password: ''});
+    }.bind(this));
   },
   render: function() {
     return(
       <form className='navbar-form navbar-right' onSubmit={this.handleSubmit}>
-        <text id='helloText' className='text-muted'>Hello, {this.props.username}!</text>
+        <text id='helloText' className='text-muted'>Hello, {this.props.parent.state.username}!</text>
         &nbsp;
         <input
           type='submit'
@@ -90,6 +92,7 @@ var Navbar = React.createClass({
   },
   getCurrentUser: function() {
     $.get(this.props.url, function(data) {
+      console.log(data);
       var username = data.username;
       this.setState({username: username});
     }.bind(this));
@@ -101,9 +104,9 @@ var Navbar = React.createClass({
   render: function() {
     var navbarForm;
     if (this.state.username) {
-      navbarForm = <NavbarFormLoggedIn username={this.state.username} />
+      navbarForm = <NavbarFormLoggedIn parent={this} />
     } else {
-      navbarForm = <NavbarFormLoggedOut />
+      navbarForm = <NavbarFormLoggedOut parent={this} />
     }
     return(
       <nav className="navbar navbar-inverse navbar-fixed-top">
