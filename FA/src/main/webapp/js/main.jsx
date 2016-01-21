@@ -10,14 +10,24 @@ var NavbarFormLoggedOut = React.createClass({
   handlePasswordChange: function(e) {
     this.setState({password: e.target.value});
   },
-  handleSubmit: function() {
+  handleSubmit: function(e) {
     e.preventDefault();
     var username = this.state.username.trim();
     var password = this.state.password.trim();
+    console.log(username,password);
     if(!username || !password) {
       return;
     }
-    $.post('/FA/api/user/login', {username: username, password: password});
+    $.ajax({
+      type: 'POST',
+      contentType: "application/json",
+      url: '/FA/api/user/login',
+      data: {username: username, password: password},
+      success: function(data) {
+        console.log(data);
+      },
+      dataType: 'json'
+    });
     this.setState({username: '', password: ''});
   },
   render: function() {
