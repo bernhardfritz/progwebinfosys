@@ -89,23 +89,31 @@ public class DBManager implements IDBManager {
 		return (List<Operation>)query.getResultList();
     }
     
-    private Operation createOperation(Account fromAccount, Account toAccount, BigDecimal amount, User currentUser, boolean isDeposition) {
+    private Operation createOperation(Account fromAccount, Account toAccount, BigDecimal amount, User currentUser, boolean depositOrWithdraw) {
     	if (fromAccount == null || toAccount == null || amount == null || currentUser == null) {
     		return null;
     	}
-    	if (fromAccount.getBalance().subtract(amount.abs()).compareTo(fromAccount.getLowerLimit()) < 0) {
+    	if (amount.compareTo(BigDecimal.ZERO) == 0) {
     		return null;
     	}
     	
     	if (fromAccount.getAccountNumber().equals(toAccount.getAccountNumber())) {
-    		if (!isDeposition) {
+    		if (!depositOrWithdraw) {
     			return null;
     		}
+    		if (fromAccount.getBalance().add(amount).compareTo(fromAccount.getLowerLimit()) < 0) {
+        		return null;
+        	}
+    		
     		fromAccount.setBalance(fromAccount.getBalance().add(amount));
     	} else {
-    		if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+    		if (amount.compareTo(BigDecimal.ZERO) < 0) {
     			return null;
     		}
+    		if (fromAccount.getBalance().subtract(amount).compareTo(fromAccount.getLowerLimit()) < 0) {
+        		return null;
+        	}
+    		
     		fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
         	toAccount.setBalance(toAccount.getBalance().add(amount));
     	}
@@ -120,36 +128,20 @@ public class DBManager implements IDBManager {
     		return operation;
     	}
     	catch (Exception e) {
-    		transaction.rollback();
-    	}
-    	
-    	return null;
-    }
-    
-    public Operation createOperation(String fromAccountNumber, String toAccountNumber, BigDecimal amount, User currentUser) {
-    	if (fromAccountNumber == null || toAccountNumber == null || amount == null || currentUser == null) {
-    		return null;
-    	}
-    	
-    	return createOperation(getAccountByAccountNumber(fromAccountNumber), getAccountByAccountNumber(toAccountNumber), amount, currentUser, false);
-    }
-    
-    public Operation createOperation(User fromUser, User toUser, BigDecimal amount, User currentUser) {
-    	if (fromUser == null || toUser == null || amount == null || currentUser == null) {
-    		return null;
-    	}
-    	
-    	for (Account fromAccount : getAccountsByUsername(fromUser.getUsername())) {
-    		if (fromAccount.getAccountType().getLabel().equals("Account")) {
-    			for (Account toAccount : getAccountsByUsername(toUser.getUsername())) {
-    				if (toAccount.getAccountType().getLabel().equals("Account")) {
-    					return createOperation(fromAccount, toAccount, amount, currentUser, true);
-    				}
-    			}
+    		if (transaction.isActive()) {
+    			transaction.rollback();
     		}
     	}
     	
     	return null;
+    }
+    
+    public Operation createOperation(String fromAccountNumber, String toAccountNumber, BigDecimal amount, User currentUser, boolean depositOrWithdraw) {
+    	if (fromAccountNumber == null || toAccountNumber == null || amount == null || currentUser == null) {
+    		return null;
+    	}
+    	
+    	return createOperation(getAccountByAccountNumber(fromAccountNumber), getAccountByAccountNumber(toAccountNumber), amount, currentUser, depositOrWithdraw);
     }
     
     

@@ -35,7 +35,6 @@ public class OperationApi {
 		return Response.ok(DBManager.getInstance().getOperationsByAccountNumber(accountNumber)).build();
 	}
 	
-	// TODO: Fix deposit (maybe setup fake account where money can be booked to/from)
 	/**
 	 * @param data
 	 * {
@@ -54,7 +53,34 @@ public class OperationApi {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			map = objectMapper.readValue(data, HashMap.class);
-			Operation operation = DBManager.getInstance().createOperation(currentUser, currentUser, new BigDecimal(map.get("amount")), currentUser);
+			Operation operation = DBManager.getInstance().createOperation(map.get("accountNumber"), map.get("accountNumber"), new BigDecimal(map.get("amount")).abs(), currentUser, true);
+			if (operation != null) return Response.ok(operation).build();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return Response.serverError().build();
+	}
+	
+	/**
+	 * @param data
+	 * {
+	 *     "accountNumber: "A123456789",
+	 *     "amount": "100.0"
+	 * }
+	 */
+	@SuppressWarnings("unchecked")
+	@Path("/withdraw")
+	@POST()
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response withdraw(@Context HttpServletRequest req, String data) {
+		User currentUser = getCurrentUser(req);
+		Map<String, String> map = new HashMap<String, String>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			map = objectMapper.readValue(data, HashMap.class);
+			Operation operation = DBManager.getInstance().createOperation(map.get("accountNumber"), map.get("accountNumber"), new BigDecimal(map.get("amount")).abs().negate(), currentUser, true);
 			if (operation != null) return Response.ok(operation).build();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -82,7 +108,7 @@ public class OperationApi {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			map = objectMapper.readValue(data, HashMap.class);
-			Operation operation = DBManager.getInstance().createOperation(map.get("fromAccountNumber"), map.get("toAccountNumber"), new BigDecimal(map.get("amount")), currentUser);
+			Operation operation = DBManager.getInstance().createOperation(map.get("fromAccountNumber"), map.get("toAccountNumber"), new BigDecimal(map.get("amount")), currentUser, false);
 			if (operation != null) return Response.ok(operation).build();
 		} catch (IOException e) {
 			e.printStackTrace();

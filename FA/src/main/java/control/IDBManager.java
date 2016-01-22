@@ -13,8 +13,7 @@ public interface IDBManager {
 	public List<Account> getAccountsByUsername(String username);
 	
 	public List<Operation> getOperationsByAccountNumber(String accountNumber);
-	public Operation createOperation(String fromAccountNumber, String toAccountNumber, BigDecimal amount, User currentUser);
-	public Operation createOperation(User fromUser, User toUser, BigDecimal amount, User currentUser);
+	public Operation createOperation(String fromAccountNumber, String toAccountNumber, BigDecimal amount, User currentUser, boolean depositOrWithdraw);
 	
 	public List<User> getUsers();
 	public User getUserById(Long userId);

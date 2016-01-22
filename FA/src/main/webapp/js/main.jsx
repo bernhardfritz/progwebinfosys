@@ -143,7 +143,7 @@ var Navbar = React.createClass({
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="/">Financial Administration</a>
+              <a className="navbar-brand" href="/FA/">Financial Administration</a>
             </div>
             <div id="navbar" className="navbar-collapse collapse">
               {navbarForm}
@@ -232,10 +232,18 @@ var Account = React.createClass({
   render: function() {
     var rows = [];
     this.state.operations.forEach(function(operation) {
-      if(operation.fromAccount.accountNumber === this.props.accountNumber) {
-        rows.push(<tr className="danger"><td>{moment(operation.createTimestamp).format('MMMM Do YYYY, h:mm:ss a')}</td><td>{operation.toAccount.accountNumber}</td><td>-{operation.amount.toFixed(2)}</td></tr>);
+      if (operation.fromAccount.accountNumber == operation.toAccount.accountNumber) {
+        if (operation.amount < 0) {
+          rows.push(<tr className="danger"><td>{moment(operation.createTimestamp).format('DD.MM.YYYY HH:mm')}</td><td>{operation.fromAccount.accountNumber}</td><td>{operation.amount.toFixed(2)}</td></tr>);
+        } else {
+          rows.push(<tr className="success"><td>{moment(operation.createTimestamp).format('DD.MM.YYYY HH:mm')}</td><td>{operation.toAccount.accountNumber}</td><td>+{operation.amount.toFixed(2)}</td></tr>);
+        }
       } else {
-        rows.push(<tr className="success"><td>{moment(operation.createTimestamp).format('MMMM Do YYYY, h:mm:ss a')}</td><td>{operation.fromAccount.accountNumber}</td><td>+{operation.amount.toFixed(2)}</td></tr>);
+      	if(operation.fromAccount.accountNumber === this.props.accountNumber) {
+          rows.push(<tr className="danger"><td>{moment(operation.createTimestamp).format('DD.MM.YYYY HH:mm')}</td><td>{operation.toAccount.accountNumber}</td><td>-{operation.amount.toFixed(2)}</td></tr>);
+        } else {
+          rows.push(<tr className="success"><td>{moment(operation.createTimestamp).format('DD.MM.YYYY HH:mm')}</td><td>{operation.fromAccount.accountNumber}</td><td>+{operation.amount.toFixed(2)}</td></tr>);
+        }
       }
     }.bind(this));
     var balance;
@@ -243,7 +251,7 @@ var Account = React.createClass({
       if(this.state.account.balance >= 0) {
         balance = <td><strong><text className="text-success">+{this.state.account.balance.toFixed(2)}</text></strong></td>
       } else {
-        balance = <td><strong><text className="text-danger">-{this.state.account.balance.toFixed(2)}</text></strong></td>
+        balance = <td><strong><text className="text-danger">{this.state.account.balance.toFixed(2)}</text></strong></td>
       }
     }
     if(this.props.accountNumber) {
@@ -330,8 +338,8 @@ var Menu = React.createClass({
     $.ajax({
       type: 'POST',
       contentType: "application/json",
-      url: '/FA/api/operation/deposit',
-      data: JSON.stringify({accountNumber: this.props.accountNumber, amount: -this.state.withdrawAmount}),
+      url: '/FA/api/operation/withdraw',
+      data: JSON.stringify({accountNumber: this.props.accountNumber, amount: this.state.withdrawAmount}),
       success: function(data) {
         console.log(data);
         $("#withdrawCloseButton").click();
