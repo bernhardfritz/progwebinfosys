@@ -35,6 +35,14 @@ public class OperationApi {
 		return Response.ok(DBManager.getInstance().getOperationsByAccountNumber(accountNumber)).build();
 	}
 	
+	// TODO: Fix deposit (maybe setup fake account where money can be booked to/from)
+	/**
+	 * @param data
+	 * {
+	 *     "accountNumber: "A123456789",
+	 *     "amount": "100.0"
+	 * }
+	 */
 	@SuppressWarnings("unchecked")
 	@Path("/deposit")
 	@POST()

@@ -2,9 +2,11 @@
   margin: 0;
   padding: 0;
 }
+
 body {
-  padding-top: 50px;
+  padding-top: 75px;
 }
+
 .footer {
   padding-left: 5%;
   padding-right: 5%;
@@ -16,3 +18,5 @@ body {
 .footer-content {
   padding-left: 5%;
 }
+
+.alnright { text-align: right; }
