@@ -71,9 +71,9 @@ public class Account implements Serializable {
 		this.accountType = accountType;
 		this.owner = owner;
 		this.accountNumber = generateAccountNumber();
-		if (accountType.getLabel().equals("Account")) {
+		if (accountType.getLabel().equals(AccountType.ACCOUNT)) {
 			this.lowerLimit = lowerLimit;
-		} else if (accountType.getLabel().equals("Bankbook")) {
+		} else if (accountType.getLabel().equals(AccountType.BANKBOOK)) {
 			this.lowerLimit = BigDecimal.ZERO;
 		}
 		this.balance = balance;

@@ -75,6 +75,7 @@ INSERT INTO `FA`.`AccountType` (`label`, `createTimestamp`) VALUES ('Account', N
 INSERT INTO `FA`.`AccountType` (`label`, `createTimestamp`) VALUES ('Bankbook', NOW());
 
 INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 1, 'A000000001', -10000.0, 1000.0, 1, NOW(), 1, NOW());
+INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (2, 1, 'B000000001', 0, 10000.0, 1, NOW(), 1, NOW());
 INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 2, 'A000000002', -1000.0, 100.0, 2, NOW(), 2, NOW());
 INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 3, 'A000000003', -100000.0, 10000.0, 3, NOW(), 3, NOW());
 INSERT INTO `FA`.`Account` (`accountType`, `owner`, `accountNumber`, `lowerLimit`, `balance`, `createUser`, `createTimestamp`, `updateUser`, `updateTimestamp`) VALUES (1, 4, 'A000000004', -100000.0, 10000.0, 4, NOW(), 4, NOW());

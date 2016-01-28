@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import model.Account;
+import model.AccountType;
 import model.Operation;
 import model.User;
 
@@ -113,6 +114,9 @@ public class DBManager implements IDBManager {
     		if (fromAccount.getBalance().subtract(amount).compareTo(fromAccount.getLowerLimit()) < 0) {
         		return null;
         	}
+    		if (!AccountType.TRANSFER_FROM_ACCOUNT_TYPES.contains(fromAccount.getAccountType().getLabel())) {
+    			return null;
+    		}
     		
     		fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
         	toAccount.setBalance(toAccount.getBalance().add(amount));
