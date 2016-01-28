@@ -1,8 +1,12 @@
 // main.jsx
 /* jshint ignore:start */
+
 var NavbarFormLoggedOut = React.createClass({
   getInitialState: function() {
     return {username: '', password: ''};
+  },
+  componentDidMount: function() {
+    $('#usernameField').focus();
   },
   handleUsernameChange: function(e) {
     this.setState({username: e.target.value});
@@ -22,8 +26,8 @@ var NavbarFormLoggedOut = React.createClass({
       contentType: "application/json",
       url: '/FA/api/user/login',
       data: JSON.stringify({username: username, password: password}),
-      success: function(data) {
-        console.log(data);
+      complete: function(data) {
+        this.props.parent.setState({username: username, password: password});
       }.bind(this),
       dataType: 'json'
     });
@@ -39,6 +43,7 @@ var NavbarFormLoggedOut = React.createClass({
             placeholder='Username'
             value={this.state.username}
             onChange={this.handleUsernameChange}
+            id='usernameField'
           />
         </div>
         &nbsp;
@@ -95,7 +100,6 @@ var Navbar = React.createClass({
   },
   componentDidMount: function() {
     this.getCurrentUser();
-    setInterval(this.getCurrentUser, this.props.pollInterval);
   },
   handleSignUpUsernameChange: function(e) {
     this.setState({signUpUsername: e.target.value});
@@ -120,6 +124,7 @@ var Navbar = React.createClass({
         $('#signUpCloseButton').click();
         this.setState({signUpUsername: '', signUpPassword: ''});
         this.setState({username: username, password: password});
+        $('#retypePasswordSignup').val('');
         $('#signInButton').click();
       }.bind(this),
       dataType: 'json'
@@ -183,7 +188,7 @@ var Navbar = React.createClass({
                     </div>
                     <div className="form-group">
                       <label className="control-label">Retype password:</label>
-                      <input type="password" className="form-control" data-match="#passwordSignup" data-match-error="Whoops, these don't match" required />
+                      <input type="password" id="retypePasswordSignup" className="form-control" data-match="#passwordSignup" data-match-error="Whoops, these don't match" required />
                       <div className="help-block with-errors"></div>
                     </div>
                 </div>
@@ -195,7 +200,7 @@ var Navbar = React.createClass({
             </div>
           </div>
         </form>
-        <Accounts parent={this} pollInterval={2000} />
+        <Accounts parent={this} />
       </div>
     );
   }
@@ -226,8 +231,12 @@ var Account = React.createClass({
   componentDidMount: function() {
     this.getAccount();
     this.getOperations();
-    setInterval(this.getAccount, this.props.pollInterval);
-    setInterval(this.getOperations, this.props.pollInterval);
+    this.props.parent.state.intervalIds.push(setInterval(this.getAccount, 500));
+    this.props.parent.state.intervalIds.push(setInterval(this.getOperations, 500));
+  },
+  componentWillReceiveProps: function(nextProps) {
+    this.getAccount();
+    this.getOperations();
   },
   render: function() {
     var rows = [];
@@ -247,7 +256,7 @@ var Account = React.createClass({
       }
     }.bind(this));
     var balance;
-    if(this.state.account.balance) {
+    if(this.state.account.balance || this.state.account.balance === 0) {
       if(this.state.account.balance >= 0) {
         balance = <td><strong><text className="text-success">+{this.state.account.balance.toFixed(2)}</text></strong></td>
       } else {
@@ -289,7 +298,6 @@ var Account = React.createClass({
 var Menu = React.createClass({
   getInitialState: function() {
     return {
-      accounts: [],
       transferTo: '',
       transferAmount: '',
       depositAmount: '',
@@ -306,6 +314,7 @@ var Menu = React.createClass({
       success: function(data) {
         console.log(data);
         $("#transferCloseButton").click();
+        this.setState({transferTo: '', transferAmount: ''});
       }.bind(this),
       dataType: 'json'
     });
@@ -326,6 +335,7 @@ var Menu = React.createClass({
       success: function(data) {
         console.log(data);
         $("#depositCloseButton").click();
+        this.setState({depositAmount: ''});
       }.bind(this),
       dataType: 'json'
     });
@@ -343,21 +353,13 @@ var Menu = React.createClass({
       success: function(data) {
         console.log(data);
         $("#withdrawCloseButton").click();
+        this.setState({withdrawAmount: ''});
       }.bind(this),
       dataType: 'json'
     });
   },
   handleWithdrawAmountChange: function(e) {
     this.setState({withdrawAmount: e.target.value});
-  },
-  getAccounts: function() {
-    $.get('/FA/api/account', function(data) {
-      this.setState({accounts: data});
-    }.bind(this));
-  },
-  componentDidMount: function() {
-    this.getAccounts();
-    setInterval(this.getAccounts, this.props.pollInterval);
   },
   render: function() {
     if(this.props.accountNumber) {
@@ -478,38 +480,77 @@ var Menu = React.createClass({
   }
 });
 
+var ChildAccounts = React.createClass({
+    render: function(){
+      return (
+        <div className="panel panel-default">
+         <div className="panel-heading" role="tab" id="headingOne">
+           <h4 className="panel-title">
+             <a role="button" id={this.props.account.accountNumber} onClick={this.props.parent.handleThatEvent.bind(this, this.props.account.accountNumber)} data-toggle="collapse" data-parent="#accordion" href={"#collapse"+this.props.account.accountNumber} aria-expanded="false" aria-controls={"collapse" + this.props.account.accountNumber}>
+               {this.props.account.accountNumber}
+             </a>
+           </h4>
+         </div>
+         <div id={"collapse" + this.props.account.accountNumber} className="panel-collapse collapse" role="tabpanel" aria-labelledby={"heading"+this.props.account.accountNumber}>
+           <div className="panel-body">
+             <Account parent={this.props.parent} accountNumber={this.props.parent.state.selectedAccountNumber} />
+           </div>
+         </div>
+        </div>
+      );
+    }
+});
 
 var Accounts = React.createClass({
   getInitialState: function() {
-    return {accounts: [], selectedAccountNumber: ''};
+    return {accounts: [], selectedAccountNumber: '', intervalIds: []};
   },
   getAccounts: function() {
     $.get('/FA/api/account/all/'+this.props.parent.state.username, function(data) {
       this.setState({accounts: data});
     }.bind(this));
   },
-  componentDidMount: function() {
-    this.getAccounts();
-    setInterval(this.getAccounts, this.props.pollInterval);
+  componentWillReceiveProps: function(nextProps) {
+    if(this.props.parent.state.username) {
+      this.getAccounts();
+    } else {
+      this.setState({accounts: [], selectedAccountNumber: ''});
+      this.state.intervalIds.forEach(function(intervalId) {
+          clearInterval(intervalId);
+      });
+    }
   },
-  handleChange: function(e) {
-    this.setState({selectedAccountNumber: e.target.value});
+  handleThatEvent: function(accountNumber, e){
+    this.setState({selectedAccountNumber: accountNumber});
   },
   render: function() {
-    var options = [];
-    options.push(<option value=''>Select account</option>);
+    var collapses = [];
     this.state.accounts.forEach(function(account) {
-      options.push(<option value={account.accountNumber}>{account.accountNumber}</option>);
-    });
+      collapses.push(
+        <ChildAccounts account={account} parent={this} />
+      );
+    }.bind(this));
     return(
       <div className="accounts">
-        <select onChange={this.handleChange} value={this.state.selectedAccountNumber}>
-          {options}
-        </select>
-        <Account accountNumber={this.state.selectedAccountNumber} pollInterval={2000} />
-        <Menu accountNumber={this.state.selectedAccountNumber} pollInterval={2000} />
+        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          {collapses}
+        </div>
+        <Menu accountNumber={this.state.selectedAccountNumber} />
       </div>
     );
+  }
+});
+
+var Footer = React.createClass({
+  render: function() {
+      return(
+        <div className="footer">
+      		<hr />
+      		<div className="footer-content">
+      			<p>Copyright &copy; Bernhard FRITZ & Mario ZELGER 2016</p>
+      		</div>
+      	</div>
+      );
   }
 });
 
@@ -517,7 +558,8 @@ var Component = React.createClass({
   render: function() {
     return(
       <div className="component">
-        <Navbar url='/FA/api/user/current' pollInterval={2000} />
+        <Navbar url='/FA/api/user/current' />
+        <Footer />
       </div>
     );
   }
