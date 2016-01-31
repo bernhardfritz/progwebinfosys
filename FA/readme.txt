@@ -1,6 +1,8 @@
 Vorbereitung: 
 	Ausführen des SQL-Scripts /sql/init.sql, um DB aufzusetzen.
 	Ausführen des Befehls "npm install" im Verzeichnis /src/main/webapp, um die Module für ReactJS zu installieren.
+	Ausführen des Befehls "gradle jettyRun" im root-Verzeichnis, um den Jetty-Server zu starten.
+
 
 Verwendete Technologien:
 	Server: Jetty
@@ -23,6 +25,3 @@ Default-User:
   
   	Username: mario
   	Password: password
-
-REST-API:
-
